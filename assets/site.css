@@ -37,3 +37,7 @@
 @media(max-width:420px){.writing-card{padding:23px}.writing-card h3{font-size:25px}.writing-section .section-label{gap:12px}.writing-section .section-label>span{font-size:9px}}
 
 .article-summary{padding:24px 0;border-top:1px solid var(--line)}.article-summary .writing-meta{margin-bottom:12px}.article-summary h3{font-size:23px;line-height:1.35;margin:0 0 12px}.article-summary h3 a{text-decoration:none}.article-summary h3 a:hover{color:var(--blue)}.article-summary>p:not(.writing-meta){font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:0}.article-summary>.text-link{color:var(--blue);margin-top:16px}
+
+/* Case study reading hierarchy */
+.contribution-summary{margin-top:25px;padding-left:20px;border-left:3px solid var(--blue);max-width:780px;font-size:16px;line-height:1.65;color:var(--muted)}.contribution-summary strong{color:var(--ink)}.source-links{font-size:13px;line-height:1.9;margin-top:18px;color:var(--blue)}.history-breakdown .history-provenance{font-size:11px}.migration-details .repository-state{margin-top:18px}.writing-section{padding-top:0;padding-bottom:65px}
+@media(max-width:760px){.contribution-summary{padding-left:16px;font-size:15px}.writing-section{padding-bottom:45px}}
