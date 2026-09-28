@@ -45,8 +45,25 @@
   },
   "boundaries": [
     "Legacy repository metrics are a separate snapshot and do not include these new repository runs.",
-    "Run records currently require repository access; this summary contains no credentials or raw environment values.",
+    "The repository was private at the original delivery verification; later public availability is recorded in publication_status.",
     "These checks establish a point-in-time release result, not availability, recovery or load capacity.",
     "Existing cloud resources were retained; the unified project name does not imply physical resource identifiers were renamed."
-  ]
+  ],
+  "publication_status": {
+    "visibility": "public",
+    "confirmed_at_utc": "2026-09-28T01:15:54.486537+00:00",
+    "verification_method": "Unauthenticated GitHub REST API requests",
+    "repository_http_status": 200,
+    "repository_url": "https://github.com/jothep/story-filler",
+    "run_records_checked": [
+      "https://github.com/jothep/story-filler/actions/runs/36363802780",
+      "https://github.com/jothep/story-filler/actions/runs/36363233923",
+      "https://github.com/jothep/story-filler/actions/runs/36363234688"
+    ],
+    "documentation_checked": [
+      "https://github.com/jothep/story-filler/blob/main/docs/engineering-case-study.md",
+      "https://github.com/jothep/story-filler/blob/main/docs/verification.md"
+    ],
+    "note": "This records a later publication check. The original delivery verification took place while the repository was private."
+  }
 }
