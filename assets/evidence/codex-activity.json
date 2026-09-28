@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-28T02:37:05+00:00",
+  "timezone": "Pacific/Auckland",
+  "scope": "Selected local software-project workspaces",
+  "source": "Local Codex thread metadata; self-reported snapshot",
+  "metric": "Distinct top-level turns with a recorded start time and a terminal status",
+  "period_start": "2026-09-05",
+  "period_end": "2026-09-28",
+  "totals": {
+    "recorded_turns": 303,
+    "active_days": 17,
+    "calendar_days": 24
+  },
+  "exclusions": {
+    "duplicate_turn_records": 0,
+    "records_without_start_time": 0,
+    "nonterminal_turn_records": 1
+  },
+  "limitations": [
+    "Selected workspaces include planning, implementation, debugging and documentation.",
+    "Subagents and other workspaces are excluded. Forked turn IDs are counted once.",
+    "Failed and interrupted turns count as activity, not completed work.",
+    "Dates use the start of each turn in Pacific/Auckland; ongoing turns are excluded.",
+    "Zero means no qualifying retained record, not proof of no activity.",
+    "Coverage is limited to dated records retained on this computer.",
+    "This is not an official OpenAI usage export or an account-wide total.",
+    "Activity is not a measure of commits, lines of code, code ownership or quality."
+  ],
+  "daily": [
+    {
+      "date": "2026-09-05",
+      "turns": 1
+    },
+    {
+      "date": "2026-09-06",
+      "turns": 12
+    },
+    {
+      "date": "2026-09-07",
+      "turns": 26
+    },
+    {
+      "date": "2026-09-08",
+      "turns": 32
+    },
+    {
+      "date": "2026-09-09",
+      "turns": 29
+    },
+    {
+      "date": "2026-09-10",
+      "turns": 40
+    },
+    {
+      "date": "2026-09-11",
+      "turns": 39
+    },
+    {
+      "date": "2026-09-12",
+      "turns": 17
+    },
+    {
+      "date": "2026-09-13",
+      "turns": 31
+    },
+    {
+      "date": "2026-09-14",
+      "turns": 20
+    },
+    {
+      "date": "2026-09-15",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-16",
+      "turns": 4
+    },
+    {
+      "date": "2026-09-17",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-18",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-19",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-20",
+      "turns": 4
+    },
+    {
+      "date": "2026-09-21",
+      "turns": 1
+    },
+    {
+      "date": "2026-09-22",
+      "turns": 7
+    },
+    {
+      "date": "2026-09-23",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-24",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-25",
+      "turns": 2
+    },
+    {
+      "date": "2026-09-26",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-27",
+      "turns": 17
+    },
+    {
+      "date": "2026-09-28",
+      "turns": 21
+    }
+  ]
+}
