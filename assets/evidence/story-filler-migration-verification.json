@@ -1,0 +1,52 @@
+{
+  "title": "Story Filler — migration delivery verification",
+  "checked_at_utc": "2026-09-28T00:58:54.517629+00:00",
+  "repository": "jothep/story-filler",
+  "repository_visibility_at_verification": "private",
+  "source_snapshot": {
+    "commit": "1713b97ea6264c50c3321ed3fdd164b594cff5ed",
+    "commits": 190,
+    "includes_cleaned_legacy_baseline_commits": 189,
+    "scope": "Migration code snapshot, not a continuously updated repository total."
+  },
+  "frontend": {
+    "application_url": "https://jothep.github.io/story-filler/",
+    "workflow_run_url": "https://github.com/jothep/story-filler/actions/runs/36363233923",
+    "workflow_conclusion": "success",
+    "browser_check": "Story list to story detail, with story image and text loaded.",
+    "not_tested": [
+      "Complete gameplay",
+      "Audio playback"
+    ]
+  },
+  "backend": {
+    "workflow_run_url": "https://github.com/jothep/story-filler/actions/runs/36363802780",
+    "attempt": 2,
+    "workflow_conclusion": "success",
+    "backend_tests_passed": 11,
+    "offline_smoke_check_tests_passed": 6,
+    "image_scan_passed": true,
+    "revision_suffix": "00028-gdm",
+    "traffic_percent": 100,
+    "runtime_configuration_except_image_unchanged": true,
+    "database_configuration_unchanged": true,
+    "media_configuration_unchanged": true,
+    "independent_public_api_smoke": {
+      "passed": true,
+      "scope": "Public story list/detail and configuration reads; no writes, media playback or load test."
+    }
+  },
+  "history_scan": {
+    "workflow_run_urls": [
+      "https://github.com/jothep/story-filler/actions/runs/36363234688",
+      "https://github.com/jothep/story-filler/actions/runs/36363233992"
+    ],
+    "workflow_conclusions": "success"
+  },
+  "boundaries": [
+    "Legacy repository metrics are a separate snapshot and do not include these new repository runs.",
+    "Run records currently require repository access; this summary contains no credentials or raw environment values.",
+    "These checks establish a point-in-time release result, not availability, recovery or load capacity.",
+    "Existing cloud resources were retained; the unified project name does not imply physical resource identifiers were renamed."
+  ]
+}
