@@ -390,3 +390,8 @@
 .capstone-case #evidence .reading-item{margin-top:30px}
 @media(max-width:1000px){.capstone-example-grid{grid-template-columns:1fr}.capstone-hero .case-heading{grid-template-columns:1fr 260px;gap:30px}}
 @media(max-width:760px){.capstone-hero .case-heading{grid-template-columns:1fr}.capstone-visual{border-left:0;border-top:1px solid var(--line)}.capstone-project .project-copy h3{font-size:31px}.capstone-branches{grid-template-columns:1fr}.capstone-chart figcaption{padding:14px 16px}.capstone-table{font-size:14px}.capstone-table th,.capstone-table td{padding:11px 7px}.capstone-example{padding:21px}.capstone-downloads{align-items:flex-start;flex-direction:column;gap:20px}}
+
+/* Keep spacing consistent after moving About to the closing section pair. */
+.work-section + .ai-activity-section{padding-top:65px}
+.writing-section + .about-section{padding-top:25px}
+@media(max-width:760px){.work-section + .ai-activity-section{padding-top:45px}.writing-section + .about-section{padding-top:10px}}

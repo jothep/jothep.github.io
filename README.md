@@ -35,6 +35,8 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
+Keep the homepage closing order fixed: **About the author**, then **Get in touch**. Insert future project, activity or writing sections above About. Preserve the `about` section ID and the header About link to `#about`.
+
 Add another selected-work entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
 Do not copy application credentials, environment files, Terraform state, private archives or the application's Git history into this repository.
