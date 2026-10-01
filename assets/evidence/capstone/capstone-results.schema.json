@@ -1,0 +1,645 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "De-identified capstone evaluation evidence",
+  "description": "Allowlisted retrospective score data; no source ticket identity or text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_date",
+    "analysis_type",
+    "score_label",
+    "score_scale",
+    "sample",
+    "limitations",
+    "runs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "review_date": {
+      "const": "2026-10-02"
+    },
+    "analysis_type": {
+      "type": "string"
+    },
+    "score_label": {
+      "type": "string"
+    },
+    "score_scale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        }
+      }
+    },
+    "sample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "sampling",
+        "pairing",
+        "case_ids"
+      ],
+      "properties": {
+        "n": {
+          "const": 69
+        },
+        "sampling": {
+          "type": "string"
+        },
+        "pairing": {
+          "type": "string"
+        },
+        "case_ids": {
+          "type": "string"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "runs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run08",
+        "run09"
+      ],
+      "properties": {
+        "run08": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "source_filename",
+            "source_sha256",
+            "n",
+            "evaluation_protocol",
+            "mapping_evidence",
+            "settings_evidence_limit",
+            "methods",
+            "comparisons",
+            "interpretation",
+            "cases"
+          ],
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "source_filename": {
+              "const": "evaluation_results_run_08_3way_comparison_ollama_llama3_ollama_llama3.json"
+            },
+            "source_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "n": {
+              "const": 69
+            },
+            "evaluation_protocol": {
+              "type": "string"
+            },
+            "mapping_evidence": {
+              "type": "string"
+            },
+            "settings_evidence_limit": {
+              "type": "string"
+            },
+            "methods": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "single_pass",
+                "multi_agent",
+                "single_pass_cot"
+              ],
+              "properties": {
+                "single_pass": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "source_score_field",
+                    "n",
+                    "mean",
+                    "sample_sd",
+                    "minimum",
+                    "maximum"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "source_score_field": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "const": 69
+                    },
+                    "mean": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sample_sd": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "maximum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "multi_agent": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "source_score_field",
+                    "n",
+                    "mean",
+                    "sample_sd",
+                    "minimum",
+                    "maximum"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "source_score_field": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "const": 69
+                    },
+                    "mean": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sample_sd": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "maximum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "single_pass_cot": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "source_score_field",
+                    "n",
+                    "mean",
+                    "sample_sd",
+                    "minimum",
+                    "maximum"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "source_score_field": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "const": 69
+                    },
+                    "mean": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sample_sd": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "maximum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            },
+            "comparisons": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "method_a",
+                  "method_b",
+                  "difference_definition",
+                  "n_pairs",
+                  "mean_difference",
+                  "sample_sd_difference",
+                  "t_statistic",
+                  "degrees_of_freedom",
+                  "p_value_two_sided",
+                  "confidence_level",
+                  "confidence_interval",
+                  "alpha",
+                  "p_value_adjustment"
+                ],
+                "properties": {
+                  "method_a": {
+                    "type": "string"
+                  },
+                  "method_b": {
+                    "type": "string"
+                  },
+                  "difference_definition": {
+                    "type": "string"
+                  },
+                  "n_pairs": {
+                    "const": 69
+                  },
+                  "mean_difference": {
+                    "type": "number"
+                  },
+                  "sample_sd_difference": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "t_statistic": {
+                    "type": "number"
+                  },
+                  "degrees_of_freedom": {
+                    "type": "integer"
+                  },
+                  "p_value_two_sided": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "confidence_level": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "confidence_interval": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "alpha": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "p_value_adjustment": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "interpretation": {
+              "type": "string"
+            },
+            "cases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "case_id",
+                  "scores"
+                ],
+                "properties": {
+                  "case_id": {
+                    "type": "string",
+                    "pattern": "^case_(00[1-9]|0[1-5][0-9]|06[0-9])$"
+                  },
+                  "scores": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "single_pass",
+                      "multi_agent",
+                      "single_pass_cot"
+                    ],
+                    "properties": {
+                      "single_pass": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      },
+                      "multi_agent": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      },
+                      "single_pass_cot": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      }
+                    }
+                  }
+                }
+              },
+              "minItems": 69,
+              "maxItems": 69
+            }
+          }
+        },
+        "run09": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "source_filename",
+            "source_sha256",
+            "n",
+            "evaluation_protocol",
+            "mapping_evidence",
+            "settings_evidence_limit",
+            "methods",
+            "comparisons",
+            "interpretation",
+            "cases"
+          ],
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "source_filename": {
+              "const": "evaluation_results_run_09_paradox_proof.json"
+            },
+            "source_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "n": {
+              "const": 69
+            },
+            "evaluation_protocol": {
+              "type": "string"
+            },
+            "mapping_evidence": {
+              "type": "string"
+            },
+            "settings_evidence_limit": {
+              "type": "string"
+            },
+            "methods": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "single_pass_cot",
+                "multi_agent_cot"
+              ],
+              "properties": {
+                "single_pass_cot": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "source_score_field",
+                    "n",
+                    "mean",
+                    "sample_sd",
+                    "minimum",
+                    "maximum"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "source_score_field": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "const": 69
+                    },
+                    "mean": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sample_sd": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "maximum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "multi_agent_cot": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "source_score_field",
+                    "n",
+                    "mean",
+                    "sample_sd",
+                    "minimum",
+                    "maximum"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "source_score_field": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "const": 69
+                    },
+                    "mean": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sample_sd": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "maximum": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            },
+            "comparisons": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "method_a",
+                  "method_b",
+                  "difference_definition",
+                  "n_pairs",
+                  "mean_difference",
+                  "sample_sd_difference",
+                  "t_statistic",
+                  "degrees_of_freedom",
+                  "p_value_two_sided",
+                  "confidence_level",
+                  "confidence_interval",
+                  "alpha",
+                  "p_value_adjustment"
+                ],
+                "properties": {
+                  "method_a": {
+                    "type": "string"
+                  },
+                  "method_b": {
+                    "type": "string"
+                  },
+                  "difference_definition": {
+                    "type": "string"
+                  },
+                  "n_pairs": {
+                    "const": 69
+                  },
+                  "mean_difference": {
+                    "type": "number"
+                  },
+                  "sample_sd_difference": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "t_statistic": {
+                    "type": "number"
+                  },
+                  "degrees_of_freedom": {
+                    "type": "integer"
+                  },
+                  "p_value_two_sided": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "confidence_level": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "confidence_interval": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "alpha": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "p_value_adjustment": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "interpretation": {
+              "type": "string"
+            },
+            "cases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "case_id",
+                  "scores"
+                ],
+                "properties": {
+                  "case_id": {
+                    "type": "string",
+                    "pattern": "^case_(00[1-9]|0[1-5][0-9]|06[0-9])$"
+                  },
+                  "scores": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "single_pass_cot",
+                      "multi_agent_cot"
+                    ],
+                    "properties": {
+                      "single_pass_cot": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      },
+                      "multi_agent_cot": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      }
+                    }
+                  }
+                }
+              },
+              "minItems": 69,
+              "maxItems": 69
+            }
+          }
+        }
+      }
+    }
+  }
+}
