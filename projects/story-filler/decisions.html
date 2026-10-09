@@ -14,7 +14,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../../assets/site.css?v=20261009i" />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261009j" />
     <script src="../../assets/site.js?v=20261009e" defer></script>
   </head>
   <body class="judgment-page">
@@ -207,34 +207,58 @@
                   sufficient reason to choose it. Cloud Run fits the application and the budget.
                 </p>
 
-                <!-- Platform references support the answer without repeating the review discussion. -->
-                <!-- prettier-ignore -->
-                <p class="qa-source">
-                  <span>Platform references</span>
-                  <a href="https://cloud.google.com/run/pricing">Cloud Run pricing</a> ·
-                  <a href="https://cloud.google.com/kubernetes-engine/pricing">GKE pricing</a> ·
-                  <a href="https://kubernetes.io/docs/concepts/services-networking/">Kubernetes networking</a>
-                </p>
-                <p class="qa-source">
-                  <span>Project context</span>
-                  <a
-                    href="https://medium.com/@shelldry325/from-on-premises-kubernetes-to-zero-cost-serverless-architecture-a-practical-guide-to-cloud-70e68304e835"
-                  >
-                    My migration article
-                  </a>
-                  ·
-                  <a
-                    href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/architecture-production-gcp.md"
-                  >
-                    Managed deployment
-                  </a>
-                  ·
-                  <a
-                    href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/local-platform-lab.md"
-                  >
-                    Retained local environments
-                  </a>
-                </p>
+                <!-- Only reference links are collapsed; answers and evidence boundaries remain visible. -->
+                <details class="evidence-details qa-references">
+                  <summary>Sources &amp; code references</summary>
+                  <h4>Platform references</h4>
+                  <ul>
+                    <li>
+                      <a href="https://cloud.google.com/run/pricing">
+                        Cloud Run pricing
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://cloud.google.com/kubernetes-engine/pricing">
+                        GKE pricing
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://kubernetes.io/docs/concepts/services-networking/">
+                        Kubernetes networking
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <h4>Project context</h4>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://medium.com/@shelldry325/from-on-premises-kubernetes-to-zero-cost-serverless-architecture-a-practical-guide-to-cloud-70e68304e835"
+                      >
+                        My migration article
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/architecture-production-gcp.md"
+                      >
+                        Managed deployment
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/local-platform-lab.md"
+                      >
+                        Retained local environments
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  </ul>
+                </details>
               </div>
             </article>
             <article
@@ -356,19 +380,6 @@
                     setup and SQL execution also have separate timings. A fast SQL query can follow
                     a slow connection, so request logs alone may not account for the whole delay.
                   </p>
-                  <p class="qa-source-links">
-                    <a href="https://docs.cloud.google.com/run/docs/configuring/request-timeout">
-                      Cloud Run request timeouts
-                    </a>
-                    ·
-                    <a href="https://docs.cloud.google.com/run/docs/logging">Cloud Run logs</a>
-                    ·
-                    <a href="https://neon.com/docs/manage/endpoints/">Neon compute behaviour</a>
-                    ·
-                    <a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2">
-                      HTTP method semantics
-                    </a>
-                  </p>
                 </aside>
 
                 <div class="qa-source qa-source-review">
@@ -380,32 +391,73 @@
                     30-second scenarios are training assumptions, and per-stage timings were not
                     measured in this discussion.
                   </p>
-                  <p class="qa-source-links">
-                    <a
-                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/pages/Menu.jsx#L81-L91"
-                    >
-                      Loading and retry UI
-                    </a>
-                    ·
-                    <a
-                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/hooks/useStories.js"
-                    >
-                      Request state
-                    </a>
-                    ·
-                    <a
-                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/api/storyApi.js"
-                    >
-                      API client
-                    </a>
-                    ·
-                    <a
-                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/backend/core/views.py#L14-L35"
-                    >
-                      Story-list view
-                    </a>
-                  </p>
                 </div>
+                <!-- Only reference links are collapsed; answers and evidence boundaries remain visible. -->
+                <details class="evidence-details qa-references">
+                  <summary>Sources &amp; code references</summary>
+                  <h4>Platform &amp; protocol references</h4>
+                  <ul>
+                    <li>
+                      <a href="https://docs.cloud.google.com/run/docs/configuring/request-timeout">
+                        Cloud Run request timeouts
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://docs.cloud.google.com/run/docs/logging">
+                        Cloud Run logs
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://neon.com/docs/manage/endpoints/">
+                        Neon compute behaviour
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2">
+                        HTTP method semantics
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <h4>Implementation references</h4>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/pages/Menu.jsx#L81-L91"
+                      >
+                        Loading and retry UI
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/hooks/useStories.js"
+                      >
+                        Request state
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/api/storyApi.js"
+                      >
+                        API client
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/backend/core/views.py#L14-L35"
+                      >
+                        Story-list view
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  </ul>
+                </details>
               </div>
             </article>
           </section>
