@@ -3112,11 +3112,22 @@ summary:focus-visible {
   }
 }
 
+/* Reference lists are optional reading; the answer and its scope remain visible. */
+.qa-references h4 {
+  margin: 18px 0 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.qa-references ul {
+  margin: 0;
+}
+
 /* The inquiry page uses the same teal accent as its case-study entry. */
 .judgment-page .section-kicker,
 .judgment-page .qa-number,
 .judgment-page .decision-method-steps,
 .judgment-page .qa-source a,
+.judgment-page .qa-references a,
 .judgment-page .case-nav a[aria-current='true'] {
   color: #17685f;
 }
