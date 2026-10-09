@@ -7,6 +7,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/`: professional introduction, selected work, Codex activity and published writing.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
+- `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
 
 The older `Portfolio/` directory is retained. Its existing local font assets are reused by the new pages; the original license files remain in place. The new homepage does not repeat unverified claims from that earlier template.
@@ -58,3 +59,41 @@ The capstone publication includes only the authored case page, original diagrams
 Keep interpretation bounded: LLM-judge scores are not objective accuracy percentages; the two runs use different evaluation settings; Run 09 did not show statistically significant benefit or degradation. The inspected implementation has two LLM roles and a deterministic finalisation node. Blind evaluation, ROUGE-L, human review and production deployment are not verified claims.
 
 The local preview was approved for publication on 2 October 2026. Keep the underlying research and evidence-review dates separate from later website updates. Future changes should preserve the same publication boundary and record material changes in the changelog.
+
+## Editing the site directly
+
+The HTML files are the content source. Edit paragraphs and links in place, using semantic sections and two-space indentation. Shared presentation lives in `assets/site.css`; optional interaction lives in `assets/site.js`. No build step is required. Keep the older `Portfolio/` template's content and licences separate from the current site.
+
+For routine edits, use this file map:
+
+| File or directory | Purpose |
+| --- | --- |
+| `index.html` | Homepage content and the dated activity snapshot |
+| `projects/*/index.html` | Detailed case-study content |
+| `projects/story-filler/decisions.html` | Questions addressed to the author, answers and AI review notes |
+| `changelog/index.html` | Dated website changes |
+| `assets/site.css` | Shared visual styles, grouped by section comments |
+| `assets/site.js` | Architecture tabs, compact contents menu and section highlighting |
+| `scripts/` | Optional evidence and activity generators; not required to serve the site |
+| `assets/evidence/` | Published, dated evidence; do not regenerate it as part of formatting |
+| `Portfolio/` | Retained earlier template; its HTML loads `index.css` and `index.js`. The separate `style.css` and `script.js` files are retained legacy assets. |
+
+Use the checked-in Prettier settings for HTML, CSS and JavaScript. Formatting is an optional authoring tool, not a publishing dependency:
+
+```sh
+npx prettier@3.6.2 --write "**/*.{html,css,js}"
+```
+
+Use `htmlWhitespaceSensitivity: "css"` so formatting preserves spaces around inline text. Keep punctuation directly beside an inline closing tag, for example `</a>.` or `</code>;`. For a long-link paragraph that Prettier would split into hard-to-read tags, use a local `<!-- prettier-ignore -->` comment and keep that paragraph neatly indented by hand. Do not switch to global whitespace-insensitive HTML formatting.
+
+The activity generator also emits indented, multi-line HTML and preserves the surrounding page indentation when replacing its marked block. A formatting pass must not refresh the dated activity snapshot or read private activity records.
+
+Keep CSS declarations on separate lines and add brief comments for major page sections. After formatting shared files, check the homepage, both case studies, the engineering-decisions page and the changelog in a browser. Confirm narrow layouts, anchor links and architecture tabs still work.
+
+### Editing engineering answers
+
+Present the author's considered answers after discussion. Integrate small corrections, missing context and explanations the author has understood into those answers; the public page does not need to catalogue every initial misconception. Preserve useful follow-up questions that test the decision. The purpose is to make the author's reasoning clear and credible.
+
+Keep substantive technical extensions separate when they go beyond the author's answer or understanding, and obtain the author's review before adding them. Consolidation must not turn a design proposal into an implemented feature, a suggested check into a completed test, or a current understanding into a claim of past experience. Use compact implementation notes for those distinctions.
+
+Write every question and follow-up as a reviewer addressing the author with "you" or "your". Keep the author's answers in the first person and label AI review separately. Do not present the exchange as an interview with real experts. Use question titles without job-role labels. Keep planned Go or Operator work out of the current case study until there is work to present. Distinguish the date of a retrospective/source review from the dates of deployment evidence, and do not imply that a historical forecast was recorded at the time unless it was.

@@ -1,92 +1,702 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI-assisted Knowledge Base Generation · Xiang Zhu</title>
-  <meta name="description" content="A master's capstone comparing single-pass prompts and an agent review loop for technical knowledge-base generation, with checked experiment results and explicit limitations.">
-  <meta name="theme-color" content="#173bcc">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="../../assets/site.css">
-  <script src="../../assets/site.js" defer></script>
-</head>
-<body class="capstone-case">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header wrap"><a class="brand" href="../../" aria-label="Xiang Zhu, home"><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a><nav aria-label="Main navigation"><a href="../../#work">Work</a><a href="../../#about">About</a><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a></nav></header>
-  <main id="main">
-    <div class="case-hero capstone-hero wrap">
-      <a class="breadcrumb" href="../../#work"><span aria-hidden="true">←</span> Selected work</a>
-      <div class="case-heading"><div><p class="eyebrow">Engineering case study / 02</p><h1>AI-assisted knowledge<br>base generation</h1><p class="case-subtitle">Compare the architectures.<br>Check what the extra steps deliver.</p></div><div><p class="case-summary">A master's capstone on turning technical support records into knowledge articles. The engineering work connects model orchestration, recoverable batch runs and evaluation.</p><div class="case-actions"><a class="button" href="#results">Explore the results</a></div></div></div>
-      <div class="case-meta"><div class="meta-item"><span>Context</span><strong>Master's capstone · MSE907 · 2026</strong></div><div class="meta-item"><span>Implementation</span><strong>Local research prototype</strong></div><div class="meta-item"><span>Evidence reviewed</span><strong>2 October 2026</strong></div></div>
-    </div>
-    <div class="case-grid wrap">
-      <aside class="case-nav" aria-label="Case study sections"><p>In this case study</p><a href="#context" aria-current="true"><span>01</span> Context</a><a href="#architecture"><span>02</span> Architecture</a><a href="#decisions"><span>03</span> Decisions</a><a href="#results"><span>04</span> Results</a><a href="#example"><span>05</span> Example</a><a href="#evidence"><span>06</span> Scope &amp; evidence</a></aside>
-      <div class="case-content">
-        <section class="case-section" id="context">
-          <p class="section-kicker">01 / Problem &amp; contribution</p><h2>Useful documentation needs<br>the details to survive.</h2>
-          <p class="lead">Resolved software issues combine discussion, diagnostic logs, configuration and code changes. Turning that material into a knowledge article is useful operational work, but a fluent summary can still omit the fix or invent an explanation.</p>
-          <div class="contribution-summary" aria-label="My contribution"><p><strong>Build.</strong> I implemented configurable Python generation and evaluation pipelines, including a LangGraph generator–auditor loop and a local Ollama backend.</p><p><strong>Compare.</strong> I tested simpler single-pass prompts alongside the agent workflow, using the same selected technical records within each evaluation.</p><p><strong>Inspect.</strong> I retained outputs, scores and run records to investigate where added review helped, where it did not, and what the measurements could support.</p></div>
-          <p class="context-strip">An offline research project based on 69 purposively selected GitHub issue/PR records: 40 from Kubernetes, 20 from Ansible and 9 from VS Code. Enterprise deployment and user impact were outside the study.</p>
-        </section>
-        <section class="case-section" id="architecture">
-          <p class="section-kicker">02 / Implemented architecture</p><h2>One task.<br>Several ways to generate and check.</h2>
-          <p class="body-copy">The implementation separates generation, review and evaluation. The diagrams below reflect the inspected code; the finalisation step selects and saves an existing draft.</p>
-          <div class="architecture">
-            <div class="arch-tabs" role="tablist" aria-label="Knowledge-base workflow"><button role="tab" id="tab-agent" aria-controls="panel-agent" aria-selected="true">Agent review loop</button><button role="tab" id="tab-single" aria-controls="panel-single" aria-selected="false">Single pass</button><button role="tab" id="tab-evaluation" aria-controls="panel-evaluation" aria-selected="false">Evaluation</button></div>
-            <div class="arch-panel" role="tabpanel" id="panel-agent" aria-labelledby="tab-agent" tabindex="0">
-              <div class="arch-header"><div><h3>Generate, audit, then decide</h3><p>Two LLM roles and a deterministic finalisation node.</p></div><span class="status implemented">Implemented</span></div>
-              <div class="capstone-flow"><div class="map-node"><span class="node-label">Selected input</span><strong>Issue context + PR diff</strong><small>Context limits applied by the runner</small></div><span class="map-arrow" aria-hidden="true">↓</span><div class="map-node emphasis"><span class="node-label">LLM role 1</span><strong>Generator</strong><small>Draft a Markdown knowledge article</small></div><span class="map-arrow" aria-hidden="true">↓</span><div class="map-node emphasis"><span class="node-label">LLM role 2</span><strong>Auditor</strong><small>Return scores, a decision and feedback</small></div></div>
-              <div class="capstone-branches"><div><span class="node-label">Revise</span><strong>Feedback → Generator</strong><p>Retry the draft while the review-iteration budget remains.</p></div><div><span class="node-label">Finish</span><strong>Select → save</strong><p>Accept a passing draft, or select the highest-scored draft at the iteration limit and record the fallback.</p></div></div>
-              <p class="map-caption">LangGraph carries the current draft, feedback, iteration count and best-scored draft. Finalisation makes no additional model call. The review budget limits draft iterations; the prototype's network-retry logic is separate.</p>
-            </div>
-            <div class="arch-panel" role="tabpanel" id="panel-single" aria-labelledby="tab-single" tabindex="0">
-              <div class="arch-header"><div><h3>A simpler comparison</h3><p>Keep the generation context together and vary the prompt.</p></div><span class="status implemented">Implemented</span></div>
-              <div class="capstone-flow"><div class="map-node"><span class="node-label">Selected input</span><strong>Issue context + PR diff</strong><small>Same underlying task records</small></div><span class="map-arrow" aria-hidden="true">↓</span><div class="capstone-branches"><div><span class="node-label">Baseline</span><strong>Direct generation</strong><p>Request the knowledge article in one model call.</p></div><div><span class="node-label">CoT variant</span><strong>Reasoning prompt</strong><p>Add an explicit Chain-of-Thought instruction before the article.</p></div></div><span class="map-arrow" aria-hidden="true">↓</span><div class="map-node"><span class="node-label">Saved output</span><strong>Generated article</strong><small>No internal auditor stage in these two variants</small></div></div>
-              <p class="map-caption">A further variant adds the review loop to CoT generation. The archived CoT variants handled reasoning text and cache hits inconsistently; this is an evaluation limitation, detailed below.</p>
-            </div>
-            <div class="arch-panel" role="tabpanel" id="panel-evaluation" aria-labelledby="tab-evaluation" tabindex="0">
-              <div class="arch-header"><div><h3>Compare saved outputs</h3><p>Generation and scoring are separate batch steps.</p></div><span class="status implemented">Saved results</span></div>
-              <div class="capstone-flow"><div class="map-node"><span class="node-label">Matched records</span><strong>Candidate articles + reference material</strong><small>Paired by the original issue/PR identifier</small></div><span class="map-arrow" aria-hidden="true">↓</span><div class="map-node emphasis"><span class="node-label">LLM-as-a-Judge</span><strong>Factuality &amp; technical completeness</strong><small>Structured scores and an explanation</small></div><span class="map-arrow" aria-hidden="true">↓</span><div class="map-node"><span class="node-label">Analysis</span><strong>Saved scores → paired comparisons</strong><small>Means, sample variation and paired t-tests</small></div></div>
-              <p class="map-caption">Reference material includes the PR description and diff. Generation also receives the diff. Method labels and ordering were visible to the judge; the inspected evaluation is not a blind test.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-assisted Knowledge Base Generation · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="A master's capstone comparing single-pass prompts and an agent review loop for technical knowledge-base generation, with checked experiment results and explicit limitations."
+    />
+    <meta name="theme-color" content="#173bcc" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261009i" />
+    <script src="../../assets/site.js?v=20261009e" defer></script>
+  </head>
+  <body class="capstone-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="case-hero capstone-hero wrap">
+        <a class="breadcrumb" href="../../#work">
+          <span aria-hidden="true">←</span>
+          Selected work
+        </a>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Engineering case study / 02</p>
+            <h1>
+              AI-assisted knowledge
+              <br />
+              base generation
+            </h1>
+            <p class="case-subtitle">
+              Compare the architectures.
+              <br />
+              Check what the extra steps deliver.
+            </p>
+          </div>
+          <div>
+            <p class="case-summary">
+              A master's capstone on turning technical support records into knowledge articles. The
+              engineering work connects model orchestration, recoverable batch runs and evaluation.
+            </p>
+            <div class="case-actions">
+              <a class="button" href="#results">Explore the results</a>
             </div>
           </div>
-          <div class="context-grid"><div><h3>Model boundary</h3><p>A provider factory supports cloud APIs and local Ollama. Archived runs document Gemini and local Llama 3 experiments; an adapter's existence alone is not a verified run.</p></div><div><h3>Run boundary</h3><p>Configuration, cached intermediate files, saved results and failure records support interrupted batch work. They remain prototype mechanisms with limits around cache versioning and retry behaviour.</p></div></div>
-        </section>
-        <section class="case-section" id="decisions">
-          <p class="section-kicker">03 / Decisions &amp; trade-offs</p><h2>Make complexity earn its place.</h2>
-          <div class="decision"><span class="decision-no">01</span><div><h3>Keep cloud and local inference interchangeable</h3><p>The model interface allowed experimentation to move from Gemini API calls to local Llama 3 through Ollama. This made local inference an option when API limits and running costs affected the experiments.</p><div class="tradeoff"><strong>Trade-off</strong><span>Local hardware and smaller-model constraints become part of the operating model. Local inference does not itself establish zero cost or a compliance guarantee.</span></div></div></div>
-          <div class="decision"><span class="decision-no">02</span><div><h3>Give the review loop an exit</h3><p>The workflow tracks the best-scored draft, stops on an auditor pass and uses a recorded fallback when it reaches the configured iteration limit. Batch outputs make these outcomes inspectable.</p><div class="tradeoff"><strong>Trade-off</strong><span>A completed run may still be an auditor-rejected fallback. Completion, review acceptance and factual correctness are separate signals.</span></div></div></div>
-          <div class="decision"><span class="decision-no">03</span><div><h3>Keep simpler baselines in the comparison</h3><p>The project began by exploring multi-agent review, then added single-pass CoT as a simpler alternative. The retained comparisons gave a reason to question the extra review stage.</p><div class="tradeoff"><strong>Trade-off</strong><span>The judge is another model. Scores help compare these saved runs, while the study's evaluation design limits stronger claims about accuracy or causation.</span></div></div></div>
-        </section>
-        <section class="case-section" id="results">
-          <p class="section-kicker">04 / Results &amp; interpretation</p><h2>Measure the difference.<br>Keep the conclusion in scope.</h2>
-          <p class="lead">Single-pass CoT received the highest average score in the retained three-way comparison. Adding a same-model reviewer in a separate experiment showed no statistically significant benefit.</p>
-          <p class="small-note">The figures use stored capstone results, recalculated on 2 October 2026. No model generation was rerun for this portfolio review. Scores come from the configured LLM judge and do not represent an objective accuracy percentage.</p>
-          <figure class="capstone-chart"><a href="../../assets/evidence/capstone/capstone-run08.svg" aria-label="Open the Run 08 chart at full size"><img src="../../assets/evidence/capstone/capstone-run08.svg" alt="Run 08 mean judge scores: single pass 79.88, multi-agent 76.74, single-pass CoT 91.01; 69 paired records. Error bars show sample standard deviation." loading="lazy"></a><figcaption><strong>Run 08 · Three-way evaluation.</strong> Llama 3 generation and judging as recorded for this experiment. Points show means for the same 69 records within this run; error bars show sample standard deviation.</figcaption></figure>
-          <div class="capstone-table-wrap"><table class="capstone-table"><caption>Run 08: LLM-judge scores on a 0–100 scale</caption><thead><tr><th scope="col">Workflow</th><th scope="col">Mean</th><th scope="col">Sample SD</th></tr></thead><tbody><tr><th scope="row">Single pass</th><td>79.88</td><td>10.25</td></tr><tr><th scope="row">Multi-agent</th><td>76.74</td><td>14.60</td></tr><tr><th scope="row">Single-pass CoT</th><td>91.01</td><td>6.45</td></tr></tbody></table></div>
-          <p class="body-copy capstone-result-note">CoT scored 14.28 points above the multi-agent workflow in this run (paired t-test, p ≈ 1.65 × 10<sup>−13</sup>). This is evidence about these samples and this judge configuration; it does not establish that one architecture is universally superior.</p>
-          <figure class="capstone-chart"><a href="../../assets/evidence/capstone/capstone-run09.svg" aria-label="Open the Run 09 chart at full size"><img src="../../assets/evidence/capstone/capstone-run09.svg" alt="Run 09 mean judge scores: single-pass CoT 87.88 and CoT with a reviewer 86.99. The paired difference is minus 0.90 points with a 95 percent confidence interval from minus 4.53 to plus 2.73; p equals 0.6232." loading="lazy"></a><figcaption><strong>Run 09 · Reviewer-loop comparison.</strong> A separate pairwise evaluation of CoT variants, with 69 matched records. Its absolute scores should not be compared directly with Run 08.</figcaption></figure>
-          <p class="body-copy">The reviewed outputs averaged 0.90 points lower (95% confidence interval for the paired difference: −4.53 to +2.73; p = 0.6232). The data did not demonstrate a benefit from this review loop. They also do not establish a reliable degradation effect or its cause.</p>
-          <details class="evidence-details"><summary>Evaluation limits and what the review corrected</summary><ul><li>The sample was purposive, with uneven representation across three open-source projects. It does not establish performance across enterprise support work.</li><li>Candidate method names and their ordering were visible to the judge. A model judge may introduce ordering, style or self-preference biases.</li><li>Single-pass CoT saved the full response; the multi-agent CoT path removed reasoning text on fresh generation but retained it on cache hits. These differences limit claims about a tightly controlled comparison.</li><li>Cached outputs were not keyed by a complete model, prompt and input version. Archived records do not include a model digest, seed and full environment manifest.</li><li>Only the score-based evaluation was confirmed in the inspected code and retained results. Earlier descriptions of blind scoring and ROUGE-L are not used as verified claims here.</li><li>Generation also receives PR diffs. This case does not claim the generator was isolated from the reference fix, or that the reviewer experimentally proved an information-loss mechanism.</li><li>Recorded durations include possible retry waits and lack controlled hardware or warm-up conditions. They are not presented as a speedup benchmark.</li></ul></details>
-        </section>
-        <section class="case-section" id="example">
-          <p class="section-kicker">05 / Illustrative example</p><h2>From a resolved issue<br>to a usable knowledge note.</h2>
-          <p class="body-copy">This small example shows the intended transformation and the details an evaluator would need to check.</p>
-          <p class="context-strip"><strong>Handwritten, synthetic example.</strong> Created for this case study. It is not an original ticket, model output or measured result.</p>
-          <div class="capstone-example-grid"><article class="capstone-example"><p class="eyebrow">Example input</p><h3>A worker skips its final batch</h3><p>A batch worker receives 23 records with a batch size of 10. It processes 20 records and leaves three behind without reporting an error.</p><p>The loop calculated its batch count using integer division. The fix iterates over record offsets, including the final partial batch.</p><pre><code>for start in range(0, len(records), batch_size):
-    process(records[start:start + batch_size])</code></pre><p>The proposed regression check uses 23 records and checks that every record is processed once.</p></article><article class="capstone-example"><p class="eyebrow">Example knowledge note</p><h3>Preserve the partial batch</h3><dl><div><dt>Symptom</dt><dd>The final three records remain unprocessed when 23 records are handled in batches of 10.</dd></div><div><dt>Cause</dt><dd>Integer division counts only complete batches.</dd></div><div><dt>Resolution</dt><dd>Iterate from zero to the record count in batch-size steps. Each slice includes the available records, including a shorter final slice.</dd></div><div><dt>Verification</dt><dd>Check a non-multiple batch size and assert that all input records are processed exactly once.</dd></div></dl></article></div>
-          <p class="small-note">A review should preserve the boundary condition and the actual fix, without inventing infrastructure failures or claiming broader validation than the input supplies.</p>
-        </section>
-        <section class="case-section" id="evidence">
-          <p class="section-kicker">06 / Scope &amp; evidence</p><h2>Show the work.<br>State what remains unverified.</h2>
-          <table class="evidence-table"><caption class="sr-only">Implementation and verification scope</caption><thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Evidence boundary</th></tr></thead><tbody><tr><th scope="row">Generation &amp; orchestration</th><td><span class="status implemented">Code inspected</span></td><td>Python runners, two-role LangGraph review loop, model adapters, caching and saved fallback outcomes.</td></tr><tr><th scope="row">Offline experiments</th><td><span class="status">Records checked</span></td><td>Stored output and evaluation records; Run 08 and Run 09 scores recalculated locally. Model inference was not repeated during this review.</td></tr><tr><th scope="row">Test coverage</th><td><span class="status implemented">Limited</span></td><td>Existing scripts explore workflow behaviour through printed output. The review does not establish automated assertion coverage or a tested clean installation.</td></tr><tr><th scope="row">Production use</th><td><span class="status implemented">Not established</span></td><td>No production service, enterprise rollout or measured user impact is claimed.</td></tr><tr><th scope="row">Further verification</th><td><span class="status planned">Future work</span></td><td>Tool-assisted review, human evaluation, versioned experiment manifests and broader model comparisons remain outside the verified scope.</td></tr></tbody></table>
-          <div class="capstone-downloads"><a class="button secondary" href="../../assets/evidence/capstone/capstone-results.json" download>Download score evidence</a><a class="text-link" href="../../assets/evidence/capstone/README.md">Read the evidence notes <span aria-hidden="true">↗</span></a><a class="text-link" href="../../scripts/build_capstone_evidence.py" download>Recalculation script</a></div>
-          <p class="small-note">The export contains scores and pseudonymous case labels, with no original record IDs, ticket text, generated articles or judge explanations. Readers can use the script to verify the statistics from this export without the private archive. Extracting the scores again requires the retained local files, which are not distributed here.</p>
-          <p class="body-copy capstone-result-note">The original report, raw dataset, intermediate caches and research submission packages remain outside this portfolio. The public-facing material is a reviewed case study and a limited evidence export.</p>
-        </section>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item">
+            <span>Context</span>
+            <strong>Master's capstone · MSE907 · 2026</strong>
+          </div>
+          <div class="meta-item">
+            <span>Implementation</span>
+            <strong>Local research prototype</strong>
+          </div>
+          <div class="meta-item">
+            <span>Evidence reviewed</span>
+            <strong>2 October 2026</strong>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="back-home wrap"><a class="text-link" href="../../#work"><span aria-hidden="true">←</span> Back to selected work</a></div>
-  </main>
-  <footer class="site-footer wrap"><span>© 2026 Xiang Zhu</span><span>Auckland, New Zealand</span><a href="../../changelog/">Changelog</a><a href="https://github.com/jothep">GitHub ↗</a></footer>
-</body>
+      <div class="case-grid wrap">
+        <aside class="case-nav" aria-label="Case study sections">
+          <p>In this case study</p>
+          <a href="#context" aria-current="true">
+            <span>01</span>
+            Context
+          </a>
+          <a href="#architecture">
+            <span>02</span>
+            Architecture
+          </a>
+          <a href="#decisions">
+            <span>03</span>
+            Decisions
+          </a>
+          <a href="#results">
+            <span>04</span>
+            Results
+          </a>
+          <a href="#example">
+            <span>05</span>
+            Example
+          </a>
+          <a href="#evidence">
+            <span>06</span>
+            Scope &amp; evidence
+          </a>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="context">
+            <p class="section-kicker">01 / Problem &amp; contribution</p>
+            <h2>
+              Useful documentation needs
+              <br />
+              the details to survive.
+            </h2>
+            <p class="lead">
+              Resolved software issues combine discussion, diagnostic logs, configuration and code
+              changes. Turning that material into a knowledge article is useful operational work,
+              but a fluent summary can still omit the fix or invent an explanation.
+            </p>
+            <div class="contribution-summary" aria-label="My contribution">
+              <p>
+                <strong>Build.</strong>
+                I implemented configurable Python generation and evaluation pipelines, including a
+                LangGraph generator–auditor loop and a local Ollama backend.
+              </p>
+              <p>
+                <strong>Compare.</strong>
+                I tested simpler single-pass prompts alongside the agent workflow, using the same
+                selected technical records within each evaluation.
+              </p>
+              <p>
+                <strong>Inspect.</strong>
+                I retained outputs, scores and run records to investigate where added review helped,
+                where it did not, and what the measurements could support.
+              </p>
+            </div>
+            <p class="context-strip">
+              An offline research project based on 69 purposively selected GitHub issue/PR records:
+              40 from Kubernetes, 20 from Ansible and 9 from VS Code. Enterprise deployment and user
+              impact were outside the study.
+            </p>
+          </section>
+          <section class="case-section" id="architecture">
+            <p class="section-kicker">02 / Implemented architecture</p>
+            <h2>
+              One task.
+              <br />
+              Several ways to generate and check.
+            </h2>
+            <p class="body-copy">
+              The implementation separates generation, review and evaluation. The diagrams below
+              reflect the inspected code; the finalisation step selects and saves an existing draft.
+            </p>
+            <div class="architecture">
+              <div class="arch-tabs" role="tablist" aria-label="Knowledge-base workflow">
+                <button role="tab" id="tab-agent" aria-controls="panel-agent" aria-selected="true">
+                  Agent review loop
+                </button>
+                <button
+                  role="tab"
+                  id="tab-single"
+                  aria-controls="panel-single"
+                  aria-selected="false"
+                >
+                  Single pass
+                </button>
+                <button
+                  role="tab"
+                  id="tab-evaluation"
+                  aria-controls="panel-evaluation"
+                  aria-selected="false"
+                >
+                  Evaluation
+                </button>
+              </div>
+              <div
+                class="arch-panel"
+                role="tabpanel"
+                id="panel-agent"
+                aria-labelledby="tab-agent"
+                tabindex="0"
+              >
+                <div class="arch-header">
+                  <div>
+                    <h3>Generate, audit, then decide</h3>
+                    <p>Two LLM roles and a deterministic finalisation node.</p>
+                  </div>
+                  <span class="status implemented">Implemented</span>
+                </div>
+                <div class="capstone-flow">
+                  <div class="map-node">
+                    <span class="node-label">Selected input</span>
+                    <strong>Issue context + PR diff</strong>
+                    <small>Context limits applied by the runner</small>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="map-node emphasis">
+                    <span class="node-label">LLM role 1</span>
+                    <strong>Generator</strong>
+                    <small>Draft a Markdown knowledge article</small>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="map-node emphasis">
+                    <span class="node-label">LLM role 2</span>
+                    <strong>Auditor</strong>
+                    <small>Return scores, a decision and feedback</small>
+                  </div>
+                </div>
+                <div class="capstone-branches">
+                  <div>
+                    <span class="node-label">Revise</span>
+                    <strong>Feedback → Generator</strong>
+                    <p>Retry the draft while the review-iteration budget remains.</p>
+                  </div>
+                  <div>
+                    <span class="node-label">Finish</span>
+                    <strong>Select → save</strong>
+                    <p>
+                      Accept a passing draft, or select the highest-scored draft at the iteration
+                      limit and record the fallback.
+                    </p>
+                  </div>
+                </div>
+                <p class="map-caption">
+                  LangGraph carries the current draft, feedback, iteration count and best-scored
+                  draft. Finalisation makes no additional model call. The review budget limits draft
+                  iterations; the prototype's network-retry logic is separate.
+                </p>
+              </div>
+              <div
+                class="arch-panel"
+                role="tabpanel"
+                id="panel-single"
+                aria-labelledby="tab-single"
+                tabindex="0"
+              >
+                <div class="arch-header">
+                  <div>
+                    <h3>A simpler comparison</h3>
+                    <p>Keep the generation context together and vary the prompt.</p>
+                  </div>
+                  <span class="status implemented">Implemented</span>
+                </div>
+                <div class="capstone-flow">
+                  <div class="map-node">
+                    <span class="node-label">Selected input</span>
+                    <strong>Issue context + PR diff</strong>
+                    <small>Same underlying task records</small>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="capstone-branches">
+                    <div>
+                      <span class="node-label">Baseline</span>
+                      <strong>Direct generation</strong>
+                      <p>Request the knowledge article in one model call.</p>
+                    </div>
+                    <div>
+                      <span class="node-label">CoT variant</span>
+                      <strong>Reasoning prompt</strong>
+                      <p>Add an explicit Chain-of-Thought instruction before the article.</p>
+                    </div>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="map-node">
+                    <span class="node-label">Saved output</span>
+                    <strong>Generated article</strong>
+                    <small>No internal auditor stage in these two variants</small>
+                  </div>
+                </div>
+                <p class="map-caption">
+                  A further variant adds the review loop to CoT generation. The archived CoT
+                  variants handled reasoning text and cache hits inconsistently; this is an
+                  evaluation limitation, detailed below.
+                </p>
+              </div>
+              <div
+                class="arch-panel"
+                role="tabpanel"
+                id="panel-evaluation"
+                aria-labelledby="tab-evaluation"
+                tabindex="0"
+              >
+                <div class="arch-header">
+                  <div>
+                    <h3>Compare saved outputs</h3>
+                    <p>Generation and scoring are separate batch steps.</p>
+                  </div>
+                  <span class="status implemented">Saved results</span>
+                </div>
+                <div class="capstone-flow">
+                  <div class="map-node">
+                    <span class="node-label">Matched records</span>
+                    <strong>Candidate articles + reference material</strong>
+                    <small>Paired by the original issue/PR identifier</small>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="map-node emphasis">
+                    <span class="node-label">LLM-as-a-Judge</span>
+                    <strong>Factuality &amp; technical completeness</strong>
+                    <small>Structured scores and an explanation</small>
+                  </div>
+                  <span class="map-arrow" aria-hidden="true">↓</span>
+                  <div class="map-node">
+                    <span class="node-label">Analysis</span>
+                    <strong>Saved scores → paired comparisons</strong>
+                    <small>Means, sample variation and paired t-tests</small>
+                  </div>
+                </div>
+                <p class="map-caption">
+                  Reference material includes the PR description and diff. Generation also receives
+                  the diff. Method labels and ordering were visible to the judge; the inspected
+                  evaluation is not a blind test.
+                </p>
+              </div>
+            </div>
+            <div class="context-grid">
+              <div>
+                <h3>Model boundary</h3>
+                <p>
+                  A provider factory supports cloud APIs and local Ollama. Archived runs document
+                  Gemini and local Llama 3 experiments; an adapter's existence alone is not a
+                  verified run.
+                </p>
+              </div>
+              <div>
+                <h3>Run boundary</h3>
+                <p>
+                  Configuration, cached intermediate files, saved results and failure records
+                  support interrupted batch work. They remain prototype mechanisms with limits
+                  around cache versioning and retry behaviour.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="case-section" id="decisions">
+            <p class="section-kicker">03 / Decisions &amp; trade-offs</p>
+            <h2>Make complexity earn its place.</h2>
+            <div class="decision">
+              <span class="decision-no">01</span>
+              <div>
+                <h3>Keep cloud and local inference interchangeable</h3>
+                <p>
+                  The model interface allowed experimentation to move from Gemini API calls to local
+                  Llama 3 through Ollama. This made local inference an option when API limits and
+                  running costs affected the experiments.
+                </p>
+                <div class="tradeoff">
+                  <strong>Trade-off</strong>
+                  <span>
+                    Local hardware and smaller-model constraints become part of the operating model.
+                    Local inference does not itself establish zero cost or a compliance guarantee.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="decision">
+              <span class="decision-no">02</span>
+              <div>
+                <h3>Give the review loop an exit</h3>
+                <p>
+                  The workflow tracks the best-scored draft, stops on an auditor pass and uses a
+                  recorded fallback when it reaches the configured iteration limit. Batch outputs
+                  make these outcomes inspectable.
+                </p>
+                <div class="tradeoff">
+                  <strong>Trade-off</strong>
+                  <span>
+                    A completed run may still be an auditor-rejected fallback. Completion, review
+                    acceptance and factual correctness are separate signals.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="decision">
+              <span class="decision-no">03</span>
+              <div>
+                <h3>Keep simpler baselines in the comparison</h3>
+                <p>
+                  The project began by exploring multi-agent review, then added single-pass CoT as a
+                  simpler alternative. The retained comparisons gave a reason to question the extra
+                  review stage.
+                </p>
+                <div class="tradeoff">
+                  <strong>Trade-off</strong>
+                  <span>
+                    The judge is another model. Scores help compare these saved runs, while the
+                    study's evaluation design limits stronger claims about accuracy or causation.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="case-section" id="results">
+            <p class="section-kicker">04 / Results &amp; interpretation</p>
+            <h2>
+              Measure the difference.
+              <br />
+              Keep the conclusion in scope.
+            </h2>
+            <p class="lead">
+              Single-pass CoT received the highest average score in the retained three-way
+              comparison. Adding a same-model reviewer in a separate experiment showed no
+              statistically significant benefit.
+            </p>
+            <p class="small-note">
+              The figures use stored capstone results, recalculated on 2 October 2026. No model
+              generation was rerun for this portfolio review. Scores come from the configured LLM
+              judge and do not represent an objective accuracy percentage.
+            </p>
+            <figure class="capstone-chart">
+              <a
+                href="../../assets/evidence/capstone/capstone-run08.svg"
+                aria-label="Open the Run 08 chart at full size"
+              >
+                <img
+                  src="../../assets/evidence/capstone/capstone-run08.svg"
+                  alt="Run 08 mean judge scores: single pass 79.88, multi-agent 76.74, single-pass CoT 91.01; 69 paired records. Error bars show sample standard deviation."
+                  loading="lazy"
+                />
+              </a>
+              <figcaption>
+                <strong>Run 08 · Three-way evaluation.</strong>
+                Llama 3 generation and judging as recorded for this experiment. Points show means
+                for the same 69 records within this run; error bars show sample standard deviation.
+              </figcaption>
+            </figure>
+            <div class="capstone-table-wrap">
+              <table class="capstone-table">
+                <caption>
+                  Run 08: LLM-judge scores on a 0–100 scale
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Workflow</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Sample SD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Single pass</th>
+                    <td>79.88</td>
+                    <td>10.25</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Multi-agent</th>
+                    <td>76.74</td>
+                    <td>14.60</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Single-pass CoT</th>
+                    <td>91.01</td>
+                    <td>6.45</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="body-copy capstone-result-note">
+              CoT scored 14.28 points above the multi-agent workflow in this run (paired t-test, p ≈
+              1.65 × 10
+              <sup>−13</sup>
+              ). This is evidence about these samples and this judge configuration; it does not
+              establish that one architecture is universally superior.
+            </p>
+            <figure class="capstone-chart">
+              <a
+                href="../../assets/evidence/capstone/capstone-run09.svg"
+                aria-label="Open the Run 09 chart at full size"
+              >
+                <img
+                  src="../../assets/evidence/capstone/capstone-run09.svg"
+                  alt="Run 09 mean judge scores: single-pass CoT 87.88 and CoT with a reviewer 86.99. The paired difference is minus 0.90 points with a 95 percent confidence interval from minus 4.53 to plus 2.73; p equals 0.6232."
+                  loading="lazy"
+                />
+              </a>
+              <figcaption>
+                <strong>Run 09 · Reviewer-loop comparison.</strong>
+                A separate pairwise evaluation of CoT variants, with 69 matched records. Its
+                absolute scores should not be compared directly with Run 08.
+              </figcaption>
+            </figure>
+            <p class="body-copy">
+              The reviewed outputs averaged 0.90 points lower (95% confidence interval for the
+              paired difference: −4.53 to +2.73; p = 0.6232). The data did not demonstrate a benefit
+              from this review loop. They also do not establish a reliable degradation effect or its
+              cause.
+            </p>
+            <details class="evidence-details">
+              <summary>Evaluation limits and what the review corrected</summary>
+              <ul>
+                <li>
+                  The sample was purposive, with uneven representation across three open-source
+                  projects. It does not establish performance across enterprise support work.
+                </li>
+                <li>
+                  Candidate method names and their ordering were visible to the judge. A model judge
+                  may introduce ordering, style or self-preference biases.
+                </li>
+                <li>
+                  Single-pass CoT saved the full response; the multi-agent CoT path removed
+                  reasoning text on fresh generation but retained it on cache hits. These
+                  differences limit claims about a tightly controlled comparison.
+                </li>
+                <li>
+                  Cached outputs were not keyed by a complete model, prompt and input version.
+                  Archived records do not include a model digest, seed and full environment
+                  manifest.
+                </li>
+                <li>
+                  Only the score-based evaluation was confirmed in the inspected code and retained
+                  results. Earlier descriptions of blind scoring and ROUGE-L are not used as
+                  verified claims here.
+                </li>
+                <li>
+                  Generation also receives PR diffs. This case does not claim the generator was
+                  isolated from the reference fix, or that the reviewer experimentally proved an
+                  information-loss mechanism.
+                </li>
+                <li>
+                  Recorded durations include possible retry waits and lack controlled hardware or
+                  warm-up conditions. They are not presented as a speedup benchmark.
+                </li>
+              </ul>
+            </details>
+          </section>
+          <section class="case-section" id="example">
+            <p class="section-kicker">05 / Illustrative example</p>
+            <h2>
+              From a resolved issue
+              <br />
+              to a usable knowledge note.
+            </h2>
+            <p class="body-copy">
+              This small example shows the intended transformation and the details an evaluator
+              would need to check.
+            </p>
+            <p class="context-strip">
+              <strong>Handwritten, synthetic example.</strong>
+              Created for this case study. It is not an original ticket, model output or measured
+              result.
+            </p>
+            <div class="capstone-example-grid">
+              <article class="capstone-example">
+                <p class="eyebrow">Example input</p>
+                <h3>A worker skips its final batch</h3>
+                <p>
+                  A batch worker receives 23 records with a batch size of 10. It processes 20
+                  records and leaves three behind without reporting an error.
+                </p>
+                <p>
+                  The loop calculated its batch count using integer division. The fix iterates over
+                  record offsets, including the final partial batch.
+                </p>
+                <pre><code>for start in range(0, len(records), batch_size):
+    process(records[start:start + batch_size])</code></pre>
+                <p>
+                  The proposed regression check uses 23 records and checks that every record is
+                  processed once.
+                </p>
+              </article>
+              <article class="capstone-example">
+                <p class="eyebrow">Example knowledge note</p>
+                <h3>Preserve the partial batch</h3>
+                <dl>
+                  <div>
+                    <dt>Symptom</dt>
+                    <dd>
+                      The final three records remain unprocessed when 23 records are handled in
+                      batches of 10.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Cause</dt>
+                    <dd>Integer division counts only complete batches.</dd>
+                  </div>
+                  <div>
+                    <dt>Resolution</dt>
+                    <dd>
+                      Iterate from zero to the record count in batch-size steps. Each slice includes
+                      the available records, including a shorter final slice.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Verification</dt>
+                    <dd>
+                      Check a non-multiple batch size and assert that all input records are
+                      processed exactly once.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+            </div>
+            <p class="small-note">
+              A review should preserve the boundary condition and the actual fix, without inventing
+              infrastructure failures or claiming broader validation than the input supplies.
+            </p>
+          </section>
+          <section class="case-section" id="evidence">
+            <p class="section-kicker">06 / Scope &amp; evidence</p>
+            <h2>
+              Show the work.
+              <br />
+              State what remains unverified.
+            </h2>
+            <table class="evidence-table">
+              <caption class="sr-only">
+                Implementation and verification scope
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Area</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Evidence boundary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Generation &amp; orchestration</th>
+                  <td><span class="status implemented">Code inspected</span></td>
+                  <td>
+                    Python runners, two-role LangGraph review loop, model adapters, caching and
+                    saved fallback outcomes.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Offline experiments</th>
+                  <td><span class="status">Records checked</span></td>
+                  <td>
+                    Stored output and evaluation records; Run 08 and Run 09 scores recalculated
+                    locally. Model inference was not repeated during this review.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Test coverage</th>
+                  <td><span class="status implemented">Limited</span></td>
+                  <td>
+                    Existing scripts explore workflow behaviour through printed output. The review
+                    does not establish automated assertion coverage or a tested clean installation.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Production use</th>
+                  <td><span class="status implemented">Not established</span></td>
+                  <td>
+                    No production service, enterprise rollout or measured user impact is claimed.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Further verification</th>
+                  <td><span class="status planned">Future work</span></td>
+                  <td>
+                    Tool-assisted review, human evaluation, versioned experiment manifests and
+                    broader model comparisons remain outside the verified scope.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="capstone-downloads">
+              <a
+                class="button secondary"
+                href="../../assets/evidence/capstone/capstone-results.json"
+                download
+              >
+                Download score evidence
+              </a>
+              <a class="text-link" href="../../assets/evidence/capstone/README.md">
+                Read the evidence notes
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a class="text-link" href="../../scripts/build_capstone_evidence.py" download>
+                Recalculation script
+              </a>
+            </div>
+            <p class="small-note">
+              The export contains scores and pseudonymous case labels, with no original record IDs,
+              ticket text, generated articles or judge explanations. Readers can use the script to
+              verify the statistics from this export without the private archive. Extracting the
+              scores again requires the retained local files, which are not distributed here.
+            </p>
+            <p class="body-copy capstone-result-note">
+              The original report, raw dataset, intermediate caches and research submission packages
+              remain outside this portfolio. The public-facing material is a reviewed case study and
+              a limited evidence export.
+            </p>
+          </section>
+        </div>
+      </div>
+      <div class="back-home wrap">
+        <a class="text-link" href="../../#work">
+          <span aria-hidden="true">←</span>
+          Back to selected work
+        </a>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <span>Auckland, New Zealand</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">GitHub ↗</a>
+    </footer>
+  </body>
 </html>

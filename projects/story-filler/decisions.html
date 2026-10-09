@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Engineering judgment &amp; inquiry · Story Filler · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="The delivery constraints, hosting choices and operating trade-offs behind Story Filler, explored through questions, answers and implementation evidence."
+    />
+    <meta name="theme-color" content="#122344" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261009i" />
+    <script src="../../assets/site.js?v=20261009e" defer></script>
+  </head>
+  <body class="judgment-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <!-- Intro: a decision retrospective, grounded in the author's project account. -->
+      <div class="decision-hero wrap">
+        <a class="breadcrumb" href="./">
+          <span aria-hidden="true">←</span>
+          Story Filler case study
+        </a>
+        <p class="eyebrow">Story Filler / A decision retrospective</p>
+        <h1>
+          Engineering judgment
+          <br />
+          &amp; inquiry.
+        </h1>
+        <p class="decision-intro">
+          The delivery constraints, hosting choices and operating trade-offs behind Story Filler.
+        </p>
+        <div class="decision-method">
+          <p>
+            I use my engineering-judgment framework to explain my choices, respond to challenges and
+            check the evidence behind my answers.
+          </p>
+          <p class="decision-method-steps">
+            Context
+            <span aria-hidden="true">→</span>
+            Question
+            <span aria-hidden="true">→</span>
+            Judgment
+            <span aria-hidden="true">→</span>
+            Evidence
+          </p>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav" aria-label="Engineering decisions sections">
+          <p>In this reflection</p>
+          <a href="#context" aria-current="true">
+            <span>01</span>
+            The constraints
+          </a>
+          <a href="#questions">
+            <span>02</span>
+            Questions &amp; answers
+          </a>
+          <div class="case-nav-questions" aria-label="Individual questions">
+            <a href="#delivery-scope"><span>a.</span> Delivery priorities</a>
+            <a href="#hosting-choice"><span>b.</span> Hosting choice</a>
+            <a href="#accepted-tradeoffs"><span>c.</span> Operating trade-offs</a>
+            <a href="#loading-behaviour"><span>d.</span> Slow requests &amp; retries</a>
+          </div>
+          <a href="#evidence">
+            <span>03</span>
+            Supporting evidence
+          </a>
+        </aside>
+        <div class="case-content">
+          <!-- Context comes from the author's retrospective account, not inferred commits. -->
+          <section class="case-section" id="context">
+            <p class="section-kicker">01 / The constraints</p>
+            <h2>The constraints changed.</h2>
+            <div class="decision-context-grid">
+              <article class="decision-context">
+                <p class="eyebrow">During the course</p>
+                <h3>Finish a complete submission.</h3>
+                <p>
+                  A three-month Professional Software Development assignment began as a two-person
+                  project. After the team changed about a month in, I had less than two months to
+                  complete it independently.
+                </p>
+                <p>
+                  The scope included a working application, local Kubernetes demo, development
+                  records, testing and reports.
+                </p>
+              </article>
+              <article class="decision-context">
+                <p class="eyebrow">After the course</p>
+                <h3>Keep the work publicly accessible.</h3>
+                <p>
+                  I wanted the project to remain available as a public demonstration, with very
+                  little hosting spend and infrastructure to maintain.
+                </p>
+                <p>
+                  Occasional visits made idle resource costs and operating effort more relevant than
+                  supporting a large workload.
+                </p>
+              </article>
+            </div>
+          </section>
+          <!-- Publish the author's considered answers; distinguish technical context and implementation evidence. -->
+          <section class="case-section" id="questions">
+            <p class="section-kicker">02 / Questions &amp; answers</p>
+            <h2>Four questions behind the choices.</h2>
+            <p class="body-copy qa-section-intro">
+              These questions were put to me during an AI-assisted review. The answers present my
+              conclusions after discussion, with follow-ups showing how the reasoning was
+              challenged. Additional technical context and implementation evidence are labelled
+              separately.
+            </p>
+            <article class="judgment-qa" id="delivery-scope" aria-labelledby="delivery-scope-title">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">a.</span>
+                <div>
+                  <p class="qa-topic">Delivery under constraints</p>
+                  <h3 id="delivery-scope-title">
+                    When the project became a solo delivery, what did you prioritise?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  Complete a working submission that met the course requirements within the time
+                  remaining. Public cloud hosting came later.
+                </p>
+                <p>
+                  I used Trello to organise the work and simulate the agile process required by the
+                  assignment, alongside the application, local Kubernetes demo and documentation.
+                </p>
+                <p class="qa-source">
+                  <span>Basis</span>
+                  My account of the course project and delivery circumstances.
+                </p>
+              </div>
+            </article>
+            <!-- A completed challenge and follow-up; answers are edited from the author's responses. -->
+            <article class="judgment-qa" id="hosting-choice" aria-labelledby="hosting-choice-title">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">b.</span>
+                <div>
+                  <p class="qa-topic">Hosting choice / Challenge &amp; follow-up</p>
+                  <h3 id="hosting-choice-title">
+                    Did replacing Kubernetes with several managed services actually reduce the work
+                    you had to own?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  The frontend, backend and database still form the same three-tier application.
+                  What changed was where I deployed the components and which infrastructure I needed
+                  to operate myself.
+                </p>
+                <p>
+                  I wanted each component hosted in a way that suited its needs, while considering
+                  availability, reliability and cost. Running Kubernetes would leave me responsible
+                  for cluster operations, deployment configuration, service access and networking,
+                  plus database operations if I hosted the database in the cluster. Helm and Istio
+                  would be optional choices; the cluster itself would still need operating.
+                </p>
+                <p>
+                  Managed services reduced that platform work. I still needed to manage application
+                  configuration and credentials, and make the connections between services secure
+                  and dependable.
+                </p>
+
+                <div class="qa-followup" aria-labelledby="leaner-kubernetes-question">
+                  <p class="qa-response-label">Follow-up / A smaller Kubernetes alternative</p>
+                  <h4 id="leaner-kubernetes-question">
+                    If Kubernetes ran only the backend, without Helm or Istio, while the frontend
+                    stayed on GitHub Pages and the database on Neon, would you still choose Cloud
+                    Run?
+                  </h4>
+                </div>
+                <p class="qa-response-label">My answer to the follow-up</p>
+                <p class="qa-stance">
+                  I would still choose Cloud Run. Its free usage allowance suits this small,
+                  infrequently visited application. Keeping cloud-cluster capacity running would add
+                  ongoing costs I am not prepared to commit to this demo. The allowance has limits,
+                  so usage and charges from associated services remain part of the cost decision.
+                </p>
+                <p>
+                  Kubernetes would not provide an additional capability that this backend currently
+                  needs. I am more familiar with Kubernetes, but familiarity alone is not a
+                  sufficient reason to choose it. Cloud Run fits the application and the budget.
+                </p>
+
+                <!-- Platform references support the answer without repeating the review discussion. -->
+                <!-- prettier-ignore -->
+                <p class="qa-source">
+                  <span>Platform references</span>
+                  <a href="https://cloud.google.com/run/pricing">Cloud Run pricing</a> ·
+                  <a href="https://cloud.google.com/kubernetes-engine/pricing">GKE pricing</a> ·
+                  <a href="https://kubernetes.io/docs/concepts/services-networking/">Kubernetes networking</a>
+                </p>
+                <p class="qa-source">
+                  <span>Project context</span>
+                  <a
+                    href="https://medium.com/@shelldry325/from-on-premises-kubernetes-to-zero-cost-serverless-architecture-a-practical-guide-to-cloud-70e68304e835"
+                  >
+                    My migration article
+                  </a>
+                  ·
+                  <a
+                    href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/architecture-production-gcp.md"
+                  >
+                    Managed deployment
+                  </a>
+                  ·
+                  <a
+                    href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/local-platform-lab.md"
+                  >
+                    Retained local environments
+                  </a>
+                </p>
+              </div>
+            </article>
+            <article
+              class="judgment-qa"
+              id="accepted-tradeoffs"
+              aria-labelledby="accepted-tradeoffs-title"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">c.</span>
+                <div>
+                  <p class="qa-topic">Cost and user experience</p>
+                  <h3 id="accepted-tradeoffs-title">
+                    What were you willing to trade for lower operating cost?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  I accepted slower initial access and limited capacity for an application with very
+                  little traffic.
+                </p>
+                <p>
+                  In my own checks, the page became usable within roughly half a minute, which I
+                  considered acceptable for this demonstration.
+                </p>
+                <p>
+                  Low operating cost still leaves work to do: application updates, configuration and
+                  credentials need attention. The choice fits the current demonstration.
+                </p>
+                <p class="qa-source">
+                  <span>Evidence boundary</span>
+                  The waiting time is my observation, not a measured latency ceiling.
+                  <a
+                    href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/terraform/main.tf#L40-L58"
+                  >
+                    Configured compute limits
+                  </a>
+                </p>
+              </div>
+            </article>
+            <!-- Two completed training follow-ups; the scenarios are not production measurements. -->
+            <article
+              class="judgment-qa"
+              id="loading-behaviour"
+              aria-labelledby="loading-behaviour-title"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">d.</span>
+                <div>
+                  <p class="qa-topic">Slow requests / Challenge &amp; follow-ups</p>
+                  <h3 id="loading-behaviour-title">
+                    When the first request is slow, how would you make waiting, timeouts and retries
+                    work together?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  For this low-traffic demo, I accept an occasional slow first load. The loading
+                  screen keeps visitors informed, and an error offers a manual Try Again path.
+                </p>
+                <p>
+                  If I add explicit timeouts or automatic retries, I would choose the waiting window
+                  from measured request behaviour and limit repeated attempts. I would also check
+                  backend execution limits: ending the browser's wait and stopping server-side work
+                  are separate concerns.
+                </p>
+
+                <!-- The answer integrates the retry distinction understood during the discussion. -->
+                <div class="qa-followup" aria-labelledby="timeout-retry-question">
+                  <p class="qa-response-label">Follow-up / A hypothetical timeout</p>
+                  <h4 id="timeout-retry-question">
+                    Suppose the browser stops waiting for the story list after 30 seconds. Would you
+                    expect backend processing to have stopped? What could happen if the visitor
+                    immediately clicks Try Again?
+                  </h4>
+                </div>
+                <p class="qa-response-label">My answer to the follow-up</p>
+                <p class="qa-stance">
+                  I would not assume the backend had stopped. The original request may still be
+                  using resources when the next one arrives.
+                </p>
+                <p>
+                  Reading the story list is a read-only operation, so a retry can reasonably start a
+                  new query. I would focus on controlling repeated attempts and checking how long
+                  backend work can continue. Frequent retries that overlap with unfinished work can
+                  put pressure on workers and database connections. Reusing an existing task would
+                  add state management, which I would not require for this ordinary read.
+                </p>
+
+                <div class="qa-followup" aria-labelledby="cold-start-evidence-question">
+                  <p class="qa-response-label">Follow-up / Locating the delay</p>
+                  <h4 id="cold-start-evidence-question">
+                    Suppose the first story request takes 30 seconds and the next takes one second.
+                    Where would you look to distinguish database wake-up, connection setup, SQL
+                    execution and Cloud Run startup?
+                  </h4>
+                </div>
+                <p class="qa-response-label">My answer to the follow-up</p>
+                <p class="qa-stance">
+                  I would check Neon first because it can suspend when idle. The faster second
+                  response makes cold start a useful hypothesis to investigate.
+                </p>
+                <p>
+                  I would identify the slow API request in the browser, then compare the available
+                  Neon state records with Cloud Run request and instance-startup logs for the same
+                  period. Both services may need to start. If those events did not explain the
+                  delay, or later requests remained slow, I would investigate load, resource
+                  pressure and application errors.
+                </p>
+
+                <aside class="qa-source qa-ai-review" aria-label="AI-assisted technical context">
+                  <p class="qa-source-label">Technical context / AI-assisted explanation</p>
+                  <p>
+                    Cloud Run's request timeout is distinct from the browser's waiting limit: it can
+                    return a 504 without stopping the running code. Database wake-up, connection
+                    setup and SQL execution also have separate timings. A fast SQL query can follow
+                    a slow connection, so request logs alone may not account for the whole delay.
+                  </p>
+                  <p class="qa-source-links">
+                    <a href="https://docs.cloud.google.com/run/docs/configuring/request-timeout">
+                      Cloud Run request timeouts
+                    </a>
+                    ·
+                    <a href="https://docs.cloud.google.com/run/docs/logging">Cloud Run logs</a>
+                    ·
+                    <a href="https://neon.com/docs/manage/endpoints/">Neon compute behaviour</a>
+                    ·
+                    <a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2">
+                      HTTP method semantics
+                    </a>
+                  </p>
+                </aside>
+
+                <div class="qa-source qa-source-review">
+                  <p class="qa-source-label">Current implementation and exercise scope</p>
+                  <p>
+                    The frontend calls the Django story-list API, which reads the database and
+                    returns JSON. The UI handles loading, success and errors; Try Again starts a new
+                    request. The client has no explicit timeout or automatic retry policy. The
+                    30-second scenarios are training assumptions, and per-stage timings were not
+                    measured in this discussion.
+                  </p>
+                  <p class="qa-source-links">
+                    <a
+                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/pages/Menu.jsx#L81-L91"
+                    >
+                      Loading and retry UI
+                    </a>
+                    ·
+                    <a
+                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/hooks/useStories.js"
+                    >
+                      Request state
+                    </a>
+                    ·
+                    <a
+                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/frontend/src/api/storyApi.js"
+                    >
+                      API client
+                    </a>
+                    ·
+                    <a
+                      href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/backend/core/views.py#L14-L35"
+                    >
+                      Story-list view
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </section>
+          <!-- Keep source review dates separate from earlier runtime verification. -->
+          <section class="case-section" id="evidence">
+            <p class="section-kicker">03 / Supporting evidence</p>
+            <h2>Evidence behind the answers.</h2>
+            <div class="reading-list">
+              <a class="reading-item" href="./#architecture">
+                <div>
+                  <strong>Architecture and local practice</strong>
+                  <small>
+                    Managed cloud, Kubernetes and Compose, with their implementation boundaries.
+                  </small>
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a class="reading-item" href="./#delivery">
+                <div>
+                  <strong>Delivery and verification</strong>
+                  <small>A blocked release, its correction and the dated deployment checks.</small>
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                class="reading-item"
+                href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/docs/verification.md"
+              >
+                <div>
+                  <strong>The verification record</strong>
+                  <small>
+                    What the September checks established, and what was outside their scope.
+                  </small>
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="decision-editorial-note">
+              Retrospective prepared on
+              <time datetime="2026-10-09">9 October 2026</time>
+              from my project account and a source review. AI assisted with editing and checking
+              technical descriptions. The linked deployment evidence dates to 27–28 September 2026;
+              the course-era local environment was not rerun for this reflection.
+            </p>
+          </section>
+        </div>
+      </div>
+      <div class="wrap back-home">
+        <a class="text-link" href="./">
+          <span aria-hidden="true">←</span>
+          Back to the Story Filler case study
+        </a>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <span>Infrastructure, architecture &amp; delivery</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">
+        GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </body>
+</html>
