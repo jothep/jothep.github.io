@@ -15,7 +15,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../assets/site.css?v=20261011a" />
+    <link rel="stylesheet" href="../assets/site.css?v=20261011b" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +47,7 @@
           explore the work behind each update.
         </p>
         <nav class="changelog-jumps" aria-label="Update dates">
-          <a href="#repository-cleanup">October 2026</a>
+          <a href="#system-fonts">October 2026</a>
           <a href="#codex-activity">September 2026</a>
         </nav>
         <p class="changelog-history-note">
@@ -56,6 +56,40 @@
         </p>
       </div>
       <section class="changelog-list wrap" aria-label="Portfolio updates, newest first">
+        <article class="changelog-entry" id="system-fonts" aria-labelledby="system-fonts-title">
+          <div class="changelog-date">
+            <time datetime="2026-10-11">11 Oct 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Improved / Removed</p>
+            <h2 id="system-fonts-title">
+              <a href="#system-fonts">System fonts, fewer site dependencies</a>
+            </h2>
+            <p class="changelog-description">
+              The portfolio now uses fonts already available on the reader’s device.
+            </p>
+            <ul>
+              <li>
+                Replaced the two bundled typefaces with a shared system-font stack across page
+                headings, body text and controls. No font downloads or font CDN are required.
+              </li>
+              <li>
+                Removed the unused font files and their accompanying license documents from the
+                current tree. The earlier font-source record remains linked to its historical
+                revision.
+              </li>
+              <li>
+                Kept font settings together in the shared stylesheet and documented how to maintain
+                them without a build step.
+              </li>
+            </ul>
+            <div class="changelog-links">
+              <a href="../">View the portfolio <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
         <article
           class="changelog-entry"
           id="repository-cleanup"
@@ -63,7 +97,6 @@
         >
           <div class="changelog-date">
             <time datetime="2026-10-11">11 Oct 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Removed / Improved</p>
@@ -90,8 +123,10 @@
               </li>
             </ul>
             <div class="changelog-links">
-              <a href="../assets/fonts/README.md">
-                Font sources and licenses <span aria-hidden="true">↗</span>
+              <a
+                href="https://github.com/jothep/jothep.github.io/blob/1f94374fc68ecc06f627e6b3357898dfbb3c9e2d/assets/fonts/README.md"
+              >
+                Font sources at this revision <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>

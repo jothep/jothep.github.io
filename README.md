@@ -10,7 +10,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
 
-The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Two third-party fonts, HK Grotesk and Jost, are bundled in `assets/fonts/` with their copyright notices and SIL OFL licenses; see [font sources and licenses](assets/fonts/README.md).
+The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
 
 ## Preview
 
@@ -76,7 +76,6 @@ For routine edits, use this file map:
 | `assets/site.js` | Architecture tabs, compact contents menu and section highlighting |
 | `scripts/` | Optional evidence and activity generators; not required to serve the site |
 | `assets/evidence/` | Published, dated evidence; do not regenerate it as part of formatting |
-| `assets/fonts/` | Locally hosted third-party fonts, copyright notices and full font licenses |
 
 Use the checked-in Prettier settings for HTML, CSS and JavaScript. Formatting is an optional authoring tool, not a publishing dependency:
 
