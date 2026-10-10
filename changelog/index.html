@@ -15,7 +15,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../assets/site.css?v=20261009j" />
+    <link rel="stylesheet" href="../assets/site.css?v=20261011a" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +47,7 @@
           explore the work behind each update.
         </p>
         <nav class="changelog-jumps" aria-label="Update dates">
-          <a href="#clearer-navigation">October 2026</a>
+          <a href="#repository-cleanup">October 2026</a>
           <a href="#codex-activity">September 2026</a>
         </nav>
         <p class="changelog-history-note">
@@ -58,12 +58,52 @@
       <section class="changelog-list wrap" aria-label="Portfolio updates, newest first">
         <article
           class="changelog-entry"
+          id="repository-cleanup"
+          aria-labelledby="repository-cleanup-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-11">11 Oct 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Removed / Improved</p>
+            <h2 id="repository-cleanup-title">
+              <a href="#repository-cleanup">A focused, maintained site repository</a>
+            </h2>
+            <p class="changelog-description">
+              Removed the retired template and unused assets from the current site tree.
+            </p>
+            <ul>
+              <li>
+                Removed the obsolete Portfolio pages, example content, scripts and image assets,
+                along with tracked macOS metadata. Existing ignore rules prevent new metadata files
+                from being added.
+              </li>
+              <li>
+                Relocated the two fonts still used by the current design into assets/fonts, without
+                changing the font files. Added their copyright notices, source references and full
+                SIL Open Font License texts.
+              </li>
+              <li>
+                Removed unused styles for retired components and updated the maintenance file map.
+                The current project pages and published evidence remain in place.
+              </li>
+            </ul>
+            <div class="changelog-links">
+              <a href="../assets/fonts/README.md">
+                Font sources and licenses <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="changelog-entry"
           id="clearer-navigation"
           aria-labelledby="clearer-navigation-title"
         >
           <div class="changelog-date">
             <time datetime="2026-10-09">9 Oct 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Improved</p>

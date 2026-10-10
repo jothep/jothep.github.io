@@ -10,7 +10,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
 
-The older `Portfolio/` directory is retained. Its existing local font assets are reused by the new pages; the original license files remain in place. The new homepage does not repeat unverified claims from that earlier template.
+The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Two third-party fonts, HK Grotesk and Jost, are bundled in `assets/fonts/` with their copyright notices and SIL OFL licenses; see [font sources and licenses](assets/fonts/README.md).
 
 ## Preview
 
@@ -62,7 +62,7 @@ The local preview was approved for publication on 2 October 2026. Keep the under
 
 ## Editing the site directly
 
-The HTML files are the content source. Edit paragraphs and links in place, using semantic sections and two-space indentation. Shared presentation lives in `assets/site.css`; optional interaction lives in `assets/site.js`. No build step is required. Keep the older `Portfolio/` template's content and licences separate from the current site.
+The HTML files are the content source. Edit paragraphs and links in place, using semantic sections and two-space indentation. Shared presentation lives in `assets/site.css`; optional interaction lives in `assets/site.js`. No build step is required. Keep only maintained pages, their required assets, supporting evidence and development configuration in this repository. Do not add old resumes, retired templates or operating-system metadata files.
 
 For routine edits, use this file map:
 
@@ -76,7 +76,7 @@ For routine edits, use this file map:
 | `assets/site.js` | Architecture tabs, compact contents menu and section highlighting |
 | `scripts/` | Optional evidence and activity generators; not required to serve the site |
 | `assets/evidence/` | Published, dated evidence; do not regenerate it as part of formatting |
-| `Portfolio/` | Retained earlier template; its HTML loads `index.css` and `index.js`. The separate `style.css` and `script.js` files are retained legacy assets. |
+| `assets/fonts/` | Locally hosted third-party fonts, copyright notices and full font licenses |
 
 Use the checked-in Prettier settings for HTML, CSS and JavaScript. Formatting is an optional authoring tool, not a publishing dependency:
 

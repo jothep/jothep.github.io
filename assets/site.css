@@ -10,14 +10,14 @@
 /* Foundations: local fonts, colour tokens, typography and keyboard focus. */
 @font-face {
   font-family: HK;
-  src: url('../Portfolio/fonts/HKGrotesk-Regular.woff') format('woff');
+  src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: Jost;
-  src: url('../Portfolio/fonts/Jost-Regular.ttf') format('truetype');
+  src: url('./fonts/Jost-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -860,26 +860,6 @@ summary:focus-visible {
   color: #c4d0e1;
   font-size: 16px;
 }
-.release-facts {
-  display: flex;
-  gap: 35px;
-  border-top: 1px solid #384963;
-  padding-top: 20px;
-  margin-top: 25px;
-}
-.release-facts strong {
-  display: block;
-  font:
-    400 32px/1.1 Jost,
-    sans-serif;
-  color: white;
-}
-.release-facts span {
-  display: block;
-  font-size: 12px;
-  color: #c4d0e1;
-  margin-top: 6px;
-}
 .ai-steps {
   counter-reset: steps;
   margin: 24px 0 0;
@@ -997,27 +977,8 @@ summary:focus-visible {
   font-size: 25px;
   color: var(--blue);
 }
-.next-work {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 26px;
-}
-.next-work h3 {
-  font-size: 21px;
-  margin-bottom: 10px;
-}
-.next-work p {
-  font-size: 15px;
-  color: var(--muted);
-}
 .back-home {
   margin-block: 45px 55px;
-}
-.noscript-note {
-  font-size: 14px;
-  padding: 16px;
-  border: 1px solid var(--line);
 }
 .figure-shot img {
   aspect-ratio: auto;
@@ -1345,14 +1306,8 @@ summary:focus-visible {
   .evidence-table td:nth-child(2) {
     width: 28%;
   }
-  .release-facts {
-    gap: 24px;
-  }
   .release-story {
     padding: 24px;
-  }
-  .next-work {
-    gap: 20px;
   }
   .case-actions .button {
     font-size: 14px;
@@ -1384,8 +1339,7 @@ summary:focus-visible {
   .stage-type {
     display: none;
   }
-  .context-grid,
-  .next-work {
+  .context-grid {
     grid-template-columns: 1fr;
   }
   .arch-tabs button {
@@ -1423,12 +1377,6 @@ summary:focus-visible {
   }
   .tradeoff strong {
     display: block;
-  }
-  .release-facts {
-    gap: 18px;
-  }
-  .release-facts strong {
-    font-size: 27px;
   }
   .evidence-table .status {
     white-space: normal;
@@ -1571,12 +1519,6 @@ summary:focus-visible {
   color: var(--blue);
   text-underline-offset: 4px;
 }
-.pending-link {
-  background: var(--wash);
-  color: var(--muted);
-  border-color: var(--line);
-  cursor: default;
-}
 .history-metrics {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1684,11 +1626,6 @@ summary:focus-visible {
 .repository-state > .status {
   white-space: normal;
   flex: 0 0 135px;
-}
-.pending-reading > .status {
-  font: 11px/1.5 var(--mono);
-  font-size: 11px;
-  color: #74521c;
 }
 @media (max-width: 760px) {
   .history-metrics > div {
@@ -3156,9 +3093,6 @@ summary:focus-visible {
   font-weight: 700;
   margin-bottom: 7px;
 }
-.qa-source-review .qa-source-links {
-  margin-top: 10px;
-}
 @media (max-width: 760px) {
   .case-nav-questions {
     display: contents;
@@ -3198,9 +3132,6 @@ summary:focus-visible {
   padding: 16px 20px;
   font-size: 15px;
   line-height: 1.75;
-}
-.qa-ai-review .qa-source-links {
-  font-size: 13px;
 }
 .qa-ai-review .qa-source-label {
   margin: 0 0 8px;
