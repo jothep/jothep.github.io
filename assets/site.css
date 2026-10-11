@@ -2065,7 +2065,8 @@ summary:focus-visible {
 }
 .activity-calendar {
   display: grid;
-  grid-template-columns: minmax(0, 238px) minmax(0, 1fr);
+  /* Allow two monthly calendars side by side before wrapping on narrow screens. */
+  grid-template-columns: minmax(0, 530px) minmax(0, 1fr);
   align-items: center;
   gap: 20px 32px;
   margin-top: 25px;

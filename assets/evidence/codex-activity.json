@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-28T02:37:05+00:00",
+  "generated_at": "2026-10-10T23:59:53+00:00",
   "timezone": "Pacific/Auckland",
   "scope": "Selected local software-project workspaces",
   "source": "Local Codex thread metadata; self-reported snapshot",
   "metric": "Distinct top-level turns with a recorded start time and a terminal status",
   "period_start": "2026-09-05",
-  "period_end": "2026-09-28",
+  "period_end": "2026-10-11",
   "totals": {
-    "recorded_turns": 303,
-    "active_days": 17,
-    "calendar_days": 24
+    "recorded_turns": 461,
+    "active_days": 26,
+    "calendar_days": 37
   },
   "exclusions": {
     "duplicate_turn_records": 0,
@@ -122,7 +122,59 @@
     },
     {
       "date": "2026-09-28",
-      "turns": 21
+      "turns": 29
+    },
+    {
+      "date": "2026-09-29",
+      "turns": 0
+    },
+    {
+      "date": "2026-09-30",
+      "turns": 0
+    },
+    {
+      "date": "2026-10-01",
+      "turns": 0
+    },
+    {
+      "date": "2026-10-02",
+      "turns": 31
+    },
+    {
+      "date": "2026-10-03",
+      "turns": 14
+    },
+    {
+      "date": "2026-10-04",
+      "turns": 17
+    },
+    {
+      "date": "2026-10-05",
+      "turns": 29
+    },
+    {
+      "date": "2026-10-06",
+      "turns": 7
+    },
+    {
+      "date": "2026-10-07",
+      "turns": 17
+    },
+    {
+      "date": "2026-10-08",
+      "turns": 3
+    },
+    {
+      "date": "2026-10-09",
+      "turns": 25
+    },
+    {
+      "date": "2026-10-10",
+      "turns": 0
+    },
+    {
+      "date": "2026-10-11",
+      "turns": 7
     }
   ]
 }
