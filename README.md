@@ -42,6 +42,18 @@ Add another selected-work entry only when its context, personal contribution, de
 
 Do not copy application credentials, environment files, Terraform state, private archives or the application's Git history into this repository.
 
+## Adding selected writing
+
+The homepage articles form a horizontal, scrollable row, ordered newest first. Add a complete
+`article.writing-card` as the **first child** of `#writing-track` in `index.html`, with its original
+publication date, title, summary and link. Keep the remaining cards in descending date order and
+update the static `[data-writing-count]` label; JavaScript also derives the count from the cards.
+No JavaScript or CSS changes are needed when adding articles.
+
+Readers can swipe or scroll the row, use the newer/older buttons, or focus the row and use the
+arrow keys, Home and End. Scrolling and links still work without JavaScript. There is no autoplay;
+reduced-motion preferences are respected, and all cards remain visible when printing.
+
 ## Maintaining the changelog
 
 For a user-visible website change, add an entry at the top of `changelog/index.html` in the same update. Use the actual change date in Pacific/Auckland, a stable descriptive anchor, a short title, and specific Added, Improved, Updated or Corrected notes. Keep only the newest entry’s Latest badge and maintain the date-navigation links as new months are added.
