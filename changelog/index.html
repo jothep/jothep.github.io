@@ -15,7 +15,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../assets/site.css?v=20261011c" />
+    <link rel="stylesheet" href="../assets/site.css?v=20261011d" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +47,7 @@
           explore the work behind each update.
         </p>
         <nav class="changelog-jumps" aria-label="Update dates">
-          <a href="#writing-count">October 2026</a>
+          <a href="#scrollable-writing">October 2026</a>
           <a href="#codex-activity">September 2026</a>
         </nav>
         <p class="changelog-history-note">
@@ -56,10 +56,37 @@
         </p>
       </div>
       <section class="changelog-list wrap" aria-label="Portfolio updates, newest first">
-        <article class="changelog-entry" id="writing-count" aria-labelledby="writing-count-title">
+        <article
+          class="changelog-entry"
+          id="scrollable-writing"
+          aria-labelledby="scrollable-writing-title"
+        >
           <div class="changelog-date">
             <time datetime="2026-10-11">11 Oct 2026</time>
             <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Improved</p>
+            <h2 id="scrollable-writing-title">
+              <a href="#scrollable-writing">Browse writing from newest to oldest</a>
+            </h2>
+            <p class="changelog-description">
+              Selected writing now uses a horizontal row, with the newest article on the left.
+            </p>
+            <ul>
+              <li>Added swipe and scroll navigation, arrow buttons and keyboard controls.</li>
+              <li>Kept article links usable without JavaScript and all cards visible in print.</li>
+              <li>Documented how to add future articles at the start of the row.</li>
+            </ul>
+            <div class="changelog-links">
+              <a href="../#writing">Browse selected writing <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="changelog-entry" id="writing-count" aria-labelledby="writing-count-title">
+          <div class="changelog-date">
+            <time datetime="2026-10-11">11 Oct 2026</time>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Corrected</p>
