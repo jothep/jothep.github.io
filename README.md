@@ -52,7 +52,7 @@ Check the homepage button, entry anchors, relative links and mobile layout befor
 
 ## Capstone evidence and publication boundary
 
-The AI knowledge-base page is a retrospective review of retained capstone artefacts. Its Run 08 and Run 09 scores were recalculated on 2 October 2026 without running model inference. The homepage activity snapshot is a separate artefact and was not refreshed.
+The AI knowledge-base page is a retrospective review of retained capstone artefacts. Its Run 08 and Run 09 scores were recalculated on 2 October 2026 without running model inference. The homepage activity snapshot is a separate artefact. Its latest refresh covers 5 September–11 October 2026, with 461 recorded turns across 26 active days; the final day is partial. It uses the same selected software-workspace scope and counting rules as the earlier snapshot.
 
 The capstone publication includes only the authored case page, original diagrams and synthetic example, the score-only export, generated figures, calculation script and evidence notes. Do not copy raw issue/PR data, generated articles, judge explanations, model caches, credentials, reports, slides, submission archives, academic identity fields or private filesystem paths into this site.
 
