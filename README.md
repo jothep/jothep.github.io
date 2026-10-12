@@ -10,7 +10,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
-- `/projects/fintech-platform/`: SadaPay infrastructure responsibilities and a retrospective on gateway routing and a login redirect investigation.
+- `/projects/fintech-platform/`: SadaPay GitOps delivery and AWS/EKS responsibilities, Istio/Gloo context, and a gateway investigation explained to the client technical team.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
@@ -187,6 +187,15 @@ plus a limited set of retained non-production routing values, a Helm invocation 
 login troubleshooting sketch. The original materials remain outside this repository. Do not
 copy source YAML, shell scripts, screenshots, private notes, hostnames, upstream identifiers,
 endpoint maps, tokens or credential-shaped values into the website or its Git history.
+
+On 12 October, the author further confirmed that the platform used Istio and that he analysed
+existing Gloo configuration and drew the request-flow sketch to explain the issue to the client's
+other DevOps engineers and lead. Use this confirmed personal contribution in the case; the earlier
+lack of attribution in retained files no longer applies to that analysis and sketch. Gloo selection
+or introduction remains unconfirmed. Do not infer detailed Istio configuration ownership, an
+Istio/Gloo integration topology, or a permanent login fix. Keep product-level explanations of
+Argo CD separate from the author's confirmed use of the existing setup; no specific sync policy,
+repository layout or rollout strategy has been supplied.
 
 The January personal-development note is not evidence of delivered work or a technical-lead role.
 The gateway materials do not establish configuration authorship, a complete deployment, or a
