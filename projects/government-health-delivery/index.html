@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Government health platform delivery · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="An anonymised enterprise case: Azure and AKS migration, Bamboo to GitLab CI/CD, Ansible, Vault, private endpoints and delivery across client-controlled access boundaries."
+    />
+    <meta name="theme-color" content="#17685f" />
+    <link rel="canonical" href="https://jothep.github.io/projects/government-health-delivery/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012a" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="enterprise-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <!-- A historical delivery account, with client and operational identifiers omitted. -->
+      <div class="case-hero wrap">
+        <a class="breadcrumb" href="../../#enterprise-experience">
+          <span aria-hidden="true">←</span> Enterprise experience
+        </a>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Singapore government health platform</p>
+            <h1>Rebuilding delivery under access constraints.</h1>
+            <p class="case-subtitle">Azure environment migration and Bamboo → GitLab CI/CD.</p>
+          </div>
+          <div class="enterprise-outcome">
+            <p class="eyebrow">Delivery outcome</p>
+            <p>Required access secured. Configuration validated. Migration completed.</p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item">
+            <span>My responsibility</span><strong>Main engineer for the later migration</strong>
+          </div>
+          <div class="meta-item">
+            <span>Working with others</span
+            ><strong>Hands-on delivery and colleague guidance</strong>
+          </div>
+          <div class="meta-item"><span>Account reviewed</span><strong>12 October 2026</strong></div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Enterprise case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="enterprise-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">My remit</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="enterprise-section-links">
+            <a href="#remit" aria-current="true"><span>01</span> My remit</a>
+            <a href="#rebuild"><span>02</span> Delivery rebuild</a>
+            <a href="#dependencies"><span>03</span> Access &amp; dependencies</a>
+            <a href="#terraform"><span>04</span> Terraform knowledge sharing</a>
+            <a href="#outcome"><span>05</span> Outcome &amp; basis</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="remit">
+            <p class="section-kicker">01 / My remit</p>
+            <h2>Own the migration, work across the boundaries.</h2>
+            <p class="lead">
+              During my time at Thoughtworks, I supported a government health platform in Singapore.
+              I was the main engineer responsible for a later phase of Azure environment migration
+              and CI/CD rebuilding, alongside day-to-day support for the platform and its
+              development teams.
+            </p>
+            <div class="context-grid">
+              <div>
+                <h3>Environment and workflow</h3>
+                <p>
+                  The work covered system integration testing (SIT), user acceptance testing (UAT)
+                  and production environments, moving to isolated Azure Kubernetes Service clusters
+                  and rebuilding the inherited Bamboo delivery workflows in GitLab CI/CD.
+                </p>
+              </div>
+              <div>
+                <h3>Engineering responsibility</h3>
+                <p>
+                  I did the main implementation work and guided another DevOps engineer through some
+                  repetitive scripts and steps. Restricted operations were executed by the client’s
+                  support teams through service requests.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="case-section" id="rebuild">
+            <p class="section-kicker">02 / Delivery rebuild</p>
+            <h2>Reconstruct the workflow around its dependencies.</h2>
+            <p class="body-copy">
+              I traced the inherited workflows step by step to establish how the scripts, settings
+              and functions fitted together. That investigation guided the parts I rewrote and the
+              configuration I re-established before testing the rebuilt setup.
+            </p>
+            <div class="enterprise-workstreams">
+              <article>
+                <p class="eyebrow">a. Pipeline structure</p>
+                <h3>Reusable GitLab steps</h3>
+                <p>
+                  I rebuilt the Bamboo workflows as GitLab CI/CD, creating reusable pipeline steps
+                  and adapting the scripts and settings needed for the migration.
+                </p>
+              </article>
+              <article>
+                <p class="eyebrow">b. Environment automation</p>
+                <h3>Ansible adaptation</h3>
+                <p>
+                  I rewrote Ansible automation for the migrated environment. Runner setup,
+                  operating-system compatibility and package dependencies all had to fit the new
+                  execution environment.
+                </p>
+              </article>
+              <article>
+                <p class="eyebrow">c. Credentials and connectivity</p>
+                <h3>Vault and private endpoints</h3>
+                <p>
+                  I implemented Vault integration for startup credential injection and developed its
+                  backup approach. I also introduced private endpoints for internal services.
+                </p>
+              </article>
+              <article>
+                <p class="eyebrow">d. Shared delivery</p>
+                <h3>Guidance and validation</h3>
+                <p>
+                  Another engineer completed some repetitive scripts and steps under my guidance. I
+                  tested the rebuilt setup while coordinating the access and supporting changes
+                  needed from other teams.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="case-section" id="dependencies">
+            <p class="section-kicker">03 / Access &amp; dependencies</p>
+            <h2>A pipeline change could depend on several teams.</h2>
+            <p class="body-copy">
+              In restricted environments, even queries could require a service request executed by
+              the client’s support team. Requests often took several days. I had to work through
+              those handoffs to obtain information, progress the migration and validate the changes.
+            </p>
+            <!-- Original responsibility diagram: conceptual dependencies, not an operational topology. -->
+            <figure class="enterprise-dependencies" aria-labelledby="dependency-title">
+              <h3 id="dependency-title">Responsibility and dependency boundaries</h3>
+              <div class="enterprise-dependency-grid">
+                <div class="enterprise-owner">
+                  <p class="eyebrow">My delivery work</p>
+                  <h4>Implement, guide and test</h4>
+                  <p>GitLab steps · Ansible adaptation · Vault integration · private endpoints</p>
+                </div>
+                <div>
+                  <p class="eyebrow">Client execution boundary</p>
+                  <h4>Request, execute and return results</h4>
+                  <p>
+                    Client support teams carried out restricted operations through approved service
+                    requests.
+                  </p>
+                </div>
+                <div>
+                  <p class="eyebrow">Technical dependencies</p>
+                  <h4>Make the delivery path usable</h4>
+                  <p>
+                    CI service · runners · packages · registry access · network access · Azure/AKS
+                    permissions
+                  </p>
+                </div>
+                <div>
+                  <p class="eyebrow">External scanning dependency</p>
+                  <h4>Coordinate through the client</h4>
+                  <p>
+                    Client, support teams and provider: subscription, access and configuration for
+                    mandatory scanning.
+                  </p>
+                </div>
+              </div>
+              <figcaption>
+                Reconstructed for this case study to show responsibilities and dependencies. It does
+                not reproduce the client’s network topology or deployment configuration.
+              </figcaption>
+            </figure>
+            <div class="enterprise-blocker">
+              <p class="eyebrow">A material migration blocker</p>
+              <h3>Fortify on Demand access and setup</h3>
+              <p>
+                Static and dynamic application security testing (SAST and DAST) were mandatory for
+                this project. The subscription and access needed for Fortify on Demand became a
+                major migration blocker.
+              </p>
+              <p>
+                I repeatedly coordinated with the client, who contacted the relevant support teams
+                and external provider. The required permissions were secured, the configuration was
+                completed correctly and validation passed. The migration then finished successfully.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="terraform">
+            <p class="section-kicker">04 / Terraform knowledge sharing</p>
+            <h2>Import success was only part of the check.</h2>
+            <p class="body-copy">
+              I wrote Terraform plan and Azure resource-import materials and used them in sessions
+              with client staff and project teammates. The examples made the relationship between
+              configuration, recorded state and actual cloud resources concrete.
+            </p>
+            <ol class="enterprise-lessons" type="a">
+              <li>
+                <h3>An external change and an old configuration</h3>
+                <p>
+                  The guide documented sandbox experiments around AKS upgrades performed outside
+                  Terraform. One captured plan proposed returning the cluster to the older version
+                  still declared in its configuration.
+                </p>
+              </li>
+              <li>
+                <h3>Import followed by configuration review</h3>
+                <p>
+                  Other screenshots recorded updated configuration, a successful sandbox import and
+                  a final no-change plan. These were experiments that included environment rebuilds,
+                  rather than one continuous production recovery.
+                </p>
+              </li>
+              <li>
+                <h3>Understand what a no-change plan covers</h3>
+                <p>
+                  Some attributes were deliberately ignored. The final plan therefore did not verify
+                  every attribute. The teaching point was to review the resulting plan and
+                  configuration, rather than treating a successful import as the end of the work.
+                </p>
+              </li>
+            </ol>
+          </section>
+
+          <section class="case-section" id="outcome">
+            <p class="section-kicker">05 / Outcome &amp; basis</p>
+            <h2>The migration was completed.</h2>
+            <p class="lead">
+              The environment and delivery rebuild progressed through the required access,
+              configuration and validation work. I combined hands-on implementation with colleague
+              guidance and coordination across client-controlled execution boundaries.
+            </p>
+            <div class="context-strip">
+              This case brings together the implementation work and the coordination needed to
+              complete the migration. The successful outcome comes from my confirmed project
+              account; the retained checklist records an earlier, intermediate stage.
+            </div>
+            <div class="enterprise-basis">
+              <h3>How this account was prepared</h3>
+              <p>
+                This retrospective uses retained working notes, my authored Terraform teaching
+                materials and my confirmed recollection. It describes the later migration phase; an
+                earlier AKS upgrade investigation was collaborative and is not claimed here as my
+                independent resolution.
+              </p>
+              <p>
+                Client and project names, internal identifiers and original working files are
+                omitted. Formal project records remain in the client’s controlled environment. The
+                sandbox examples are distinct from the migration outcome; no deployment-speed,
+                uptime or vulnerability-reduction figures are claimed.
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

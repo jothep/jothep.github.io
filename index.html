@@ -14,7 +14,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="assets/site.css?v=20261011d" />
+    <link rel="stylesheet" href="assets/site.css?v=20261012a" />
     <script src="assets/site.js?v=20261011d" defer></script>
   </head>
   <body>
@@ -197,6 +197,47 @@
               <br />
               Saved scores, checked interpretations.
             </p>
+          </div>
+        </article>
+      </section>
+      <!-- Enterprise retrospectives are separate from the recent, publicly inspectable projects. -->
+      <section
+        class="enterprise-section wrap"
+        id="enterprise-experience"
+        aria-labelledby="enterprise-title"
+      >
+        <div class="section-label">
+          <h2 id="enterprise-title">Enterprise experience</h2>
+          <span>Delivery retrospective</span>
+        </div>
+        <article class="enterprise-feature">
+          <div>
+            <p class="eyebrow">Singapore government health platform</p>
+            <h3>
+              <a href="projects/government-health-delivery/"
+                >Rebuilding delivery under access constraints.</a
+              >
+            </h3>
+            <p class="enterprise-summary">
+              I was the main engineer for a later Azure environment migration and Bamboo-to-GitLab
+              rebuild: implementing automation, guiding a colleague and coordinating the
+              dependencies needed to complete delivery.
+            </p>
+            <div class="tags" aria-label="Enterprise project technologies">
+              <span>Azure / AKS</span><span>GitLab CI/CD</span><span>Ansible</span><span>Vault</span
+              ><span>Terraform</span>
+            </div>
+            <a class="text-link" href="projects/government-health-delivery/">
+              Read the delivery case <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div class="enterprise-outcome">
+            <p class="eyebrow">Delivered</p>
+            <p>Configuration validated.<br />Migration completed.</p>
+            <span
+              >An anonymised account of implementation, team guidance and cross-team
+              coordination.</span
+            >
           </div>
         </article>
       </section>
@@ -866,8 +907,8 @@
             </h3>
             <p class="writing-summary">
               How a Trivy scan stopped a Story Filler release, and how dependency updates, a smaller
-              runtime image and API smoke checks helped verify the fix without weakening the security
-              gate.
+              runtime image and API smoke checks helped verify the fix without weakening the
+              security gate.
             </p>
             <div class="writing-links">
               <a
@@ -1015,8 +1056,8 @@
           <p>
             At
             <strong>Thoughtworks (2018–2024)</strong>, I worked as a Senior Consultant on
-            infrastructure and DevOps projects for clients including Singapore’s Health Promotion
-            Board, Daimler AG, China Merchants Bank and SadaPay. Earlier, at
+            infrastructure and DevOps projects, including a Singapore government health platform and
+            engagements for Daimler AG, China Merchants Bank and SadaPay. Earlier, at
             <strong>Accenture (2016–2017)</strong>, I was seconded to Huawei as an Infrastructure
             Consultant. I contributed Kubernetes expertise to the design of the HiCloud container
             platform and helped the development team implement it.
