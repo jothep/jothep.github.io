@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Health Promotion Board delivery case · Xiang Zhu</title>
+    <title>Health Promotion Board DevOps case · Xiang Zhu</title>
     <meta
       name="description"
-      content="A delivery case for Health Promotion Board, Singapore: Azure and AKS migration, Bamboo to GitLab CI/CD, Ansible, Vault, private endpoints and delivery across client-controlled access boundaries."
+      content="DevOps work for Health Promotion Board, Singapore: day-to-day Azure and AKS support, developer assistance, pipeline troubleshooting, environment migration and Bamboo-to-GitLab rebuilding."
     />
     <meta name="theme-color" content="#17685f" />
     <link rel="canonical" href="https://jothep.github.io/projects/government-health-delivery/" />
@@ -41,21 +41,21 @@
         <div class="case-heading">
           <div>
             <p class="eyebrow">Health Promotion Board, Singapore</p>
-            <h1>Rebuilding cloud delivery.</h1>
-            <p class="case-subtitle">Azure/AKS environment migration and Bamboo → GitLab CI/CD.</p>
+            <h1>Supporting teams. Improving delivery.</h1>
+            <p class="case-subtitle">
+              Day-to-day Azure/AKS support, pipeline troubleshooting and migration delivery.
+            </p>
           </div>
           <div class="enterprise-outcome">
-            <p class="eyebrow">Delivery outcome</p>
+            <p class="eyebrow">Migration outcome</p>
             <p>Required access secured. Configuration validated. Migration completed.</p>
           </div>
         </div>
         <div class="case-meta">
+          <div class="meta-item"><span>My role</span><strong>DevOps Engineer</strong></div>
           <div class="meta-item">
-            <span>My responsibility</span><strong>Primary implementation engineer</strong>
-          </div>
-          <div class="meta-item">
-            <span>Working with others</span
-            ><strong>Hands-on delivery and colleague guidance</strong>
+            <span>Migration responsibility</span
+            ><strong>Main engineer for the environment and CI/CD rebuild</strong>
           </div>
           <div class="meta-item">
             <span>Project participation</span><strong>October 2022 – June 2024</strong>
@@ -71,42 +71,43 @@
             aria-expanded="false"
             aria-controls="enterprise-section-links"
           >
-            <span>On this page</span><span class="case-nav-current">My remit</span>
+            <span>On this page</span><span class="case-nav-current">Role &amp; daily work</span>
             <span class="case-nav-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="case-nav-links" id="enterprise-section-links">
-            <a href="#remit" aria-current="true"><span>01</span> My remit</a>
+            <a href="#remit" aria-current="true"><span>01</span> Role &amp; daily work</a>
             <a href="#rebuild"><span>02</span> Delivery rebuild</a>
             <a href="#dependencies"><span>03</span> Access &amp; dependencies</a>
-            <a href="#terraform"><span>04</span> Terraform knowledge sharing</a>
-            <a href="#outcome"><span>05</span> Outcome</a>
+            <a href="#outcome"><span>04</span> Delivery outcome</a>
           </div>
         </aside>
         <div class="case-content">
           <section class="case-section" id="remit">
-            <p class="section-kicker">01 / My remit</p>
-            <h2>Own the migration, work across the boundaries.</h2>
+            <p class="section-kicker">01 / Role &amp; daily work</p>
+            <h2>Supporting the platform and its development teams.</h2>
             <p class="lead">
-              During my time at Thoughtworks, I worked on a health services platform for Singapore’s
-              Health Promotion Board (HPB). This case focuses on the Azure environment migration and
-              CI/CD rebuild for which I was the main implementation engineer. My wider project role
-              also included day-to-day support for the platform and its development teams.
+              As a Thoughtworks DevOps Engineer on Singapore’s Health Promotion Board (HPB)
+              engagement, my role combined day-to-day Azure and AKS support with larger environment
+              and delivery changes. I worked directly with development teams and was the main
+              hands-on engineer for the environment migration and Bamboo-to-GitLab rebuild.
             </p>
             <div class="context-grid">
               <div>
-                <h3>Environment and workflow</h3>
+                <h3>Day-to-day platform and delivery support</h3>
                 <p>
-                  The work covered system integration testing (SIT), user acceptance testing (UAT)
-                  and production environments, moving to isolated Azure Kubernetes Service clusters
-                  and rebuilding the inherited Bamboo delivery workflows in GitLab CI/CD.
+                  I handled routine operational work for the Azure and AKS environments, helped
+                  developers investigate environment and delivery issues, and worked through
+                  pipeline problems to get build and deployment workflows running. This included
+                  reviewing scripts and configuration and checking changes with the teams.
                 </p>
               </div>
               <div>
-                <h3>Engineering responsibility</h3>
+                <h3>A major delivery within that role</h3>
                 <p>
-                  I did the main implementation work and guided another DevOps engineer through some
-                  repetitive scripts and steps. Restricted operations were executed by the client’s
-                  support teams through service requests.
+                  The migration covered system integration testing (SIT), user acceptance testing
+                  (UAT) and production environments, moving to isolated AKS clusters and rebuilding
+                  Bamboo workflows in GitLab CI/CD. I did the main implementation work and guided
+                  another DevOps engineer through some repetitive scripts and steps.
                 </p>
               </div>
             </div>
@@ -236,50 +237,24 @@
             </div>
           </section>
 
-          <section class="case-section" id="terraform">
-            <p class="section-kicker">04 / Terraform knowledge sharing</p>
-            <h2>Import success was only part of the check.</h2>
-            <p class="body-copy">
-              I wrote Terraform plan and Azure resource-import materials and used them in sessions
-              with client staff and project teammates. The examples made the relationship between
-              configuration, recorded state and actual cloud resources concrete.
-            </p>
-            <ol class="enterprise-lessons" type="a">
-              <li>
-                <h3>An external change and an old configuration</h3>
-                <p>
-                  The guide documented sandbox experiments around AKS upgrades performed outside
-                  Terraform. One captured plan proposed returning the cluster to the older version
-                  still declared in its configuration.
-                </p>
-              </li>
-              <li>
-                <h3>Import followed by configuration review</h3>
-                <p>
-                  Other screenshots recorded updated configuration, a successful sandbox import and
-                  a final no-change plan. These were experiments that included environment rebuilds,
-                  rather than one continuous production recovery.
-                </p>
-              </li>
-              <li>
-                <h3>Understand what a no-change plan covers</h3>
-                <p>
-                  Some attributes were deliberately ignored. The final plan therefore did not verify
-                  every attribute. The teaching point was to review the resulting plan and
-                  configuration, rather than treating a successful import as the end of the work.
-                </p>
-              </li>
-            </ol>
-          </section>
-
           <section class="case-section" id="outcome">
-            <p class="section-kicker">05 / Outcome</p>
+            <p class="section-kicker">04 / Delivery outcome</p>
             <h2>The migration was completed.</h2>
             <p class="lead">
               The environment and delivery rebuild progressed through the required access,
               configuration and validation work. I combined hands-on implementation with colleague
               guidance and coordination across client-controlled execution boundaries.
             </p>
+            <!-- Keep the existing fragment for readers who bookmarked the earlier section. -->
+            <div class="enterprise-basis" id="terraform">
+              <h3>Sharing practical Terraform guidance</h3>
+              <p>
+                I also prepared Terraform plan and Azure resource-import materials and shared them
+                with client staff and teammates. Using sandbox examples, I explained how
+                configuration, Terraform state and actual Azure resources can differ, and why a
+                successful import still needs careful plan review.
+              </p>
+            </div>
             <div class="enterprise-basis">
               <h3>About this retrospective</h3>
               <p>

@@ -9,7 +9,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
-- `/projects/government-health-delivery/`: a Health Promotion Board, Singapore delivery retrospective covering migration ownership, automation, client execution boundaries and Terraform knowledge sharing.
+- `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
 
@@ -83,6 +83,11 @@ confirmed by the author; an earlier checklist is an intermediate record, not the
 reusable functionality and custom scripts. Do not infer a language replacement, specific GitLab
 reuse features, behavioural-equivalence tests or measured efficiency gains from that account.
 The participation period covers the overall engagement, not precise migration dates.
+
+Present the migration and CI/CD rebuild as major deliveries within a broader DevOps role.
+Day-to-day Azure/AKS support, helping development teams and troubleshooting pipelines belong in
+the main role description. Terraform sessions are a brief knowledge-sharing example, not a main
+project workstream. Do not add on-call responsibility, SLO ownership or operational metrics.
 
 On 12 October 2026, the author explicitly approved naming the client as Health Promotion Board,
 Singapore on the public portfolio. Keep internal project names, addresses, resource identifiers,
