@@ -77,7 +77,7 @@
           <div class="case-nav-links" id="enterprise-section-links">
             <a href="#remit" aria-current="true"><span>01</span> Role &amp; daily work</a>
             <a href="#rebuild"><span>02</span> Delivery rebuild</a>
-            <a href="#dependencies"><span>03</span> Access &amp; dependencies</a>
+            <a href="#dependencies"><span>03</span> Cross-team coordination</a>
             <a href="#outcome"><span>04</span> Delivery outcome</a>
           </div>
         </aside>
@@ -167,20 +167,25 @@
           </section>
 
           <section class="case-section" id="dependencies">
-            <p class="section-kicker">03 / Access &amp; dependencies</p>
-            <h2>A pipeline change could depend on several teams.</h2>
+            <p class="section-kicker">03 / Cross-team coordination</p>
+            <h2>Working across team boundaries.</h2>
             <p class="body-copy">
-              In restricted environments, even queries could require a service request executed by
-              the client’s support team. Requests often took several days. I had to work through
-              those handoffs to obtain information, progress the migration and validate the changes.
+              The team’s CI/CD pipelines ran independently of the external service-request process.
+              For deployments, we coordinated release timing with the Product Owner (PO).
+            </p>
+            <p class="body-copy">
+              Some migration tasks and operations or queries in restricted environments required
+              coordination outside the team. The client’s support teams handled the relevant service
+              requests, which often took several days. I followed up on these requests and used the
+              returned information to progress the environment and migration work.
             </p>
             <!-- Conceptual collaboration paths; no client topology or operational identifiers. -->
             <figure class="enterprise-dependencies" aria-labelledby="dependency-title">
-              <h3 id="dependency-title">How implementation depended on other teams</h3>
+              <h3 id="dependency-title">Where cross-team coordination was needed</h3>
               <div class="enterprise-delivery-owner">
-                <p class="eyebrow">My implementation and validation work</p>
-                <h4>Build the workflow, guide a colleague and check the setup</h4>
-                <p>GitLab steps · Ansible adaptation · Vault integration · private endpoints</p>
+                <p class="eyebrow">My cross-team coordination</p>
+                <h4>Coordinate external actions and follow up on results</h4>
+                <p>Migration setup · Restricted-environment operations and queries</p>
               </div>
               <div class="enterprise-dependency-routes">
                 <div class="enterprise-dependency-route">
@@ -192,8 +197,8 @@
                     <p class="eyebrow">Client support teams</p>
                     <h4>Execute restricted operations and queries</h4>
                     <p>
-                      Approved service requests provided the execution path. Returned results
-                      informed my next implementation and validation steps.
+                      For these tasks outside the team’s access, client support teams executed
+                      approved requests and returned results for the environment work.
                     </p>
                   </div>
                 </div>
@@ -204,30 +209,27 @@
                   </p>
                   <div class="enterprise-dependency-target">
                     <p class="eyebrow">Client, support teams and provider</p>
-                    <h4>Resolve the scanning-service dependency</h4>
+                    <h4>Enable scanning-service access for the migration</h4>
                     <p>
-                      I coordinated with the client, who contacted the relevant teams and provider
-                      for the subscription and access needed to configure mandatory scanning.
+                      During the migration, I coordinated with the client, who contacted the
+                      relevant teams and provider for the subscription and access needed to set up
+                      mandatory scanning.
                     </p>
                   </div>
                 </div>
               </div>
-              <p class="enterprise-dependency-context">
-                The delivery path also depended on runners, packages, registry and network access,
-                and Azure/AKS permissions.
-              </p>
               <figcaption>
-                Abstract collaboration paths reconstructed for this case study; no client network
-                topology or deployment configuration is reproduced.
+                Abstract coordination paths for migration setup and restricted operations; no client
+                network topology or deployment configuration is reproduced.
               </figcaption>
             </figure>
             <div class="enterprise-blocker">
-              <p class="eyebrow">A material migration blocker</p>
+              <p class="eyebrow">A migration setup blocker</p>
               <h3>Fortify on Demand access and setup</h3>
               <p>
                 Static and dynamic application security testing (SAST and DAST) were mandatory for
-                this project. The subscription and access needed for Fortify on Demand became a
-                major migration blocker.
+                this project. During the migration, obtaining the subscription and access needed to
+                set up Fortify on Demand became a major blocker.
               </p>
               <p>
                 I repeatedly coordinated with the client, who contacted the relevant support teams

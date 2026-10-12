@@ -3313,15 +3313,9 @@ summary:focus-visible {
 }
 .enterprise-delivery-owner > p:last-child,
 .enterprise-dependency-target > p:last-child,
-.enterprise-dependency-context,
 .enterprise-dependencies figcaption {
   color: var(--muted);
   font-size: 14px;
-}
-.enterprise-dependency-context {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
 }
 .enterprise-dependencies figcaption {
   margin-top: 20px;
