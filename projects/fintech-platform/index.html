@@ -6,7 +6,7 @@
     <title>SadaPay infrastructure case · Xiang Zhu</title>
     <meta
       name="description"
-      content="GitOps delivery with Argo CD, AWS/EKS infrastructure support, and analysis of Gloo gateway configuration on the SadaPay engagement, including a request-flow explanation for the client team."
+      content="GitOps delivery with Argo CD, AWS/EKS infrastructure support and Terraform provisioning on the SadaPay engagement, with Istio and Gloo configuration context."
     />
     <meta name="theme-color" content="#17685f" />
     <link rel="canonical" href="https://jothep.github.io/projects/fintech-platform/" />
@@ -16,7 +16,7 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
-    <link rel="stylesheet" href="case.css?v=20261012c" />
+    <link rel="stylesheet" href="case.css?v=20261012d" />
     <script src="../../assets/site.js?v=20261011d" defer></script>
   </head>
   <body class="fintech-case">
@@ -46,7 +46,8 @@
           <div class="case-focus">
             <p class="eyebrow">Case focus</p>
             <p>
-              Working with Argo CD. Analysing gateway behaviour. Explaining it to the client team.
+              AWS/EKS operations, Terraform provisioning and an established GitOps delivery
+              environment.
             </p>
           </div>
         </div>
@@ -78,11 +79,10 @@
           <div class="case-nav-links" id="fintech-section-links">
             <a href="#context" aria-current="true"><span>01</span> GitOps &amp; platform support</a>
             <a href="#routing"><span>02</span> Gloo &amp; Istio</a>
-            <a href="#redirect"><span>03</span> Investigation &amp; communication</a>
           </div>
         </aside>
         <div class="case-content">
-          <!-- Lead with the role and delivery environment, then a concrete technical example. -->
+          <!-- Confirmed platform responsibilities, followed by service-networking context. -->
           <section class="case-section" id="context">
             <p class="section-kicker">01 / GitOps &amp; platform support</p>
             <h2>GitOps delivery on an AWS/EKS platform.</h2>
@@ -107,20 +107,15 @@
                 Argo CD’s core concepts <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <p class="body-copy">
-              The platform also used Istio and Gloo. One concrete example of my work was analysing
-              existing gateway configuration and drawing a request-flow sketch to explain a login
-              redirect issue to the client team’s other DevOps engineers and lead.
-            </p>
           </section>
 
           <section class="case-section" id="routing">
             <p class="section-kicker">02 / Gloo &amp; Istio</p>
             <h2>Understanding the platform’s service networking.</h2>
             <p class="body-copy">
-              Istio was part of the platform’s service-mesh environment. The example here focuses on
-              Gloo gateway configuration: I analysed existing routing values to understand how a
-              request was matched, rewritten and forwarded to the application.
+              Istio was part of the platform’s service-mesh environment. Retained Gloo gateway
+              values provide configuration context: they describe how requests are matched,
+              rewritten and forwarded to downstream services.
             </p>
             <dl class="route-reading">
               <div>
@@ -143,88 +138,6 @@
               timeouts. Reading these settings provides context for tracing a request beyond its
               public URL and examining what the downstream application receives.
             </p>
-          </section>
-
-          <section class="case-section" id="redirect">
-            <p class="section-kicker">03 / Investigation &amp; communication</p>
-            <h2>HTTPS at the browser. HTTP in the redirect.</h2>
-            <p class="lead">
-              I drew a request-flow sketch and used it to explain the login behaviour to the client
-              team’s DevOps colleagues and lead. The discussion connected the browser-facing URL,
-              the proxy path and the callback address sent to the identity provider.
-            </p>
-            <p class="body-copy">
-              The sketch followed a request through a load balancer and gateway to an administration
-              interface. It showed HTTPS at the browser-facing entry and HTTP on the next hop, then
-              examined the separate authorization redirect.
-            </p>
-            <figure class="request-figure" aria-labelledby="request-title">
-              <div class="figure-heading">
-                <h3 id="request-title">Two parts of the login journey</h3>
-                <span>Conceptual view</span>
-              </div>
-              <p class="flow-label">Application request</p>
-              <div class="request-flow">
-                <div class="flow-node">
-                  <span class="node-step">01</span><strong>Browser</strong>
-                </div>
-                <div class="flow-arrow"><span>HTTPS</span><b aria-hidden="true">→</b></div>
-                <div class="flow-node">
-                  <span class="node-step">02</span><strong>Edge /<br />load balancer</strong>
-                </div>
-                <div class="flow-arrow"><span>HTTP</span><b aria-hidden="true">→</b></div>
-                <div class="flow-node">
-                  <span class="node-step">03</span><strong>Gateway</strong>
-                </div>
-                <div class="flow-arrow"><span>Request</span><b aria-hidden="true">→</b></div>
-                <div class="flow-node">
-                  <span class="node-step">04</span><strong>Admin UI</strong>
-                </div>
-              </div>
-              <div class="identity-flow">
-                <p class="flow-label">Authorization redirect</p>
-                <div class="identity-path">
-                  <strong>Same browser</strong
-                  ><span
-                    ><span class="identity-protocol">HTTPS request</span
-                    ><b aria-hidden="true">→</b></span
-                  ><strong>Identity provider</strong>
-                </div>
-                <p class="identity-note">
-                  The request’s <code>redirect_uri</code> contains an HTTP callback address.
-                </p>
-              </div>
-              <figcaption>
-                Redrawn from the sketch I used with the client team. Protocol labels reflect that
-                investigation; internal addresses are omitted and this is not the full topology.
-              </figcaption>
-            </figure>
-            <div class="observation">
-              <p class="eyebrow">The comparison I explained</p>
-              <h3>The callback scheme changed the visible result.</h3>
-              <p>
-                My sketch recorded an HTTP <code>redirect_uri</code> and a 400 response from the
-                identity provider. Manually changing the callback address to HTTPS reached the
-                provider’s login screen.
-              </p>
-            </div>
-            <p class="body-copy">
-              The drawing brought the configuration and the browser’s behaviour into one discussion.
-              It made the distinction visible: entering the application over HTTPS did not mean the
-              callback URL sent to the identity provider also used HTTPS. This gave me a concrete
-              way to explain the issue across the gateway and application boundaries.
-            </p>
-            <!-- Preserve the earlier verification anchor for existing links. -->
-            <div class="case-basis" id="verification">
-              <h3>About this retrospective</h3>
-              <p>
-                This account combines my project responsibilities, retained configuration fragments
-                and the sketch I drew for the client team. The recorded comparison reached the login
-                screen; a permanent fix and a complete authenticated session are not established by
-                this record. Original files and internal identifiers remain private.
-              </p>
-              <p>Updated · <time datetime="2026-10-12">12 October 2026</time></p>
-            </div>
           </section>
         </div>
       </div>
