@@ -9,7 +9,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
-- `/projects/government-health-delivery/`: an anonymised enterprise delivery retrospective covering migration ownership, automation, client execution boundaries and Terraform knowledge sharing.
+- `/projects/government-health-delivery/`: a Health Promotion Board, Singapore delivery retrospective covering migration ownership, automation, client execution boundaries and Terraform knowledge sharing.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
 
@@ -75,8 +75,8 @@ The local preview was approved for publication on 2 October 2026. Keep the under
 
 ## Enterprise case publication boundary
 
-The government-health delivery case was prepared on 12 October 2026 from retained working notes,
-authored teaching materials and the author's confirmed project account. This is a historical
+The Health Promotion Board, Singapore delivery case was prepared on 12 October 2026 from retained
+working notes, authored teaching materials and the author's confirmed project account. This is a historical
 retrospective, not a current customer-environment audit. The successful migration outcome is
 confirmed by the author; an earlier checklist is an intermediate record, not the final status. The
 12 October follow-up explains that most inherited scripts were rewritten around general-purpose,
@@ -84,9 +84,10 @@ reusable functionality and custom scripts. Do not infer a language replacement, 
 reuse features, behavioural-equivalence tests or measured efficiency gains from that account.
 The participation period covers the overall engagement, not precise migration dates.
 
-Keep customer and internal project names, addresses, resource identifiers, original topology,
-source files and private evidence packages out of this repository. The page's responsibility
-figure is newly drawn and conceptual. Public platform background must not become proof of
+On 12 October 2026, the author explicitly approved naming the client as Health Promotion Board,
+Singapore on the public portfolio. Keep internal project names, addresses, resource identifiers,
+original topology, source files and private evidence packages out of this repository. The page's
+responsibility figure is newly drawn and conceptual. Public platform background must not become proof of
 personal delivery. Preserve the distinction between the main role in the later migration and
 collaborative participation in an earlier incident. Terraform import results describe sandbox
 experiments with selected ignored attributes, not production recovery or complete drift coverage.
