@@ -10,7 +10,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
-- `/projects/fintech-platform/`: SadaPay GitOps delivery and AWS/EKS responsibilities, Istio/Gloo context, and a gateway investigation explained to the client technical team.
+- `/projects/fintech-platform/`: SadaPay GitOps delivery, AWS/EKS responsibilities and Terraform provisioning, with Istio and Gloo configuration context.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
@@ -178,34 +178,27 @@ Write every question and follow-up as a reviewer addressing the author with "you
 
 ## SadaPay case publication boundary
 
-Prepared and reviewed locally on 12 October 2026. The author approved publication on the same
-date, together with the experience directory and revised case headings. This approval covers
-the reviewed retrospective; it does not turn unverified technical outcomes into confirmed results.
+The author approved publication on 12 October 2026. The current scope focuses on confirmed
+AWS/EKS infrastructure support, Terraform provisioning and use of the existing Argo CD/GitHub
+Actions GitOps setup. Istio is confirmed platform context; retained non-production Gloo values
+support a neutral description of routing configuration.
 
-The case uses the confirmed AWS/EKS platform role and existing ArgoCD/GitHub Actions experience,
-plus a limited set of retained non-production routing values, a Helm invocation helper and a
-login troubleshooting sketch. The original materials remain outside this repository. Do not
-copy source YAML, shell scripts, screenshots, private notes, hostnames, upstream identifiers,
-endpoint maps, tokens or credential-shaped values into the website or its Git history.
+The author's later scope correction on the same date supersedes the earlier request-flow
+narrative. Exclude the sketch, login/redirect investigation and associated client-presentation
+claims from the public case, summaries and changelog descriptions. Do not reintroduce these as
+personal delivery or an interview example without renewed confirmation. The retained gateway
+values do not establish Gloo selection, introduction, configuration authorship or a deployment
+result. Do not infer detailed Istio configuration ownership or an Istio/Gloo integration topology.
 
-On 12 October, the author further confirmed that the platform used Istio and that he analysed
-existing Gloo configuration and drew the request-flow sketch to explain the issue to the client's
-other DevOps engineers and lead. Use this confirmed personal contribution in the case; the earlier
-lack of attribution in retained files no longer applies to that analysis and sketch. Gloo selection
-or introduction remains unconfirmed. Do not infer detailed Istio configuration ownership, an
-Istio/Gloo integration topology, or a permanent login fix. Keep product-level explanations of
-Argo CD separate from the author's confirmed use of the existing setup; no specific sync policy,
-repository layout or rollout strategy has been supplied.
+Keep product-level explanations of Argo CD separate from confirmed use of the existing setup.
+No specific sync policy, repository layout or rollout strategy has been supplied. Do not add
+GitOps design ownership, zero-downtime attribution, DR execution or recovery-time claims. The
+January personal-development note is not evidence of delivered work or a technical-lead role.
 
-The January personal-development note is not evidence of delivered work or a technical-lead role.
-The gateway materials do not establish configuration authorship, a complete deployment, or a
-production result. The login sketch records an HTTP/HTTPS redirect mismatch and reaching the
-identity-provider login screen after a manual URL change; it does not verify a completed login,
-final root cause, permanent fix or release. Proposed checks must remain labelled as a retrospective
-validation approach until confirmed. Do not add GitOps design ownership, zero-downtime attribution,
-DR execution or recovery-time claims.
+Original materials remain outside this repository. Do not copy source YAML, shell scripts,
+screenshots, private notes, hostnames, upstream identifiers, endpoint maps, tokens or
+credential-shaped values into the website or its Git history. Retained material supplements
+confirmed responsibilities; it does not define their full scope.
 
-Preserve the confirmed role scope and distinguish it from the technical analysis of retained
-material. Ask about specific attribution or outcomes only when new wording needs clarification.
 Keep About and Contact ordering, existing enterprise work, and dated activity snapshots intact.
-Publication of this retrospective is a portfolio update, not a deployment of the client platform.
+Publication of this case is a portfolio update, not a deployment of the client platform.
