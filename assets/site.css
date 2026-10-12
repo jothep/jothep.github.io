@@ -3240,8 +3240,7 @@ summary:focus-visible {
 .enterprise-case .case-nav a[aria-current='true'] {
   color: #17685f;
 }
-.enterprise-workstreams,
-.enterprise-dependency-grid {
+.enterprise-workstreams {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 26px;
@@ -3271,27 +3270,59 @@ summary:focus-visible {
   font-size: 22px;
   line-height: 1.35;
 }
-.enterprise-dependency-grid {
-  gap: 16px;
+/* The owner spans both collaboration routes; each arrow links back to that work. */
+.enterprise-delivery-owner {
   margin-top: 22px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-top: 3px solid #17685f;
+  background: var(--paper);
 }
-.enterprise-dependency-grid > div {
+.enterprise-dependency-routes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.enterprise-dependency-route {
+  display: flex;
+  flex-direction: column;
+}
+.enterprise-handoff {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-block: 16px;
+  color: #17685f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.enterprise-handoff > span:first-child {
+  font-size: 32px;
+  line-height: 1;
+}
+.enterprise-dependency-target {
+  flex: 1;
   padding: 20px;
   border: 1px solid var(--line);
   background: var(--paper);
 }
-.enterprise-dependency-grid .enterprise-owner {
-  border-top: 3px solid #17685f;
-}
-.enterprise-dependency-grid h4 {
+.enterprise-dependencies h4 {
   margin-block: 10px;
   font-size: 19px;
   line-height: 1.4;
 }
-.enterprise-dependency-grid p:last-child,
+.enterprise-delivery-owner > p:last-child,
+.enterprise-dependency-target > p:last-child,
+.enterprise-dependency-context,
 .enterprise-dependencies figcaption {
   color: var(--muted);
   font-size: 14px;
+}
+.enterprise-dependency-context {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
 }
 .enterprise-dependencies figcaption {
   margin-top: 20px;
@@ -3339,7 +3370,7 @@ summary:focus-visible {
     padding: 22px;
   }
   .enterprise-workstreams,
-  .enterprise-dependency-grid {
+  .enterprise-dependency-routes {
     grid-template-columns: minmax(0, 1fr);
   }
   .enterprise-case .case-meta {

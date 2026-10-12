@@ -15,7 +15,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../assets/site.css?v=20261012a" />
+    <link rel="stylesheet" href="../assets/site.css?v=20261012b" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +47,7 @@
           explore the work behind each update.
         </p>
         <nav class="changelog-jumps" aria-label="Update dates">
-          <a href="#enterprise-delivery-case">October 2026</a>
+          <a href="#enterprise-delivery-refinement">October 2026</a>
           <a href="#codex-activity">September 2026</a>
         </nav>
         <p class="changelog-history-note">
@@ -58,12 +58,50 @@
       <section class="changelog-list wrap" aria-label="Portfolio updates, newest first">
         <article
           class="changelog-entry"
+          id="enterprise-delivery-refinement"
+          aria-labelledby="enterprise-delivery-refinement-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-12">12 Oct 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Improved</p>
+            <h2 id="enterprise-delivery-refinement-title">
+              <a href="#enterprise-delivery-refinement"
+                >The reasoning behind the delivery rebuild</a
+              >
+            </h2>
+            <p class="changelog-description">
+              Refined the enterprise case to explain why most inherited scripts were rebuilt as more
+              general-purpose, reusable scripts during the move to GitLab CI/CD.
+            </p>
+            <ul>
+              <li>Added the author’s explanation of the script-restructuring decision.</li>
+              <li>
+                Clarified the project participation period and implementation responsibility, and
+                shortened the retrospective notes.
+              </li>
+              <li>
+                Replaced the dependency cards with an abstract view of client execution and
+                scanning-service coordination paths.
+              </li>
+            </ul>
+            <div class="changelog-links">
+              <a href="../projects/government-health-delivery/#rebuild">
+                Read the engineering decision <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="changelog-entry"
           id="enterprise-delivery-case"
           aria-labelledby="enterprise-delivery-case-title"
         >
           <div class="changelog-date">
             <time datetime="2026-10-12">12 Oct 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Added</p>

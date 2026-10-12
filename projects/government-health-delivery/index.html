@@ -15,7 +15,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../../assets/site.css?v=20261012a" />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012b" />
     <script src="../../assets/site.js?v=20261011d" defer></script>
   </head>
   <body class="enterprise-case">
@@ -41,8 +41,8 @@
         <div class="case-heading">
           <div>
             <p class="eyebrow">Singapore government health platform</p>
-            <h1>Rebuilding delivery under access constraints.</h1>
-            <p class="case-subtitle">Azure environment migration and Bamboo → GitLab CI/CD.</p>
+            <h1>Rebuilding cloud delivery.</h1>
+            <p class="case-subtitle">Azure/AKS environment migration and Bamboo → GitLab CI/CD.</p>
           </div>
           <div class="enterprise-outcome">
             <p class="eyebrow">Delivery outcome</p>
@@ -51,13 +51,15 @@
         </div>
         <div class="case-meta">
           <div class="meta-item">
-            <span>My responsibility</span><strong>Main engineer for the later migration</strong>
+            <span>My responsibility</span><strong>Primary implementation engineer</strong>
           </div>
           <div class="meta-item">
             <span>Working with others</span
             ><strong>Hands-on delivery and colleague guidance</strong>
           </div>
-          <div class="meta-item"><span>Account reviewed</span><strong>12 October 2026</strong></div>
+          <div class="meta-item">
+            <span>Project participation</span><strong>October 2022 – June 2024</strong>
+          </div>
         </div>
       </div>
       <div class="case-grid wrap">
@@ -77,7 +79,7 @@
             <a href="#rebuild"><span>02</span> Delivery rebuild</a>
             <a href="#dependencies"><span>03</span> Access &amp; dependencies</a>
             <a href="#terraform"><span>04</span> Terraform knowledge sharing</a>
-            <a href="#outcome"><span>05</span> Outcome &amp; basis</a>
+            <a href="#outcome"><span>05</span> Outcome</a>
           </div>
         </aside>
         <div class="case-content">
@@ -86,9 +88,9 @@
             <h2>Own the migration, work across the boundaries.</h2>
             <p class="lead">
               During my time at Thoughtworks, I supported a government health platform in Singapore.
-              I was the main engineer responsible for a later phase of Azure environment migration
-              and CI/CD rebuilding, alongside day-to-day support for the platform and its
-              development teams.
+              This case focuses on the Azure environment migration and CI/CD rebuild for which I was
+              the main implementation engineer. My wider project role also included day-to-day
+              support for the platform and its development teams.
             </p>
             <div class="context-grid">
               <div>
@@ -112,19 +114,26 @@
 
           <section class="case-section" id="rebuild">
             <p class="section-kicker">02 / Delivery rebuild</p>
-            <h2>Reconstruct the workflow around its dependencies.</h2>
+            <h2>Why did you rewrite most of the scripts?</h2>
             <p class="body-copy">
-              I traced the inherited workflows step by step to establish how the scripts, settings
-              and functions fitted together. That investigation guided the parts I rewrote and the
-              configuration I re-established before testing the rebuilt setup.
+              I rewrote most of the inherited scripts, retaining very little unchanged. Some Bamboo
+              workflows embedded their functionality in bespoke Bash scripts. The move to GitLab
+              CI/CD changed how those functions fitted into the pipeline.
+            </p>
+            <p class="body-copy">
+              I rebuilt them as more general-purpose scripts that could be reused across pipeline
+              steps. This matched the client’s approach of combining shared functionality with
+              custom scripts and made the script structure clearer. I traced the original workflows,
+              scripts and settings, then re-established the configuration and tested the rebuilt
+              setup.
             </p>
             <div class="enterprise-workstreams">
               <article>
                 <p class="eyebrow">a. Pipeline structure</p>
                 <h3>Reusable GitLab steps</h3>
                 <p>
-                  I rebuilt the Bamboo workflows as GitLab CI/CD, creating reusable pipeline steps
-                  and adapting the scripts and settings needed for the migration.
+                  I organised the rebuilt workflow around reusable functionality and the custom
+                  scripts needed for the migrated environment.
                 </p>
               </article>
               <article>
@@ -140,8 +149,8 @@
                 <p class="eyebrow">c. Credentials and connectivity</p>
                 <h3>Vault and private endpoints</h3>
                 <p>
-                  I implemented Vault integration for startup credential injection and developed its
-                  backup approach. I also introduced private endpoints for internal services.
+                  I implemented Vault integration for startup credential injection and introduced
+                  private endpoints for internal services.
                 </p>
               </article>
               <article>
@@ -164,43 +173,51 @@
               the client’s support team. Requests often took several days. I had to work through
               those handoffs to obtain information, progress the migration and validate the changes.
             </p>
-            <!-- Original responsibility diagram: conceptual dependencies, not an operational topology. -->
+            <!-- Conceptual collaboration paths; no client topology or operational identifiers. -->
             <figure class="enterprise-dependencies" aria-labelledby="dependency-title">
-              <h3 id="dependency-title">Responsibility and dependency boundaries</h3>
-              <div class="enterprise-dependency-grid">
-                <div class="enterprise-owner">
-                  <p class="eyebrow">My delivery work</p>
-                  <h4>Implement, guide and test</h4>
-                  <p>GitLab steps · Ansible adaptation · Vault integration · private endpoints</p>
-                </div>
-                <div>
-                  <p class="eyebrow">Client execution boundary</p>
-                  <h4>Request, execute and return results</h4>
-                  <p>
-                    Client support teams carried out restricted operations through approved service
-                    requests.
+              <h3 id="dependency-title">How implementation depended on other teams</h3>
+              <div class="enterprise-delivery-owner">
+                <p class="eyebrow">My implementation and validation work</p>
+                <h4>Build the workflow, guide a colleague and check the setup</h4>
+                <p>GitLab steps · Ansible adaptation · Vault integration · private endpoints</p>
+              </div>
+              <div class="enterprise-dependency-routes">
+                <div class="enterprise-dependency-route">
+                  <p class="enterprise-handoff">
+                    <span aria-hidden="true">↕</span>
+                    <span>Service requests<br />Execution results</span>
                   </p>
+                  <div class="enterprise-dependency-target">
+                    <p class="eyebrow">Client support teams</p>
+                    <h4>Execute restricted operations and queries</h4>
+                    <p>
+                      Approved service requests provided the execution path. Returned results
+                      informed my next implementation and validation steps.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p class="eyebrow">Technical dependencies</p>
-                  <h4>Make the delivery path usable</h4>
-                  <p>
-                    CI service · runners · packages · registry access · network access · Azure/AKS
-                    permissions
+                <div class="enterprise-dependency-route">
+                  <p class="enterprise-handoff">
+                    <span aria-hidden="true">↕</span>
+                    <span>Coordination through the client<br />Access and setup</span>
                   </p>
-                </div>
-                <div>
-                  <p class="eyebrow">External scanning dependency</p>
-                  <h4>Coordinate through the client</h4>
-                  <p>
-                    Client, support teams and provider: subscription, access and configuration for
-                    mandatory scanning.
-                  </p>
+                  <div class="enterprise-dependency-target">
+                    <p class="eyebrow">Client, support teams and provider</p>
+                    <h4>Resolve the scanning-service dependency</h4>
+                    <p>
+                      I coordinated with the client, who contacted the relevant teams and provider
+                      for the subscription and access needed to configure mandatory scanning.
+                    </p>
+                  </div>
                 </div>
               </div>
+              <p class="enterprise-dependency-context">
+                The delivery path also depended on runners, packages, registry and network access,
+                and Azure/AKS permissions.
+              </p>
               <figcaption>
-                Reconstructed for this case study to show responsibilities and dependencies. It does
-                not reproduce the client’s network topology or deployment configuration.
+                Abstract collaboration paths reconstructed for this case study; no client network
+                topology or deployment configuration is reproduced.
               </figcaption>
             </figure>
             <div class="enterprise-blocker">
@@ -256,32 +273,21 @@
           </section>
 
           <section class="case-section" id="outcome">
-            <p class="section-kicker">05 / Outcome &amp; basis</p>
+            <p class="section-kicker">05 / Outcome</p>
             <h2>The migration was completed.</h2>
             <p class="lead">
               The environment and delivery rebuild progressed through the required access,
               configuration and validation work. I combined hands-on implementation with colleague
               guidance and coordination across client-controlled execution boundaries.
             </p>
-            <div class="context-strip">
-              This case brings together the implementation work and the coordination needed to
-              complete the migration. The successful outcome comes from my confirmed project
-              account; the retained checklist records an earlier, intermediate stage.
-            </div>
             <div class="enterprise-basis">
-              <h3>How this account was prepared</h3>
+              <h3>About this retrospective</h3>
               <p>
-                This retrospective uses retained working notes, my authored Terraform teaching
-                materials and my confirmed recollection. It describes the later migration phase; an
-                earlier AKS upgrade investigation was collaborative and is not claimed here as my
-                independent resolution.
+                Prepared from retained working notes, my Terraform teaching materials and my
+                confirmed project recollection. Customer names, internal identifiers and original
+                working files are omitted.
               </p>
-              <p>
-                Client and project names, internal identifiers and original working files are
-                omitted. Formal project records remain in the client’s controlled environment. The
-                sandbox examples are distinct from the migration outcome; no deployment-speed,
-                uptime or vulnerability-reduction figures are claimed.
-              </p>
+              <p>Reviewed and updated on <time datetime="2026-10-12">12 October 2026</time>.</p>
             </div>
           </section>
         </div>

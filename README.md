@@ -78,7 +78,11 @@ The local preview was approved for publication on 2 October 2026. Keep the under
 The government-health delivery case was prepared on 12 October 2026 from retained working notes,
 authored teaching materials and the author's confirmed project account. This is a historical
 retrospective, not a current customer-environment audit. The successful migration outcome is
-confirmed by the author; an earlier checklist is an intermediate record, not the final status.
+confirmed by the author; an earlier checklist is an intermediate record, not the final status. The
+12 October follow-up explains that most inherited scripts were rewritten around general-purpose,
+reusable functionality and custom scripts. Do not infer a language replacement, specific GitLab
+reuse features, behavioural-equivalence tests or measured efficiency gains from that account.
+The participation period covers the overall engagement, not precise migration dates.
 
 Keep customer and internal project names, addresses, resource identifiers, original topology,
 source files and private evidence packages out of this repository. The page's responsibility
