@@ -5,10 +5,12 @@ A small static personal site with engineering case studies covering infrastructu
 ## Pages
 
 - `/`: professional introduction, recent projects, enterprise experience, Codex activity and published writing.
+- `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
+- `/projects/fintech-platform/`: SadaPay infrastructure responsibilities and a retrospective on gateway routing and a login redirect investigation.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
@@ -25,7 +27,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -75,6 +77,15 @@ The local preview was approved for publication on 2 October 2026. Keep the under
 
 ## Enterprise case publication boundary
 
+Use the candidate's canonical profile, relevant CV and direct confirmations to establish the
+basic role, dates and responsibilities. Retained artefacts add technical examples and detail;
+they are not a prerequisite for describing confirmed experience. A lack of old project files
+must not reduce an established role to only the tasks visible in the remaining documents.
+Give later candidate corrections precedence over older summaries, and ask focused questions
+when accounts conflict or a new specific attribution or result is unclear. Do not infer that
+the author designed or completed every item visible in retained material. Keep private career
+records and original evidence outside this public repository.
+
 The Health Promotion Board, Singapore delivery case was prepared on 12 October 2026 from retained
 working notes, authored teaching materials and the author's confirmed project account. This is a historical
 retrospective, not a current customer-environment audit. The successful migration outcome is
@@ -102,10 +113,29 @@ personal delivery. Preserve the distinction between the main role in the later m
 collaborative participation in an earlier incident. Terraform import results describe sandbox
 experiments with selected ignored attributes, not production recovery or complete drift coverage.
 
-Add later enterprise summaries to `#enterprise-experience`; link a dedicated case only when its
-content is ready. Keep its summaries above About and Contact. Do not manufacture performance
-metrics, testimonials or answers to new interview challenges. The Codex activity snapshot is
-not refreshed as part of enterprise-case work.
+Keep `#enterprise-experience` as a homepage selection of two or three representative cases.
+The complete set of documented engagements belongs in `experience/index.html`, ordered by most
+recent participation. Each `article.experience-entry` has a stable ID, client or approved anonymous
+name, role, participation dates, employer relationship, short contribution summary and optional
+case link. A short, confirmed account can remain in the directory until a full case is ready;
+do not invent details or create placeholder pages to fill the structure.
+
+Use recognisable client/industry names and engineering subjects in the directory and homepage.
+On detailed enterprise case pages, use the client or project name as the main heading and a factual
+work-scope subtitle. Identify the employer/client relationship in the small text above the heading.
+Narrative headings can introduce specific investigations or delivery topics within a case.
+Treat an engagement as one entry: routine support, migrations, investigations and knowledge
+sharing are topics within that engagement,
+not separate homepage cards. Distinguish the employer from its client and participation dates
+from the date of any particular delivery. Keep existing case URLs and section anchors stable.
+Each case breadcrumb returns to its own directory entry.
+
+When adding an engagement, copy one readable HTML entry and change its content. The shared CSS
+handles additional entries without JavaScript, filtering or a build step. Only edit the homepage
+selection when changing which cases to feature; it does not need to grow with the directory.
+Keep these entries above About and Contact. Do not manufacture performance metrics, testimonials
+or answers to new interview challenges. The Codex activity snapshot is not refreshed as part of
+enterprise-case work. Preserve draft labels and publication boundaries for unpublished cases.
 
 ## Editing the site directly
 
@@ -116,6 +146,7 @@ For routine edits, use this file map:
 | File or directory | Purpose |
 | --- | --- |
 | `index.html` | Homepage content and the dated activity snapshot |
+| `experience/index.html` | Full directory of documented enterprise engagements |
 | `projects/*/index.html` | Detailed case-study content |
 | `projects/story-filler/decisions.html` | Questions addressed to the author, answers and AI review notes |
 | `changelog/index.html` | Dated website changes |
@@ -143,3 +174,29 @@ Present the author's considered answers after discussion. Integrate small correc
 Keep substantive technical extensions separate when they go beyond the author's answer or understanding, and obtain the author's review before adding them. Consolidation must not turn a design proposal into an implemented feature, a suggested check into a completed test, or a current understanding into a claim of past experience. Use compact implementation notes for those distinctions.
 
 Write every question and follow-up as a reviewer addressing the author with "you" or "your". Keep the author's answers in the first person and label AI review separately. Do not present the exchange as an interview with real experts. Use question titles without job-role labels. Keep planned Go or Operator work out of the current case study until there is work to present. Distinguish the date of a retrospective/source review from the dates of deployment evidence, and do not imply that a historical forecast was recorded at the time unless it was.
+
+
+## SadaPay case publication boundary
+
+Prepared and reviewed locally on 12 October 2026. The author approved publication on the same
+date, together with the experience directory and revised case headings. This approval covers
+the reviewed retrospective; it does not turn unverified technical outcomes into confirmed results.
+
+The case uses the confirmed AWS/EKS platform role and existing ArgoCD/GitHub Actions experience,
+plus a limited set of retained non-production routing values, a Helm invocation helper and a
+login troubleshooting sketch. The original materials remain outside this repository. Do not
+copy source YAML, shell scripts, screenshots, private notes, hostnames, upstream identifiers,
+endpoint maps, tokens or credential-shaped values into the website or its Git history.
+
+The January personal-development note is not evidence of delivered work or a technical-lead role.
+The gateway materials do not establish configuration authorship, a complete deployment, or a
+production result. The login sketch records an HTTP/HTTPS redirect mismatch and reaching the
+identity-provider login screen after a manual URL change; it does not verify a completed login,
+final root cause, permanent fix or release. Proposed checks must remain labelled as a retrospective
+validation approach until confirmed. Do not add GitOps design ownership, zero-downtime attribution,
+DR execution or recovery-time claims.
+
+Preserve the confirmed role scope and distinguish it from the technical analysis of retained
+material. Ask about specific attribution or outcomes only when new wording needs clarification.
+Keep About and Contact ordering, existing enterprise work, and dated activity snapshots intact.
+Publication of this retrospective is a portfolio update, not a deployment of the client platform.
