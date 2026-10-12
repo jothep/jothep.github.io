@@ -89,6 +89,11 @@ Day-to-day Azure/AKS support, helping development teams and troubleshooting pipe
 the main role description. Terraform sessions are a brief knowledge-sharing example, not a main
 project workstream. Do not add on-call responsibility, SLO ownership or operational metrics.
 
+Cross-team service requests concerned restricted external operations and migration setup. They
+did not block the team’s routine CI/CD pipelines. Deployment timing was coordinated with the
+Product Owner. Do not turn the FOD migration-setup blocker or ticketed external operations into
+per-release approval gates or a claim that routine pipeline changes waited on other teams.
+
 On 12 October 2026, the author explicitly approved naming the client as Health Promotion Board,
 Singapore on the public portfolio. Keep internal project names, addresses, resource identifiers,
 original topology, source files and private evidence packages out of this repository. The page's
