@@ -4,11 +4,12 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, selected work, Codex activity and published writing.
+- `/`: professional introduction, recent projects, enterprise experience, Codex activity and published writing.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
+- `/projects/government-health-delivery/`: an anonymised enterprise delivery retrospective covering migration ownership, automation, client execution boundaries and Terraform knowledge sharing.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
 
@@ -24,7 +25,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -72,6 +73,25 @@ Keep interpretation bounded: LLM-judge scores are not objective accuracy percent
 
 The local preview was approved for publication on 2 October 2026. Keep the underlying research and evidence-review dates separate from later website updates. Future changes should preserve the same publication boundary and record material changes in the changelog.
 
+## Enterprise case publication boundary
+
+The government-health delivery case was prepared on 12 October 2026 from retained working notes,
+authored teaching materials and the author's confirmed project account. This is a historical
+retrospective, not a current customer-environment audit. The successful migration outcome is
+confirmed by the author; an earlier checklist is an intermediate record, not the final status.
+
+Keep customer and internal project names, addresses, resource identifiers, original topology,
+source files and private evidence packages out of this repository. The page's responsibility
+figure is newly drawn and conceptual. Public platform background must not become proof of
+personal delivery. Preserve the distinction between the main role in the later migration and
+collaborative participation in an earlier incident. Terraform import results describe sandbox
+experiments with selected ignored attributes, not production recovery or complete drift coverage.
+
+Add later enterprise summaries to `#enterprise-experience`; link a dedicated case only when its
+content is ready. Keep its summaries above About and Contact. Do not manufacture performance
+metrics, testimonials or answers to new interview challenges. The Codex activity snapshot is
+not refreshed as part of enterprise-case work.
+
 ## Editing the site directly
 
 The HTML files are the content source. Edit paragraphs and links in place, using semantic sections and two-space indentation. Shared presentation lives in `assets/site.css`; optional interaction lives in `assets/site.js`. No build step is required. Keep only maintained pages, their required assets, supporting evidence and development configuration in this repository. Do not add old resumes, retired templates or operating-system metadata files.
@@ -99,7 +119,7 @@ Use `htmlWhitespaceSensitivity: "css"` so formatting preserves spaces around inl
 
 The activity generator also emits indented, multi-line HTML and preserves the surrounding page indentation when replacing its marked block. A formatting pass must not refresh the dated activity snapshot or read private activity records.
 
-Keep CSS declarations on separate lines and add brief comments for major page sections. After formatting shared files, check the homepage, both case studies, the engineering-decisions page and the changelog in a browser. Confirm narrow layouts, anchor links and architecture tabs still work.
+Keep CSS declarations on separate lines and add brief comments for major page sections. After formatting shared files, check the homepage, all case studies, the engineering-decisions page and the changelog in a browser. Confirm narrow layouts, anchor links and architecture tabs still work.
 
 ### Editing engineering answers
 
