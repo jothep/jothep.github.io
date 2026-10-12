@@ -30,13 +30,32 @@
 .fintech-case .lead + .body-copy {
   margin-top: 20px;
 }
-.fintech-case .scope-line {
-  max-width: 750px;
-  padding-left: 16px;
-  border-left: 2px solid #c6d8d2;
-  color: var(--muted);
-  font-size: 14px;
-  margin-top: 26px;
+/* A compact explanation of the delivery model, separate from personal responsibilities. */
+.fintech-case .delivery-context {
+  margin-block: 28px;
+  padding: 24px;
+  border-left: 3px solid var(--case-accent);
+  background: var(--case-wash);
+}
+.fintech-case .delivery-context h3 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.fintech-case .delivery-context p {
+  color: #3d5655;
+  font-size: 16px;
+}
+.fintech-case .delivery-context a {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--case-accent);
+  font-size: 13px;
+  text-underline-offset: 4px;
+}
+.fintech-case .body-copy + .body-copy,
+.fintech-case .observation + .body-copy {
+  margin-top: 24px;
 }
 .fintech-case .route-reading {
   margin-block: 28px;
@@ -181,51 +200,6 @@
   color: #3d5655;
   font-size: 16px;
 }
-.fintech-case .evidence-comparison {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
-  margin-block: 28px;
-}
-.fintech-case .evidence-comparison > div {
-  padding-top: 18px;
-  border-top: 2px solid #c6d8d2;
-}
-.fintech-case .evidence-comparison h3 {
-  font-size: 18px;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-.fintech-case .evidence-comparison p {
-  color: var(--muted);
-  font-size: 16px;
-}
-.fintech-case .proposed-checks {
-  margin-top: 28px;
-  padding-block: 18px;
-  border-block: 1px solid var(--line);
-}
-.fintech-case .proposed-checks summary {
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--case-accent);
-  font-weight: 600;
-}
-.fintech-case .proposed-checks > p {
-  margin-top: 18px;
-  font-size: 14px;
-  color: var(--muted);
-}
-.fintech-case .proposed-checks ol {
-  padding-left: 22px;
-  margin-block: 16px 0;
-  color: var(--muted);
-  font-size: 15px;
-}
-.fintech-case .proposed-checks li + li {
-  margin-top: 10px;
-}
 .fintech-case .case-basis {
   margin-top: 32px;
   color: var(--muted);
@@ -282,6 +256,7 @@
     gap: 16px;
   }
   .fintech-case .request-figure,
+  .fintech-case .delivery-context,
   .fintech-case .observation {
     padding: 20px;
   }
@@ -339,13 +314,10 @@
   .fintech-case .identity-path b {
     transform: rotate(90deg);
   }
-  .fintech-case .evidence-comparison {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 22px;
-  }
 }
 @media print {
   .fintech-case .request-figure,
+  .fintech-case .delivery-context,
   .fintech-case .observation {
     break-inside: avoid;
   }

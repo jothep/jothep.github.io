@@ -6,7 +6,7 @@
     <title>SadaPay infrastructure case · Xiang Zhu</title>
     <meta
       name="description"
-      content="AWS/EKS infrastructure support and Terraform provisioning on the SadaPay engagement, with a retrospective on gateway routing and an authentication redirect investigation."
+      content="GitOps delivery with Argo CD, AWS/EKS infrastructure support, and analysis of Gloo gateway configuration on the SadaPay engagement, including a request-flow explanation for the client team."
     />
     <meta name="theme-color" content="#17685f" />
     <link rel="canonical" href="https://jothep.github.io/projects/fintech-platform/" />
@@ -16,7 +16,7 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
-    <link rel="stylesheet" href="case.css?v=20261012b" />
+    <link rel="stylesheet" href="case.css?v=20261012c" />
     <script src="../../assets/site.js?v=20261011d" defer></script>
   </head>
   <body class="fintech-case">
@@ -40,12 +40,14 @@
             <p class="eyebrow">Thoughtworks · Client engagement</p>
             <h1>SadaPay</h1>
             <p class="case-subtitle">
-              AWS/EKS infrastructure support, Terraform provisioning and delivery operations.
+              GitOps delivery, AWS/EKS infrastructure support and service networking.
             </p>
           </div>
           <div class="case-focus">
-            <p class="eyebrow">A closer look</p>
-            <p>From the browser’s public URL to the application’s view of the request.</p>
+            <p class="eyebrow">Case focus</p>
+            <p>
+              Working with Argo CD. Analysing gateway behaviour. Explaining it to the client team.
+            </p>
           </div>
         </div>
         <div class="case-meta">
@@ -69,44 +71,56 @@
             aria-expanded="false"
             aria-controls="fintech-section-links"
           >
-            <span>On this page</span><span class="case-nav-current">Platform context</span
+            <span>On this page</span
+            ><span class="case-nav-current">GitOps &amp; platform support</span
             ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="case-nav-links" id="fintech-section-links">
-            <a href="#context" aria-current="true"><span>01</span> Platform context</a>
-            <a href="#routing"><span>02</span> Reading the routes</a>
-            <a href="#redirect"><span>03</span> Following the redirect</a>
-            <a href="#verification"><span>04</span> What remains to verify</a>
+            <a href="#context" aria-current="true"><span>01</span> GitOps &amp; platform support</a>
+            <a href="#routing"><span>02</span> Gloo &amp; Istio</a>
+            <a href="#redirect"><span>03</span> Investigation &amp; communication</a>
           </div>
         </aside>
         <div class="case-content">
+          <!-- Lead with the role and delivery environment, then a concrete technical example. -->
           <section class="case-section" id="context">
-            <p class="section-kicker">01 / Platform context</p>
-            <h2>Working within an established cloud platform.</h2>
+            <p class="section-kicker">01 / GitOps &amp; platform support</p>
+            <h2>GitOps delivery on an AWS/EKS platform.</h2>
             <p class="lead">
-              As a Thoughtworks consultant on the SadaPay engagement, I supported AWS/EKS
-              infrastructure, used Terraform for resource provisioning and worked within an existing
-              Argo CD and GitHub Actions delivery setup.
+              As a Thoughtworks Cloud Infrastructure Engineer on the SadaPay engagement, I supported
+              AWS/EKS infrastructure, provisioned resources with Terraform and worked with Argo CD
+              and GitHub Actions for GitOps delivery.
             </p>
             <p class="body-copy">
-              The retained materials offer a closer view of the environment: non-production gateway
-              configuration fragments and a sketch of a Kafka UI login investigation. Together, they
-              provide a starting point for explaining request routing and the boundary between a
-              browser-facing URL and the application behind a proxy.
+              The GitOps setup was already established when I joined. My experience came from using
+              it as part of the platform work, alongside infrastructure provisioning and support.
+              This delivery model is a defining part of the engagement.
             </p>
-            <p class="scope-line">
-              The role summary describes my confirmed responsibilities. The technical sections
-              examine retained project material separately from that broader role.
+            <div class="delivery-context">
+              <h3>GitOps with Argo CD</h3>
+              <p>
+                In this model, Argo CD compares an application’s desired state in Git with its live
+                Kubernetes resources. Sync status and application health are separate signals:
+                matching the declared configuration is only one part of understanding a deployment.
+              </p>
+              <a href="https://argo-cd.readthedocs.io/en/stable/core_concepts/">
+                Argo CD’s core concepts <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="body-copy">
+              The platform also used Istio and Gloo. One concrete example of my work was analysing
+              existing gateway configuration and drawing a request-flow sketch to explain a login
+              redirect issue to the client team’s other DevOps engineers and lead.
             </p>
           </section>
 
           <section class="case-section" id="routing">
-            <p class="section-kicker">02 / Reading the routes</p>
-            <h2>A route is more than a destination.</h2>
+            <p class="section-kicker">02 / Gloo &amp; Istio</p>
+            <h2>Understanding the platform’s service networking.</h2>
             <p class="body-copy">
-              The retained configuration contains Helm values for several Gloo gateway route groups.
-              They describe how requests can be matched, rewritten and sent upstream, with
-              route-specific limits and timeouts.
+              Istio was part of the platform’s service-mesh environment. The example here focuses on
+              Gloo gateway configuration: I analysed existing routing values to understand how a
+              request was matched, rewritten and forwarded to the application.
             </p>
             <dl class="route-reading">
               <div>
@@ -125,20 +139,24 @@
               </div>
             </dl>
             <p class="body-copy">
-              A retained deployment helper assembles environment-specific values for a Helm release.
-              The available fragments show how configuration was organised; without the chart
-              templates, complete inputs or execution records, they do not establish the rendered
-              resources or deployment result.
+              The retained Helm values include several route groups with their own limits and
+              timeouts. Reading these settings provides context for tracing a request beyond its
+              public URL and examining what the downstream application receives.
             </p>
           </section>
 
           <section class="case-section" id="redirect">
-            <p class="section-kicker">03 / Following the redirect</p>
+            <p class="section-kicker">03 / Investigation &amp; communication</p>
             <h2>HTTPS at the browser. HTTP in the redirect.</h2>
             <p class="lead">
-              The troubleshooting sketch records a login request passing through a load balancer and
-              gateway before reaching an administration interface. The browser-facing connection
-              uses HTTPS; the next hop is drawn as HTTP.
+              I drew a request-flow sketch and used it to explain the login behaviour to the client
+              team’s DevOps colleagues and lead. The discussion connected the browser-facing URL,
+              the proxy path and the callback address sent to the identity provider.
+            </p>
+            <p class="body-copy">
+              The sketch followed a request through a load balancer and gateway to an administration
+              interface. It showed HTTPS at the browser-facing entry and HTTP on the next hop, then
+              examined the separate authorization redirect.
             </p>
             <figure class="request-figure" aria-labelledby="request-title">
               <div class="figure-heading">
@@ -177,71 +195,35 @@
                 </p>
               </div>
               <figcaption>
-                Abstract historical investigation, redrawn from a retained sketch. Protocol labels
-                reflect that sketch; this is not a complete or verified network topology.
+                Redrawn from the sketch I used with the client team. Protocol labels reflect that
+                investigation; internal addresses are omitted and this is not the full topology.
               </figcaption>
             </figure>
             <div class="observation">
-              <p class="eyebrow">Recorded observation</p>
+              <p class="eyebrow">The comparison I explained</p>
               <h3>The callback scheme changed the visible result.</h3>
               <p>
-                The sketch records an HTTP <code>redirect_uri</code> and a 400 response from the
-                identity provider. Manually changing that callback address to HTTPS reached the
+                My sketch recorded an HTTP <code>redirect_uri</code> and a 400 response from the
+                identity provider. Manually changing the callback address to HTTPS reached the
                 provider’s login screen.
               </p>
-              <p>
-                This comparison makes the callback scheme a useful investigation lead. It does not
-                establish the underlying cause or demonstrate a completed sign-in.
-              </p>
             </div>
-          </section>
-
-          <section class="case-section" id="verification">
-            <p class="section-kicker">04 / What remains to verify</p>
-            <h2>Keep the observation separate from the outcome.</h2>
-            <div class="evidence-comparison">
-              <div>
-                <h3>Observed in the sketch</h3>
-                <p>
-                  An HTTP callback address was associated with a rejected authorization request. An
-                  HTTPS callback reached the login screen.
-                </p>
-              </div>
-              <div>
-                <h3>Still unverified</h3>
-                <p>
-                  Where the callback scheme was selected, the final configuration change, the return
-                  callback and a successfully authenticated session.
-                </p>
-              </div>
-            </div>
-            <details class="proposed-checks">
-              <summary>Suggested validation for a follow-up investigation</summary>
-              <p>These are proposed checks, not a record of completed project work.</p>
-              <ol>
-                <li>
-                  Compare the browser-facing URL with the callback URL generated by the application
-                  and the URI registered with the identity provider.
-                </li>
-                <li>
-                  Inspect how the externally visible scheme reaches the application, including proxy
-                  forwarding metadata, trust settings and application URL configuration.
-                </li>
-                <li>
-                  After a controlled change, verify the complete sign-in journey, including the
-                  callback and authenticated session.
-                </li>
-              </ol>
-            </details>
-            <div class="case-basis">
+            <p class="body-copy">
+              The drawing brought the configuration and the browser’s behaviour into one discussion.
+              It made the distinction visible: entering the application over HTTPS did not mean the
+              callback URL sent to the identity provider also used HTTPS. This gave me a concrete
+              way to explain the issue across the gateway and application boundaries.
+            </p>
+            <!-- Preserve the earlier verification anchor for existing links. -->
+            <div class="case-basis" id="verification">
               <h3>About this retrospective</h3>
               <p>
-                Prepared from confirmed project context, retained configuration fragments and a
-                troubleshooting sketch. This retrospective does not attribute the configuration’s
-                design or implementation, or claim a final fix. Internal identifiers, original files
-                and business requirements are omitted.
+                This account combines my project responsibilities, retained configuration fragments
+                and the sketch I drew for the client team. The recorded comparison reached the login
+                screen; a permanent fix and a complete authenticated session are not established by
+                this record. Original files and internal identifiers remain private.
               </p>
-              <p>Published · <time datetime="2026-10-12">12 October 2026</time></p>
+              <p>Updated · <time datetime="2026-10-12">12 October 2026</time></p>
             </div>
           </section>
         </div>
