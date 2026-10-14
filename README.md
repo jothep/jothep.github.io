@@ -11,6 +11,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
+- `/projects/banking-container-platform/`: China Merchants Bank container-platform consulting and BAOps across four phases, with design decisions, delivery support and monitoring capabilities.
 - `/projects/fintech-platform/`: SadaPay GitOps delivery, AWS/EKS responsibilities and Terraform provisioning, with Istio and Gloo configuration context.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
@@ -28,7 +29,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -257,3 +258,23 @@ Preview both compositions, the mobile contents menu, source links and return nav
 Keep AWS and HashiCorp references close to the technical design. Diagram arrows distinguish
 client traffic, asynchronous replication and independent backup copies; traffic moves only after
 writer isolation, database takeover, capacity preparation and application validation.
+
+## China Merchants Bank case
+
+The author approved publication on 14 October 2026 after reviewing the local case. Project
+participation is 2018–2020; do not invent months or combine it with a later, separate consulting
+engagement. Phase 1 includes initial planning/design and a return near its end. Phases 2 and 3
+were full-phase participation; Phase 3 mainly involved BAOps alongside consulting. Phase 4
+coverage stays brief: early design only, without claims about its subsequent delivery.
+
+The fixed-address solution concerned business application containers. Preserve collaboration
+with the bank architect, Thoughtworks development lead and Red Hat consultant where stated.
+Present supported work and results directly; internal presentations are evidence for the author,
+not public references. Keep scenario-classification counts out of the public narrative. Distinguish
+event completion from automatic repair and project capabilities from sole personal authorship.
+
+Keep source documents, private analysis, internal names, topology, addresses and screenshots
+outside this repository. The case uses authored prose and conceptual diagrams. Maintain the
+homepage card, chronological directory entry and case breadcrumb together. This publication is
+a portfolio update, not a client-platform deployment. Edit the public HTML and scoped `case.css`
+directly; the historical local generator is not part of this site.
