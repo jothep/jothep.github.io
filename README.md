@@ -11,11 +11,33 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
+- `/projects/aws-platform-reliability/`: Authority Brands SRE support, Terraform module refactoring, platform assessment and EKS upgrade planning.
+- `/projects/application-monitoring/`: Costa application monitoring, Graylog-to-Alertmanager-to-Slack integration and scheduled homepage checks.
 - `/projects/banking-container-platform/`: China Merchants Bank container-platform consulting and BAOps across four phases, with design decisions, delivery support and monitoring capabilities.
 - `/projects/fintech-platform/`: SadaPay GitOps delivery, AWS/EKS responsibilities and Terraform provisioning, with Istio and Gloo configuration context.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
 The maintained site uses its own HTML pages and shared CSS and JavaScript in `assets/`. It does not load an older website template. Typography uses the reader’s system fonts. No font files are bundled and no font CDN is required. The shared `--font-sans` and `--mono` variables in `assets/site.css` keep font choices in one place; their appearance can vary slightly across operating systems.
+
+## Enterprise cases added on 14 October 2026
+
+The author approved publication of Authority Brands and Costa on 14 October 2026, following
+local review. The homepage Enterprise experience carousel includes all five documented
+projects, ordered by participation end date, with project-title links and dates. The full
+directory follows the same order. Each case has a canonical URL and is maintained in HTML/CSS.
+
+Authority Brands: Jul–Nov 2021, SRE Support / DevOps Developer at Thoughtworks. Lead with
+confirmed Terraform module refactoring and the jointly prepared platform assessment. Describe
+EKS upgrade planning as a project workflow, without turning it into a new personal execution
+claim. Recovery service modules are a confirmed contribution.
+
+Costa: Apr–Jun 2019, DevOps Engineer at Thoughtworks. The author confirmed developing the
+monitoring system. Its log alert path is Graylog to Alertmanager via a notification integration,
+then Slack. Scheduled homepage checks have a separate Slack reporting path. China/Japan are
+business contexts; use functional diagrams without client addresses or original screenshots.
+
+Keep internal source analysis outside the visitor-facing text. These are portfolio case
+studies, not new deployments or measurements of the historical client systems.
 
 ## Preview
 
@@ -29,7 +51,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -127,9 +149,10 @@ personal delivery. Preserve the distinction between the main role in the later m
 collaborative participation in an earlier incident. Terraform import results describe sandbox
 experiments with selected ignored attributes, not production recovery or complete drift coverage.
 
-Keep `#enterprise-experience` as a homepage selection of two or three representative cases.
-The complete set of documented engagements belongs in `experience/index.html`, ordered by most
-recent participation. Each `article.experience-entry` has a stable ID, client or approved anonymous
+Keep all documented enterprise cases in the homepage's `#experience-track` carousel and in
+`experience/index.html`, ordered by participation end date, newest first; use start date as
+the tie-breaker. Show participation dates on each homepage card. Link the project title directly to its case on both surfaces;
+do not add a separate “Read the case” link. Each `article.experience-entry` has a stable ID, client or approved anonymous
 name, role, participation dates, employer relationship, short contribution summary and optional
 case link. A short, confirmed account can remain in the directory until a full case is ready;
 do not invent details or create placeholder pages to fill the structure.
@@ -144,9 +167,11 @@ not separate homepage cards. Distinguish the employer from its client and partic
 from the date of any particular delivery. Keep existing case URLs and section anchors stable.
 Each case breadcrumb returns to its own directory entry.
 
-When adding an engagement, copy one readable HTML entry and change its content. The shared CSS
-handles additional entries without JavaScript, filtering or a build step. Only edit the homepage
-selection when changing which cases to feature; it does not need to grow with the directory.
+When adding an engagement, add its directory entry and homepage card in the same order, and
+update the static `[data-experience-count]` fallback. The shared carousel code derives its count
+and supports the same scrolling, arrow buttons and track-focused Arrow/Home/End keys as Selected
+writing. The two tracks operate independently. Native horizontal scrolling works without JavaScript;
+print styles display every card. Do not add automatic rotation or duplicate cases.
 Keep these entries above About and Contact. Do not manufacture performance metrics, testimonials
 or answers to new interview challenges. The Codex activity snapshot is not refreshed as part of
 enterprise-case work. Preserve draft labels and publication boundaries for unpublished cases.
