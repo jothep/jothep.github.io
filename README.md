@@ -4,9 +4,10 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, recent projects, enterprise experience, Codex activity and published writing.
+- `/`: professional introduction, selected work, enterprise experience, technical designs, selected writing, Codex activity, About and Contact.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
+- `/designs/aws-cross-region-dr/`: an independent AWS warm standby design covering recovery goals, architecture and operating decisions.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
@@ -27,7 +28,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -39,7 +40,7 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage closing order fixed: **About the author**, then **Get in touch**. Insert future project, activity or writing sections above About. Preserve the `about` section ID and the header About link to `#about`.
+Keep the homepage reading order: **Selected work → Enterprise experience → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`.
 
 Add another selected-work entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
@@ -50,12 +51,24 @@ Do not copy application credentials, environment files, Terraform state, private
 The homepage articles form a horizontal, scrollable row, ordered newest first. Add a complete
 `article.writing-card` as the **first child** of `#writing-track` in `index.html`, with its original
 publication date, title, summary and link. Keep the remaining cards in descending date order and
-update the static `[data-writing-count]` label; JavaScript also derives the count from the cards.
+update the static `[data-writing-count]` label (for example, `4 articles`); JavaScript also derives the count from the cards. These are item counts, not section numbers. Use the same explicit wording for `[data-work-count]` (for example, `2 case studies`) and keep its static fallback aligned with the project cards.
 No JavaScript or CSS changes are needed when adding articles.
 
 Readers can swipe or scroll the row, use the newer/older buttons, or focus the row and use the
 arrow keys, Home and End. Scrolling and links still work without JavaScript. There is no autoplay;
 reduced-motion preferences are respected, and all cards remain visible when printing.
+
+## Adding technical designs
+
+Keep independent design studies in `designs/<slug>/` and link them from `#technical-designs`,
+immediately after Enterprise experience. Add one readable `article.design-card` with a topic,
+title, concise summary and one link. The list grows as studies are added; do not add empty cards
+or a separate index page before it is needed. Keep the design's purpose clear in its introduction.
+Do not treat a linked design as the architecture delivered on a past client project.
+
+Keep the Codex activity BEGIN/END markers together when moving content. Its generator replaces
+the block in place and uses About as the first-insertion fallback. Layout changes must not
+refresh the snapshot or access private activity records.
 
 ## Maintaining the changelog
 
@@ -137,6 +150,18 @@ Keep these entries above About and Contact. Do not manufacture performance metri
 or answers to new interview challenges. The Codex activity snapshot is not refreshed as part of
 enterprise-case work. Preserve draft labels and publication boundaries for unpublished cases.
 
+## Public writing: contributions, decisions and results
+
+The portfolio presents the author's experience, technical judgement and ideas. Lead with the work,
+the reasoning and the result. Use page types such as client case, research study and technical design
+to orient readers. Avoid repeated disclaimers or lists of things the author has not done.
+
+State the actual method and evidence positively: which checks passed, what configuration declares,
+what a metric measures and what an experiment supports. Keep material operating constraints and
+research methodology in one useful place. A proposed design remains a design; reframing must not
+invent deployments, tests, metrics or ownership. Editorial and evidence-handling instructions are
+for maintainers, not boilerplate to reproduce on every public page.
+
 ## Editing the site directly
 
 The HTML files are the content source. Edit paragraphs and links in place, using semantic sections and two-space indentation. Shared presentation lives in `assets/site.css`; optional interaction lives in `assets/site.js`. No build step is required. Keep only maintained pages, their required assets, supporting evidence and development configuration in this repository. Do not add old resumes, retired templates or operating-system metadata files.
@@ -148,6 +173,7 @@ For routine edits, use this file map:
 | `index.html` | Homepage content and the dated activity snapshot |
 | `experience/index.html` | Full directory of documented enterprise engagements |
 | `projects/*/index.html` | Detailed case-study content |
+| `designs/*/index.html` | Independent technical designs; distinguish proposals from delivered work |
 | `projects/story-filler/decisions.html` | Questions addressed to the author, answers and AI review notes |
 | `changelog/index.html` | Dated website changes |
 | `assets/site.css` | Shared visual styles, grouped by section comments |
@@ -202,3 +228,32 @@ confirmed responsibilities; it does not define their full scope.
 
 Keep About and Contact ordering, existing enterprise work, and dated activity snapshots intact.
 Publication of this case is a portfolio update, not a deployment of the client platform.
+
+
+## AWS cross-Region DR design
+
+Prepared and approved for publication by the author on 14 October 2026 after local review.
+The page has a canonical URL and is included in the public-site verification. Keep the
+publication date separate from any future recovery exercises or implementation results.
+
+The author confirmed on 14 October 2026 that he worked on Terraform modules intended to support
+disaster recovery during the SadaPay engagement. This is a new personal clarification, not a
+claim independently established by the retained original artifacts. Keep the public responsibility
+brief. Do not infer whole-system DR ownership, cross-Region implementation, failover execution,
+drills, measured RTO/RPO or cost outcomes. Do not transfer another engagement's recovery-module
+work to this case.
+
+`designs/aws-cross-region-dr/` is a separate illustrative proposal. EKS, ALB, RDS PostgreSQL,
+two VPCs and the warm standby topology are example choices, not SadaPay's historical architecture.
+Use the Technical design page type and independent-study link wording to identify its purpose.
+Lead the introduction with the design approach; do not repeat project disclaimers in the hero,
+figures or references. Return links lead to the homepage’s Technical designs section. The original
+project files, private preparation notes and personal archive remain outside this repository.
+
+Edit the readable HTML and scoped `design.css` directly. The original `warm-standby.svg` and
+`warm-standby-mobile.svg` present the same architecture at different widths; update both if a
+flow or label changes. Native SVG and an HTML recovery sequence require no diagram runtime.
+Preview both compositions, the mobile contents menu, source links and return navigation after edits.
+Keep AWS and HashiCorp references close to the technical design. Diagram arrows distinguish
+client traffic, asynchronous replication and independent backup copies; traffic moves only after
+writer isolation, database takeover, capacity preparation and application validation.

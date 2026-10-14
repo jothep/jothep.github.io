@@ -368,19 +368,19 @@ def plot_results(safe_json: Path, output_dir: Path):
     """Render exclusively from the verified de-identified JSON, never sources."""
     data = verify_export(safe_json)
     plt = prepare_matplotlib()
-    footer = "Retrospective check · 02 Oct 2026 · No model rerun"
+    footer = "Archived-score recalculation · 02 Oct 2026"
     run08 = data["runs"]["run08"]
     fig = plt.figure(figsize=(7, 6.0))
     fig.text(.095, .94, "Run08 · Three-way comparison", fontsize=19, weight="bold")
     fig.text(.095, .887, "69 paired cases · Mean ± sample SD", fontsize=13, color=MUTED)
-    fig.text(.095, .835, "LLM-judge scores, not objective accuracy", fontsize=12, color=BLUE)
+    fig.text(.095, .835, "Configured LLM-judge scores (0–100)", fontsize=12, color=BLUE)
     ax = fig.add_axes([.095, .285, .84, .465])
     score_axis(ax, run08["methods"], ["single_pass", "multi_agent", "single_pass_cot"], [GRAY, LIGHT_GRAY, BLUE])
     compare = run08["comparisons"][0]
     fig.text(.095, .157, f"CoT − multi-agent: +{compare['mean_difference']:.2f} points", fontsize=13, weight="medium")
     fig.text(.095, .112, f"Two-sided paired t-test: p = {compare['p_value_two_sided']:.2e}", fontsize=12, color=MUTED)
     fig.text(.095, .043, footer, fontsize=12, color=MUTED)
-    save_figure(fig, output_dir, "capstone-run08", "Run08 archived LLM-judge means with sample standard deviations, 69 paired cases. Not objective accuracy.")
+    save_figure(fig, output_dir, "capstone-run08", "Run08 configured LLM-judge means with sample standard deviations, 69 paired cases; archived-score recalculation.")
     plt.close(fig)
 
     run09 = data["runs"]["run09"]
@@ -388,7 +388,7 @@ def plot_results(safe_json: Path, output_dir: Path):
     fig = plt.figure(figsize=(7, 7.6))
     fig.text(.095, .951, "Run09 · Reviewer-loop comparison", fontsize=18, weight="bold")
     fig.text(.095, .909, "69 paired cases · Mean ± sample SD", fontsize=13, color=MUTED)
-    fig.text(.095, .868, "LLM-judge scores, not objective accuracy", fontsize=12, color=BLUE)
+    fig.text(.095, .868, "Configured LLM-judge scores (0–100)", fontsize=12, color=BLUE)
     ax = fig.add_axes([.095, .548, .84, .26])
     score_axis(ax, run09["methods"], ["single_pass_cot", "multi_agent_cot"], [GRAY, BLUE])
     fig.text(.095, .430, "Paired difference: reviewer − single-pass CoT", fontsize=13, weight="medium")
@@ -405,10 +405,10 @@ def plot_results(safe_json: Path, output_dir: Path):
     for spine in diff_ax.spines.values():
         spine.set_visible(False)
     fig.text(.095, .166, f"p = {compare['p_value_two_sided']:.4f} · No statistically significant difference", fontsize=12, weight="medium")
-    fig.text(.095, .116, "Separate judging protocol from Run08;", fontsize=12, color=MUTED)
-    fig.text(.095, .082, "cross-run scores do not establish a performance trend.", fontsize=12, color=MUTED)
+    fig.text(.095, .116, "Pairwise judging; Run08 uses three-way judging.", fontsize=12, color=MUTED)
+    fig.text(.095, .082, "Interpret each run within its evaluation setting.", fontsize=12, color=MUTED)
     fig.text(.095, .029, footer, fontsize=12, color=MUTED)
-    save_figure(fig, output_dir, "capstone-run09", "Run09 archived judge scores and paired reviewer-minus-single-pass difference with a 95% confidence interval. p=0.6232. No statistically significant difference. Not objective accuracy.")
+    save_figure(fig, output_dir, "capstone-run09", "Run09 configured LLM-judge scores and paired reviewer-minus-single-pass difference with a 95% confidence interval. p=0.6232. No statistically significant difference; archived-score recalculation.")
     plt.close(fig)
 
 

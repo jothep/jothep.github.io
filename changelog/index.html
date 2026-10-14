@@ -47,7 +47,7 @@
           explore the work behind each update.
         </p>
         <nav class="changelog-jumps" aria-label="Update dates">
-          <a href="#sadapay-case-focus">October 2026</a>
+          <a href="#engineering-story-and-design-navigation">October 2026</a>
           <a href="#codex-activity">September 2026</a>
         </nav>
         <p class="changelog-history-note">
@@ -58,12 +58,101 @@
       <section class="changelog-list wrap" aria-label="Portfolio updates, newest first">
         <article
           class="changelog-entry"
+          id="engineering-story-and-design-navigation"
+          aria-labelledby="engineering-story-and-design-navigation-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-14">14 Oct 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Improved</p>
+            <h2 id="engineering-story-and-design-navigation-title">
+              <a href="#engineering-story-and-design-navigation"
+                >Clearer engineering stories and design navigation</a
+              >
+            </h2>
+            <p class="changelog-description">
+              Refined case studies and technical designs to lead with contributions, decisions and
+              results. Consolidated verification and research methods into focused explanations. The
+              AWS recovery design now returns to the homepage’s Technical designs section.
+              Simplified activity descriptions while preserving the recorded counts and dates.
+            </p>
+            <div class="changelog-links">
+              <a href="../designs/aws-cross-region-dr/">
+                Read the recovery design <span aria-hidden="true">↗</span>
+              </a>
+              <a href="../#work">Explore the work <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="changelog-entry"
+          id="technical-designs-homepage"
+          aria-labelledby="technical-designs-homepage-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-14">14 Oct 2026</time>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Added · Improved</p>
+            <h2 id="technical-designs-homepage-title">
+              <a href="#technical-designs-homepage">A home for technical designs</a>
+            </h2>
+            <p class="changelog-description">
+              Added a Technical designs section after Enterprise experience, starting with the AWS
+              cross-Region recovery study. Moved Codex activity below Selected writing, immediately
+              before About, and made case-study and article counts explicit. Updated the SadaPay
+              design link description to present the author’s own thinking and its project context.
+              Activity data is unchanged.
+            </p>
+            <div class="changelog-links">
+              <a href="../#technical-designs">
+                Explore technical designs <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="changelog-entry"
+          id="aws-cross-region-dr-design"
+          aria-labelledby="aws-cross-region-dr-design-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-14">14 Oct 2026</time>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Added · Updated</p>
+            <h2 id="aws-cross-region-dr-design-title">
+              <a href="#aws-cross-region-dr-design">An AWS cross-Region recovery design</a>
+            </h2>
+            <p class="changelog-description">
+              Added an illustrative warm standby design with EKS, ALB and RDS PostgreSQL, responsive
+              architecture diagrams, recovery goals, component responsibilities, failover checks and
+              controlled failback. Added a short Terraform DR-module responsibility to the SadaPay
+              case and linked the independent design study, which sets out recovery goals and
+              validation checks for the proposed architecture.
+            </p>
+            <div class="changelog-links">
+              <a href="../designs/aws-cross-region-dr/">
+                Read the technical design <span aria-hidden="true">↗</span>
+              </a>
+              <a href="../projects/fintech-platform/#terraform-dr">
+                SadaPay work scope <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="changelog-entry"
           id="sadapay-case-focus"
           aria-labelledby="sadapay-case-focus-title"
         >
           <div class="changelog-date">
             <time datetime="2026-10-12">12 Oct 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Updated</p>
@@ -313,8 +402,8 @@
                 work to colleague guidance, access dependencies and the completed migration.
               </li>
               <li>
-                Added an abstract responsibility diagram and a bounded Terraform sandbox teaching
-                example. Original client files and internal identifiers are not included.
+                Added an abstract responsibility diagram and a Terraform sandbox teaching example
+                covering configuration, state and plan review.
               </li>
             </ul>
             <div class="changelog-links">
@@ -426,9 +515,8 @@
                 stacked layout on narrow screens.
               </li>
               <li>
-                Only aggregate counts and dates are included. Conversation content, workspace paths
-                and credentials are excluded; activity does not measure code output or engineering
-                quality.
+                Published dates and aggregate counts show the frequency of recorded Codex work
+                cycles across selected software projects.
               </li>
             </ul>
             <div class="changelog-links">
@@ -689,15 +777,15 @@
             <ul>
               <li>
                 Added a homepage project card and a capstone case study with implemented workflow
-                diagrams, engineering decisions and evidence boundaries.
+                diagrams, engineering decisions and evaluation methodology.
               </li>
               <li>
                 Recalculated two saved experiment comparisons and added downloadable score-only
                 evidence, charts and an independent verification script.
               </li>
               <li>
-                Created a handwritten synthetic example to illustrate the task without distributing
-                original tickets or model outputs.
+                Created an original synthetic example showing how technical records can become a
+                knowledge-base article.
               </li>
             </ul>
             <div class="changelog-links">
@@ -765,9 +853,8 @@
                 excluded.
               </li>
               <li>
-                Labelled the view as a static, self-reported snapshot. Planning, implementation,
-                debugging and documentation are included; activity counts do not measure code output
-                or engineering quality.
+                Labelled the view as a static, self-reported snapshot. The counts capture recorded
+                work cycles across planning, implementation, debugging and documentation.
               </li>
             </ul>
             <div class="changelog-links">
@@ -909,8 +996,8 @@
               </li>
               <li>
                 Kept the earlier private repository’s aggregate history distinct from the new
-                repository’s release evidence. These are dated records, not live commit counts or
-                uptime metrics.
+                repository’s release evidence. Each record preserves the repository and release
+                evidence for its stated date.
               </li>
             </ul>
             <div class="changelog-links">

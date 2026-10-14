@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:description>Run09 archived judge scores and paired reviewer-minus-single-pass difference with a 95% confidence interval. p=0.6232. No statistically significant difference. Not objective accuracy.</dc:description>
+    <dc:description>Run09 configured LLM-judge scores and paired reviewer-minus-single-pass difference with a 95% confidence interval. p=0.6232. No statistically significant difference; archived-score recalculation.</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -265,7 +265,7 @@ L 345.679839 380.304
    <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="49.7952" transform="rotate(-0 47.88 49.7952)">69 paired cases · Mean ± sample SD</text>
   </g>
   <g id="text_19">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #173bcc" x="47.88" y="72.2304" transform="rotate(-0 47.88 72.2304)">LLM-judge scores, not objective accuracy</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #173bcc" x="47.88" y="72.2304" transform="rotate(-0 47.88 72.2304)">Configured LLM-judge scores (0–100)</text>
   </g>
   <g id="text_20">
    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #172033" x="47.88" y="311.904" transform="rotate(-0 47.88 311.904)">Paired difference: reviewer − single-pass CoT</text>
@@ -277,13 +277,13 @@ L 345.679839 380.304
    <text style="font-weight: 500; font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #172033" x="47.88" y="456.3648" transform="rotate(-0 47.88 456.3648)">p = 0.6232 · No statistically significant difference</text>
   </g>
   <g id="text_23">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="483.7248" transform="rotate(-0 47.88 483.7248)">Separate judging protocol from Run08;</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="483.7248" transform="rotate(-0 47.88 483.7248)">Pairwise judging; Run08 uses three-way judging.</text>
   </g>
   <g id="text_24">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="502.3296" transform="rotate(-0 47.88 502.3296)">cross-run scores do not establish a performance trend.</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="502.3296" transform="rotate(-0 47.88 502.3296)">Interpret each run within its evaluation setting.</text>
   </g>
   <g id="text_25">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="531.3312" transform="rotate(-0 47.88 531.3312)">Retrospective check · 02 Oct 2026 · No model rerun</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="531.3312" transform="rotate(-0 47.88 531.3312)">Archived-score recalculation · 02 Oct 2026</text>
   </g>
  </g>
  <defs>

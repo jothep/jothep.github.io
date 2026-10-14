@@ -96,6 +96,15 @@ window.addEventListener(
 );
 updateSection();
 
+// Counts describe visible content, not homepage section numbers.
+{
+  const work = document.getElementById('work');
+  const label = work?.querySelector('[data-work-count]');
+  if (label) {
+    const count = work.querySelectorAll('.featured-project').length;
+    label.textContent = `${count} ${count === 1 ? 'case study' : 'case studies'}`;
+  }
+}
 
 // Native horizontal scrolling remains available when this enhancement is unavailable.
 {
@@ -112,7 +121,7 @@ updateSection();
     const tolerance = 1;
 
     if (count) {
-      count.textContent = `${String(cards.length).padStart(2, '0')} / Articles & reflections`;
+      count.textContent = `${cards.length} ${cards.length === 1 ? 'article' : 'articles'}`;
     }
 
     function updateWritingControls() {

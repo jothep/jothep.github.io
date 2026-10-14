@@ -181,9 +181,9 @@
                   would be optional choices; the cluster itself would still need operating.
                 </p>
                 <p>
-                  Managed services reduced that platform work. I still needed to manage application
-                  configuration and credentials, and make the connections between services secure
-                  and dependable.
+                  Managed services reduced platform work and focused my ongoing responsibilities on
+                  application configuration, credentials and secure, dependable connections between
+                  services.
                 </p>
 
                 <div class="qa-followup" aria-labelledby="leaner-kubernetes-question">
@@ -197,17 +197,16 @@
                 <p class="qa-response-label">My answer to the follow-up</p>
                 <p class="qa-stance">
                   I would still choose Cloud Run. Its free usage allowance suits this small,
-                  infrequently visited application. Keeping cloud-cluster capacity running would add
-                  ongoing costs I am not prepared to commit to this demo. The allowance has limits,
-                  so usage and charges from associated services remain part of the cost decision.
+                  infrequently visited application. Scale-to-zero compute fits its occasional use,
+                  while a running cloud cluster would add ongoing capacity costs. I also factor in
+                  usage limits and charges from associated services.
                 </p>
                 <p>
-                  Kubernetes would not provide an additional capability that this backend currently
-                  needs. I am more familiar with Kubernetes, but familiarity alone is not a
-                  sufficient reason to choose it. Cloud Run fits the application and the budget.
+                  Cloud Run provides the capabilities this backend needs. My greater familiarity
+                  with Kubernetes is one factor; the application's needs and budget are decisive.
                 </p>
 
-                <!-- Only reference links are collapsed; answers and evidence boundaries remain visible. -->
+                <!-- Keep answers and implementation notes visible; collapse reference links. -->
                 <details class="evidence-details qa-references">
                   <summary>Sources &amp; code references</summary>
                   <h4>Platform references</h4>
@@ -286,12 +285,11 @@
                   considered acceptable for this demonstration.
                 </p>
                 <p>
-                  Low operating cost still leaves work to do: application updates, configuration and
-                  credentials need attention. The choice fits the current demonstration.
+                  I keep application updates, configuration and credentials as the focus of ongoing
+                  maintenance. That operating model fits this demonstration.
                 </p>
                 <p class="qa-source">
-                  <span>Evidence boundary</span>
-                  The waiting time is my observation, not a measured latency ceiling.
+                  <span>Implementation reference</span>
                   <a
                     href="https://github.com/jothep/story-filler/blob/12a466cbf2750042c0934d9b316e4e31040b3ded/terraform/main.tf#L40-L58"
                   >
@@ -300,7 +298,7 @@
                 </p>
               </div>
             </article>
-            <!-- Two completed training follow-ups; the scenarios are not production measurements. -->
+            <!-- Follow-up exercises use hypothetical timings to explore request behaviour. -->
             <article
               class="judgment-qa"
               id="loading-behaviour"
@@ -340,15 +338,15 @@
                 </div>
                 <p class="qa-response-label">My answer to the follow-up</p>
                 <p class="qa-stance">
-                  I would not assume the backend had stopped. The original request may still be
-                  using resources when the next one arrives.
+                  I would treat the original request as potentially active. It may still be using
+                  resources when the next one arrives.
                 </p>
                 <p>
                   Reading the story list is a read-only operation, so a retry can reasonably start a
                   new query. I would focus on controlling repeated attempts and checking how long
                   backend work can continue. Frequent retries that overlap with unfinished work can
-                  put pressure on workers and database connections. Reusing an existing task would
-                  add state management, which I would not require for this ordinary read.
+                  put pressure on workers and database connections. For this ordinary read, I would
+                  keep each retry as a fresh request and focus on controlling overlap.
                 </p>
 
                 <div class="qa-followup" aria-labelledby="cold-start-evidence-question">
@@ -383,16 +381,16 @@
                 </aside>
 
                 <div class="qa-source qa-source-review">
-                  <p class="qa-source-label">Current implementation and exercise scope</p>
+                  <p class="qa-source-label">Request lifecycle and design exercise</p>
                   <p>
                     The frontend calls the Django story-list API, which reads the database and
                     returns JSON. The UI handles loading, success and errors; Try Again starts a new
-                    request. The client has no explicit timeout or automatic retry policy. The
-                    30-second scenarios are training assumptions, and per-stage timings were not
-                    measured in this discussion.
+                    request. The client uses the browser's default waiting behaviour and
+                    user-initiated retries. The follow-ups use hypothetical 30-second delays to
+                    explore diagnosis and timeout design.
                   </p>
                 </div>
-                <!-- Only reference links are collapsed; answers and evidence boundaries remain visible. -->
+                <!-- Keep answers and implementation notes visible; collapse reference links. -->
                 <details class="evidence-details qa-references">
                   <summary>Sources &amp; code references</summary>
                   <h4>Platform &amp; protocol references</h4>
@@ -470,7 +468,7 @@
                 <div>
                   <strong>Architecture and local practice</strong>
                   <small>
-                    Managed cloud, Kubernetes and Compose, with their implementation boundaries.
+                    Managed cloud, Kubernetes and Compose, with configuration and design details.
                   </small>
                 </div>
                 <span aria-hidden="true">↗</span>
@@ -489,7 +487,7 @@
                 <div>
                   <strong>The verification record</strong>
                   <small>
-                    What the September checks established, and what was outside their scope.
+                    Methods and results from the September application and deployment checks.
                   </small>
                 </div>
                 <span aria-hidden="true">↗</span>
@@ -499,8 +497,7 @@
               Retrospective prepared on
               <time datetime="2026-10-09">9 October 2026</time>
               from my project account and a source review. AI assisted with editing and checking
-              technical descriptions. The linked deployment evidence dates to 27–28 September 2026;
-              the course-era local environment was not rerun for this reflection.
+              technical descriptions. The linked deployment checks date to 27–28 September 2026.
             </p>
           </section>
         </div>
