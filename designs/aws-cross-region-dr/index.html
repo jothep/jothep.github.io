@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An AWS cross-Region disaster recovery design: warm standby with EKS, ALB and RDS PostgreSQL, Terraform responsibilities, failover checks and controlled failback."
+    />
+    <link rel="canonical" href="https://jothep.github.io/designs/aws-cross-region-dr/" />
+    <meta name="theme-color" content="#17685f" />
+    <title>Cross-Region Disaster Recovery and Failover on AWS · Xiang Zhu</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
+    <link rel="stylesheet" href="design.css?v=20261014c" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="dr-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="dr-hero wrap">
+        <a class="breadcrumb" href="../../#technical-designs">
+          <span aria-hidden="true">←</span> Back to portfolio
+        </a>
+        <p class="eyebrow">Technical design · AWS</p>
+        <h1>Cross-Region Disaster Recovery and Failover on AWS</h1>
+        <p class="dr-intro">
+          My approach to cross-Region recovery on AWS: recovery goals, warm standby, coordinated
+          failover and controlled failback.
+        </p>
+        <div class="dr-summary" aria-label="Design at a glance">
+          <div><span>Strategy</span><strong>Warm standby</strong></div>
+          <div><span>Failure scope</span><strong>One AWS Region unavailable</strong></div>
+          <div><span>Decision gate</span><strong>Validate before moving traffic</strong></div>
+        </div>
+      </div>
+
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Disaster recovery design sections">
+          <p>In this design</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="dr-section-links"
+          >
+            <span>On this page</span>
+            <span class="case-nav-current">Recovery goals</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="dr-section-links">
+            <a href="#goals" aria-current="true"><span>01</span> Recovery goals</a>
+            <a href="#strategy"><span>02</span> Strategy &amp; trade-offs</a>
+            <a href="#architecture"><span>03</span> Example architecture</a>
+            <a href="#responsibilities"><span>04</span> Component responsibilities</a>
+            <a href="#failover"><span>05</span> Failover sequence</a>
+            <a href="#rehearsal"><span>06</span> Rehearsal &amp; failback</a>
+            <a href="#references"><span>07</span> Official references</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <!-- Recovery objectives guide the architecture and its validation plan. -->
+          <section class="case-section" id="goals">
+            <p class="section-kicker">01 / Recovery goals</p>
+            <h2>Recover the service people use.</h2>
+            <p class="lead">
+              Disaster recovery must restore a usable business system within an agreed time. That
+              includes data, applications, dependencies and the path users take to reach them.
+            </p>
+            <dl class="dr-definitions">
+              <div>
+                <dt>RTO · Recovery time objective</dt>
+                <dd>
+                  The maximum acceptable time to restore service after disruption. Detection,
+                  decisions, database takeover, capacity, validation and routing all use this
+                  budget.
+                </dd>
+              </div>
+              <div>
+                <dt>RPO · Recovery point objective</dt>
+                <dd>
+                  The maximum acceptable data-loss window, measured in time. The actual recovery
+                  point depends on the data available when recovery happens.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy">
+              Agree these objectives with the business before choosing the design. Validate the
+              complete recovery path, including the database, application dependencies and critical
+              user operations.
+            </p>
+            <div class="dr-pair">
+              <article>
+                <h3>One Availability Zone fails</h3>
+                <p>
+                  Use resources across AZs within a Region. Check remaining application capacity,
+                  database availability and persistent data. An AZ failure does not automatically
+                  require rebuilding the entire EKS cluster.
+                </p>
+              </article>
+              <article>
+                <h3>An entire Region is unavailable</h3>
+                <p>
+                  The recovery environment must be elsewhere. This example uses separate EKS
+                  clusters and VPCs in two Regions. Regional recovery complements the AZ-level
+                  resilience designed inside each Region.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="case-section" id="strategy">
+            <p class="section-kicker">02 / Strategy &amp; trade-offs</p>
+            <h2>Pay for readiness where it matters.</h2>
+            <p class="body-copy">
+              Backup and restore is a valid DR strategy. Warm standby prepares more of the system in
+              advance to reduce the work left after an outage.
+            </p>
+            <div class="dr-pair dr-strategies">
+              <article>
+                <p class="eyebrow">Lower ongoing cost</p>
+                <h3>Backup and restore</h3>
+                <p>
+                  Keep recoverable backups, code, images and access available in another Region.
+                  After failure, create infrastructure, restore data, deploy the application and
+                  validate it before directing users there.
+                </p>
+                <p>
+                  There is less running infrastructure to pay for, but more recovery work and
+                  greater dependence on provisioning services during the incident.
+                </p>
+              </article>
+              <article class="dr-selected">
+                <p class="eyebrow">The main example</p>
+                <h3>Warm standby</h3>
+                <p>
+                  Keep a smaller application environment running in the recovery Region and
+                  continuously replicate database changes. On takeover, make the database writable,
+                  add capacity and verify the service.
+                </p>
+                <p>
+                  Readiness costs more. A very small standby saves money but depends more on scaling
+                  during recovery. A shorter RTO may require more capacity already running.
+                </p>
+              </article>
+            </div>
+            <p class="dr-note">
+              <strong>Replication does not replace backups.</strong> An accidental deletion or bad
+              update can reach the replica too. Keep retained recovery points and test restoring
+              them. The achievable RPO from a backup can differ from the replica’s recovery point.
+            </p>
+          </section>
+
+          <!-- The diagrams are original SVG, with equivalent desktop and narrow-screen layouts. -->
+          <section class="case-section" id="architecture">
+            <p class="section-kicker">03 / Example architecture</p>
+            <h2>A smaller environment, ready to take over.</h2>
+            <p class="body-copy">
+              Each Region has its own VPC, ALB and EKS application environment. The primary database
+              replicates asynchronously to an RDS PostgreSQL read replica in the recovery Region.
+              The standby application is deployed and running at reduced capacity; write paths and
+              scheduled writers stay inactive until takeover.
+            </p>
+            <figure class="dr-architecture">
+              <picture>
+                <source media="(max-width: 760px)" srcset="warm-standby-mobile.svg" />
+                <img
+                  src="warm-standby.svg"
+                  width="1040"
+                  height="1090"
+                  alt="Illustrative warm standby architecture. Users normally reach the primary ALB, EKS application and writable PostgreSQL database. A separate Region contains its own ALB, smaller EKS environment and an asynchronous read replica. After fencing old writers, promoting the replica, scaling and validating the application, DNS directs new traffic to recovery. Separate backup copies are retained in the recovery Region."
+                />
+              </picture>
+              <figcaption>
+                Conceptual AWS design. Line styles distinguish normal traffic, takeover traffic,
+                replication and backup copies. The view focuses on regional responsibilities and the
+                recovery sequence.
+                <a href="warm-standby.svg"
+                  >Open the full-size diagram <span aria-hidden="true">↗</span></a
+                >
+              </figcaption>
+            </figure>
+            <div class="dr-pair">
+              <article>
+                <h3>Keep both recovery paths available</h3>
+                <p>
+                  Promote the replica for regional takeover when its data is suitable. For
+                  corruption or deletion, restore a known-good backup instead. A snapshot restore
+                  creates a separate DB instance and needs its own connection and configuration
+                  checks.
+                </p>
+              </article>
+              <article>
+                <h3>Make backup access independent</h3>
+                <p>
+                  Copy backups to the recovery Region before an outage. Preserve retention and
+                  restrict deletion. Verify that recovery identities can read and decrypt them
+                  without relying on the failed Region’s keys or services.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="case-section" id="responsibilities">
+            <p class="section-kicker">04 / Component responsibilities</p>
+            <h2>Terraform prepares infrastructure. Recovery coordinates the system.</h2>
+            <dl class="dr-responsibilities">
+              <div>
+                <dt>Terraform</dt>
+                <dd>
+                  Build and maintain the regional networks, EKS resources, load balancers and access
+                  configuration in advance. Reuse modules with explicit Region-specific provider
+                  settings and inputs. Separate state per environment can help contain changes; it
+                  is a design choice, not a Terraform requirement.
+                </dd>
+              </div>
+              <div>
+                <dt>Database service</dt>
+                <dd>
+                  Replicate changes, create and restore backups, and promote the recovery replica.
+                  Terraform can declare resources and settings; RDS performs these data operations.
+                </dd>
+              </div>
+              <div>
+                <dt>Delivery process</dt>
+                <dd>
+                  Keep application versions and configuration ready in recovery. Update database
+                  connections when needed and control background workers during takeover.
+                </dd>
+              </div>
+              <div>
+                <dt>Recovery procedure</dt>
+                <dd>
+                  Coordinate the decision, writer isolation, database takeover, capacity, user-flow
+                  checks and routing. Assign an owner to each step and define when to pause.
+                </dd>
+              </div>
+            </dl>
+            <p class="dr-note">
+              <strong>Terraform state is not a business-data backup.</strong> It records managed
+              infrastructure and its relationship to configuration. One <code>terraform apply</code>
+              does not complete a disaster recovery operation. Copying state and changing only the
+              Region is not a safe way to clone an environment.
+            </p>
+            <h3 class="dr-subheading">Prepare for losing access to the primary Region.</h3>
+            <ul class="dr-checklist">
+              <li>
+                <strong>Code and state:</strong> configuration, modules, provider versions, remote
+                state, locking and a usable runner must remain accessible. Avoid two active writers
+                to the same state during recovery.
+              </li>
+              <li>
+                <strong>Images and configuration:</strong> required container images and application
+                settings must be available to the recovery cluster. Test access without the primary
+                registry or deployment runner.
+              </li>
+              <li>
+                <strong>Backups and access:</strong> retain backup copies, recovery credentials,
+                certificates and destination-Region KMS access. Test the permissions and decryption.
+              </li>
+              <li>
+                <strong>Dependencies and capacity:</strong> account for identity services, queues,
+                object data and external systems. Include their recovery requirements in the runbook
+                and check quotas, node capacity and database limits.
+              </li>
+            </ul>
+            <p class="body-copy">
+              After emergency changes outside Terraform, reconcile configuration, state and actual
+              resources. Review the next plan before applying it so normal automation does not undo
+              the recovery.
+            </p>
+          </section>
+
+          <section class="case-section" id="failover">
+            <p class="section-kicker">05 / Failover sequence</p>
+            <h2>Establish one writer. Validate. Then move traffic.</h2>
+            <figure class="dr-sequence" aria-labelledby="sequence-title">
+              <figcaption id="sequence-title">The recovery decision path</figcaption>
+              <ol>
+                <li><span>1</span><strong>Confirm impact</strong></li>
+                <li><span>2</span><strong>Database takeover &amp; capacity</strong></li>
+                <li><span>3</span><strong>Validate the application</strong></li>
+                <li><span>4</span><strong>Switch traffic</strong></li>
+                <li><span>5</span><strong>Keep verifying</strong></li>
+              </ol>
+            </figure>
+            <ol class="dr-steps">
+              <li>
+                <h3>Confirm the failure and make the decision.</h3>
+                <p>
+                  Check the affected services and Region. Compare the likely outage with the
+                  recovery objectives. The incident owner authorises takeover and records the
+                  decision; a failed health endpoint alone is not enough.
+                </p>
+              </li>
+              <li>
+                <h3>Establish one writer and prepare recovery capacity.</h3>
+                <p>
+                  Treat an unreachable primary as potentially still running. Use a pre-tested way to
+                  isolate its write paths, including workers and scheduled jobs. Keep it fenced when
+                  it returns. If exclusive write ownership cannot be established, pause and make
+                  that risk explicit before proceeding.
+                </p>
+                <p>
+                  Check replica lag and the latest available data. Asynchronous replication can
+                  leave recent transactions behind. If the source or current lag cannot be checked,
+                  report the uncertainty; do not declare zero data loss.
+                </p>
+                <p>
+                  Promote the recovery RDS PostgreSQL read replica and wait for it to become
+                  available for writes. Promotion stops its old replication relationship and
+                  involves a reboot. Point the application at the recovery database endpoint,
+                  updating configuration if it still refers to the former primary.
+                </p>
+                <p>
+                  Scale EKS nodes and application replicas, check database capacity and confirm
+                  dependencies are ready. Keep general user traffic away until checks pass.
+                </p>
+              </li>
+              <li>
+                <h3>Verify the service before opening the public route.</h3>
+                <p>
+                  Use a controlled recovery endpoint to test critical user operations, application
+                  dependencies and database reads and writes. Confirm that writes persist in the
+                  promoted database. Check workers can run without creating duplicate work.
+                </p>
+              </li>
+              <li>
+                <h3>Switch the entry point after validation.</h3>
+                <p>
+                  Only after the readiness checks pass, change the Route 53 records or enable the
+                  recovery target in the routing procedure. Clients then connect to the recovery
+                  ALB. Allow for cached DNS answers and existing connections during the transition.
+                </p>
+              </li>
+              <li>
+                <h3>Keep verifying the recovered service.</h3>
+                <p>
+                  Observe errors, latency, database connections and load under real traffic. Confirm
+                  worker ownership, data consistency and backup health. Record the recovery time and
+                  recovery point, including uncertainty or data loss that still needs investigation.
+                </p>
+              </li>
+            </ol>
+            <p class="dr-note">
+              <strong>DNS is only the entry-point switch.</strong> Route 53 does not promote RDS,
+              stop old connections or disable background jobs. DNS caches and existing connections
+              can delay the move, so old writers must remain fenced throughout the transition. This
+              design uses a readiness gate rather than routing to an unprepared standby.
+            </p>
+          </section>
+
+          <section class="case-section" id="rehearsal">
+            <p class="section-kicker">06 / Rehearsal &amp; failback</p>
+            <h2>Test the whole journey, including the return.</h2>
+            <p class="body-copy">
+              Rehearse with the primary Region unavailable to the recovery process. Time the journey
+              from disruption to usable service, including decisions and validation. Compare the
+              latest recovered transaction with the pre-failure data to establish the recovery
+              point. Record results against the agreed RTO and RPO.
+            </p>
+            <div class="dr-pair">
+              <article>
+                <h3>Validate readiness under load</h3>
+                <p>
+                  Exercise critical user paths, read and write data, and test the standby at the
+                  expected traffic level. Include the time needed to add capacity. Restore backups
+                  separately and test code, state, image and credential access.
+                </p>
+              </article>
+              <article>
+                <h3>Keep the recovery Region healthy</h3>
+                <p>
+                  After takeover, check backups, monitoring, job ownership and data consistency.
+                  Update the recovery procedure with failed steps and measured timings before
+                  relying on it again.
+                </p>
+              </article>
+            </div>
+            <h3 class="dr-subheading">Failback is another controlled migration.</h3>
+            <p class="body-copy">
+              Keep the recovered Region authoritative until the original Region has current data and
+              a verified environment. Rebuild or resynchronise the original database using a
+              suitable replication or restore process. RDS read-replica promotion does not reverse
+              replication automatically.
+            </p>
+            <p class="body-copy">
+              Plan a controlled handover: stop or fence the current writers, complete the agreed
+              final data sync, validate the destination and then move traffic. Confirm a single
+              writer again and monitor the return. Changing DNS back as soon as a Region recovers
+              risks serving stale data or creating conflicting writes.
+            </p>
+          </section>
+
+          <section class="case-section" id="references">
+            <p class="section-kicker">07 / Official references</p>
+            <h2>Sources behind the design.</h2>
+            <p class="body-copy">
+              AWS and HashiCorp guidance for the service choices and recovery sequence, checked on
+              14 October 2026.
+            </p>
+            <ul class="dr-references">
+              <li>
+                <a
+                  href="https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html"
+                  >AWS · Disaster recovery strategies <span aria-hidden="true">↗</span></a
+                >
+                <p>Backup and restore, warm standby, replication and cost trade-offs.</p>
+              </li>
+              <li>
+                <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/rel-13.html"
+                  >AWS · Plan for disaster recovery <span aria-hidden="true">↗</span></a
+                >
+                <p>Recovery objectives, testing and recovery procedures.</p>
+              </li>
+              <li>
+                <a
+                  href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.Promote.html"
+                  >AWS · Promote an RDS read replica <span aria-hidden="true">↗</span></a
+                >
+                <p>Write takeover, asynchronous replication and promotion behaviour.</p>
+              </li>
+              <li>
+                <a
+                  href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RestoreFromSnapshot.html"
+                  >AWS · Restore an RDS snapshot <span aria-hidden="true">↗</span></a
+                >
+                <p>A separate recovery path that creates a DB instance from a backup.</p>
+              </li>
+              <li>
+                <a
+                  href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-types.html"
+                  >AWS · Route 53 failover routing <span aria-hidden="true">↗</span></a
+                >
+                <p>DNS routing between primary and recovery endpoints.</p>
+              </li>
+              <li>
+                <a href="https://developer.hashicorp.com/terraform/language/block/provider"
+                  >HashiCorp · Provider configuration <span aria-hidden="true">↗</span></a
+                >
+                <p>Explicit provider settings for regional resources and reusable modules.</p>
+              </li>
+              <li>
+                <a href="https://developer.hashicorp.com/terraform/language/state/purpose"
+                  >HashiCorp · The purpose of Terraform state <span aria-hidden="true">↗</span></a
+                >
+                <p>How state maps configuration to managed infrastructure.</p>
+              </li>
+            </ul>
+            <p class="dr-return">
+              <a class="text-link" href="../../#technical-designs"
+                >Back to technical designs <span aria-hidden="true">↗</span></a
+              >
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

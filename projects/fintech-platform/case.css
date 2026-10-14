@@ -53,6 +53,33 @@
   font-size: 13px;
   text-underline-offset: 4px;
 }
+/* Newly confirmed work scope with a separate illustrative design, not a delivery claim. */
+.fintech-case .related-design {
+  margin-block: 28px;
+  padding-block: 24px;
+  border-block: 1px solid var(--line);
+  scroll-margin-top: 80px;
+}
+.fintech-case .related-design h3 {
+  margin-bottom: 14px;
+  font-size: 22px;
+  line-height: 1.4;
+}
+.fintech-case .related-design p {
+  font-size: 16px;
+}
+.fintech-case .related-design .related-design-scope {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.fintech-case .related-design a {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--case-accent);
+  font-size: 15px;
+  text-underline-offset: 4px;
+}
 .fintech-case .route-reading {
   margin-block: 28px;
   border-top: 1px solid var(--line);

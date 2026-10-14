@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="1090" viewBox="0 0 1040 1090" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Illustrative AWS warm-standby recovery design</title>
+  <desc id="diagram-description">A cross-Region warm standby design on AWS. Clients query Route 53 DNS to obtain an ALB endpoint, then send HTTP requests directly to that ALB. Normal traffic follows the primary Region ALB, EKS application, and writable RDS PostgreSQL database. A separate recovery Region and VPC contain an ALB, a small running EKS application, and an asynchronously replicated, read-only PostgreSQL replica. Recovery traffic is enabled only after fencing the previous writers, promoting and validating the replica, scaling and checking the application, and deliberately changing DNS. Standby jobs and writers remain inactive until takeover. Independent backup copies in managed storage outside the recovery VPC retain versions and offer an alternative restore path.</desc>
+
+  <!-- Shared typography, colour, and line conventions. No external assets. -->
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; fill: #182336; }
+      .heading { font-size: 24px; font-weight: 650; }
+      .region-title { font-size: 20px; font-weight: 650; }
+      .node-title { font-size: 17px; font-weight: 650; }
+      .body { font-size: 15px; }
+      .small { font-size: 14px; }
+      .muted { fill: #526074; }
+      .normal-text { fill: #173bcc; }
+      .takeover-text { fill: #9c4b0c; }
+      .replica-text { fill: #17685f; }
+      .backup-text { fill: #7453a2; }
+      .region { fill: #f6f8fb; stroke: #dbe1e9; stroke-width: 1.5; }
+      .vpc { fill: #fff; stroke: #bac5d4; stroke-width: 1.5; stroke-dasharray: 7 5; }
+      .node { fill: #fff; stroke: #c4cede; stroke-width: 1.5; }
+      .normal { fill: none; stroke: #173bcc; stroke-width: 2.5; marker-end: url(#blue-arrow); }
+      .takeover { fill: none; stroke: #b66321; stroke-width: 2.5; stroke-dasharray: 9 6; marker-end: url(#orange-arrow); }
+      .replica { fill: none; stroke: #17685f; stroke-width: 2.5; stroke-dasharray: 5 5; marker-end: url(#teal-arrow); }
+      .backup { fill: none; stroke: #7453a2; stroke-width: 2.5; stroke-dasharray: 1 6; stroke-linecap: round; marker-end: url(#purple-arrow); }
+      .dns { fill: none; stroke: #69768b; stroke-width: 1.5; marker-start: url(#gray-arrow); marker-end: url(#gray-arrow); }
+    </style>
+    <marker id="blue-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#173bcc" /></marker>
+    <marker id="orange-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#b66321" /></marker>
+    <marker id="teal-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#17685f" /></marker>
+    <marker id="purple-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#7453a2" /></marker>
+    <marker id="gray-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#69768b" /></marker>
+  </defs>
+
+  <!-- Design title and service choices. -->
+  <rect width="1040" height="1090" fill="#fff" />
+  <text x="24" y="39" class="heading">Warm standby architecture</text>
+  <text x="24" y="67" class="body muted">AWS EKS + ALB + RDS PostgreSQL · Cross-Region recovery</text>
+
+  <!-- DNS returns an endpoint. HTTP flows start at the clients, not at DNS. -->
+  <rect x="250" y="110" width="280" height="74" rx="6" class="node" />
+  <text x="390" y="138" text-anchor="middle" class="node-title">Clients</text>
+  <text x="390" y="163" text-anchor="middle" class="body muted">HTTP to the selected ALB</text>
+  <rect x="716" y="110" width="300" height="74" rx="6" class="node" />
+  <text x="866" y="138" text-anchor="middle" class="node-title">Route 53 DNS</text>
+  <text x="866" y="163" text-anchor="middle" class="body muted">Returns the selected endpoint</text>
+  <path d="M 538 150 H 708" class="dns" />
+  <text x="623" y="132" text-anchor="middle" class="small muted">DNS query + answer</text>
+  <text x="623" y="178" text-anchor="middle" class="small muted">Not an HTTP proxy</text>
+
+  <!-- Separate regional and VPC boundaries. Backups remain outside the VPCs. -->
+  <rect x="24" y="270" width="450" height="582" rx="8" class="region" />
+  <text x="44" y="301" class="region-title">Primary Region</text>
+  <rect x="44" y="320" width="410" height="408" rx="6" class="vpc" />
+  <text x="62" y="345" class="small muted">Primary VPC</text>
+  <rect x="566" y="270" width="450" height="582" rx="8" class="region" />
+  <text x="586" y="301" class="region-title">Recovery Region</text>
+  <rect x="586" y="320" width="410" height="408" rx="6" class="vpc" />
+  <text x="604" y="345" class="small muted">Recovery VPC</text>
+
+  <!-- Request routes: recovery requests are conditional on the gate below. -->
+  <path d="M 340 184 V 225 H 249 V 360" class="normal" />
+  <text x="80" y="251" class="body normal-text">Normal client requests</text>
+  <path d="M 450 184 V 225 H 791 V 360" class="takeover" />
+  <text x="606" y="209" class="body takeover-text">Recovery requests · after readiness checks</text>
+  <path d="M 249 424 V 458" class="normal" />
+  <path d="M 249 558 V 610" class="normal" />
+  <path d="M 791 424 V 458" class="takeover" />
+  <path d="M 791 558 V 610" class="takeover" />
+
+  <!-- Primary request path. -->
+  <rect x="94" y="360" width="310" height="64" rx="5" class="node" />
+  <text x="249" y="387" text-anchor="middle" class="node-title">Application Load Balancer</text>
+  <text x="249" y="408" text-anchor="middle" class="small muted">Primary endpoint</text>
+  <rect x="94" y="458" width="310" height="100" rx="5" class="node" />
+  <text x="249" y="486" text-anchor="middle" class="node-title">EKS application</text>
+  <text x="249" y="512" text-anchor="middle" class="body muted">Serving production requests</text>
+  <text x="249" y="537" text-anchor="middle" class="body muted">Jobs and writers active</text>
+  <rect x="94" y="610" width="310" height="96" rx="5" class="node" />
+  <text x="249" y="637" text-anchor="middle" class="node-title">RDS PostgreSQL</text>
+  <text x="249" y="662" text-anchor="middle" class="body normal-text">Writable primary</text>
+  <text x="249" y="685" text-anchor="middle" class="small muted">Current write authority</text>
+
+  <!-- Running standby: promotion and capacity work precede client cutover. -->
+  <rect x="636" y="360" width="310" height="64" rx="5" class="node" />
+  <text x="791" y="387" text-anchor="middle" class="node-title">Application Load Balancer</text>
+  <text x="791" y="408" text-anchor="middle" class="small muted">Recovery endpoint</text>
+  <rect x="636" y="458" width="310" height="100" rx="5" class="node" />
+  <text x="791" y="481" text-anchor="middle" class="node-title">EKS application</text>
+  <text x="791" y="504" text-anchor="middle" class="small muted">Small capacity already running</text>
+  <text x="791" y="526" text-anchor="middle" class="small takeover-text">Scale before full traffic</text>
+  <text x="791" y="547" text-anchor="middle" class="small muted">Jobs / writers held until takeover</text>
+  <rect x="636" y="610" width="310" height="96" rx="5" class="node" />
+  <text x="791" y="637" text-anchor="middle" class="node-title">RDS PostgreSQL replica</text>
+  <text x="791" y="661" text-anchor="middle" class="body muted">Standby: read-only</text>
+  <text x="791" y="685" text-anchor="middle" class="body takeover-text">Promote to writable</text>
+
+  <!-- Replication is asynchronous and distinct from independent backup copies. -->
+  <path d="M 404 663 H 636" class="replica" />
+  <text x="520" y="631" text-anchor="middle" class="small replica-text">Asynchronous replication</text>
+  <text x="520" y="650" text-anchor="middle" class="small muted">Lag / possible data loss</text>
+  <path d="M 249 706 V 752" class="backup" />
+  <rect x="94" y="752" width="310" height="78" rx="5" fill="#f9f6fd" stroke="#d5c9e5" stroke-width="1.5" />
+  <text x="249" y="777" text-anchor="middle" class="node-title">Backup / snapshot workflow</text>
+  <text x="249" y="801" text-anchor="middle" class="small muted">Managed storage outside the VPC</text>
+  <text x="249" y="820" text-anchor="middle" class="small muted">Separate from live replication</text>
+  <path d="M 404 790 H 636" class="backup" />
+  <text x="520" y="756" text-anchor="middle" class="small backup-text">Versioned cross-Region</text>
+  <text x="520" y="775" text-anchor="middle" class="small backup-text">backup copies</text>
+  <rect x="636" y="752" width="310" height="78" rx="5" fill="#f9f6fd" stroke="#d5c9e5" stroke-width="1.5" />
+  <text x="791" y="777" text-anchor="middle" class="node-title">Independent backup copies</text>
+  <text x="791" y="801" text-anchor="middle" class="small muted">Managed storage outside the VPC</text>
+  <text x="791" y="820" text-anchor="middle" class="small muted">Retained versions · restore alternative</text>
+
+  <!-- A controlled readiness gate, not ungated health-check DNS failover. -->
+  <rect x="24" y="876" width="992" height="116" rx="6" fill="#fff8ef" stroke="#e8c59e" stroke-width="1.5" />
+  <text x="44" y="903" class="node-title takeover-text">Readiness gate before recovery traffic</text>
+  <text x="44" y="932" class="body">Fence previous writers</text>
+  <text x="44" y="957" class="small muted">Confirm a single write authority.</text>
+  <text x="290" y="932" class="body">Promote the replica</text>
+  <text x="290" y="957" class="small muted">Validate the writable database.</text>
+  <text x="536" y="932" class="body">Scale + test app reads/writes</text>
+  <text x="536" y="957" class="small muted">Verify capacity and dependencies.</text>
+  <text x="782" y="932" class="body">Change DNS</text>
+  <text x="782" y="957" class="small muted">Take over jobs and writers.</text>
+  <text x="44" y="978" class="small muted">Recovery routing is a deliberate action after validation; DNS caches can delay client transition.</text>
+
+  <!-- Legend repeats meaning in words as well as line style and colour. -->
+  <path d="M 26 1026 H 74" class="normal" />
+  <text x="86" y="1031" class="small">Normal requests</text>
+  <path d="M 265 1026 H 313" class="takeover" />
+  <text x="325" y="1031" class="small">Requests after readiness gate</text>
+  <path d="M 596 1026 H 644" class="replica" />
+  <text x="656" y="1031" class="small">Async replication</text>
+  <path d="M 837 1026 H 885" class="backup" />
+  <text x="897" y="1031" class="small">Backup copies</text>
+  <text x="24" y="1064" class="small muted">Recovery readiness brings together data, application capacity and user access.</text>
+</svg>

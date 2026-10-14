@@ -6,7 +6,7 @@
     <title>AI-assisted Knowledge Base Generation · Xiang Zhu</title>
     <meta
       name="description"
-      content="A master's capstone comparing single-pass prompts and an agent review loop for technical knowledge-base generation, with checked experiment results and explicit limitations."
+      content="A master's capstone comparing single-pass prompts and an agent review loop for technical knowledge-base generation, with Python pipelines, recoverable experiments and paired evaluation results."
     />
     <meta name="theme-color" content="#173bcc" />
     <link
@@ -53,8 +53,9 @@
           </div>
           <div>
             <p class="case-summary">
-              A master's capstone on turning technical support records into knowledge articles. The
-              engineering work connects model orchestration, recoverable batch runs and evaluation.
+              I built Python pipelines to turn technical support records into knowledge articles,
+              then compared single-pass prompts with an agent review loop. The work connects model
+              orchestration, recoverable batch runs and evaluation.
             </p>
             <div class="case-actions">
               <a class="button" href="#results">Explore the results</a>
@@ -101,7 +102,7 @@
           </a>
           <a href="#evidence">
             <span>06</span>
-            Scope &amp; evidence
+            Work &amp; evidence
           </a>
         </aside>
         <div class="case-content">
@@ -136,8 +137,7 @@
             </div>
             <p class="context-strip">
               An offline research project based on 69 purposively selected GitHub issue/PR records:
-              40 from Kubernetes, 20 from Ansible and 9 from VS Code. Enterprise deployment and user
-              impact were outside the study.
+              40 from Kubernetes, 20 from Ansible and 9 from VS Code.
             </p>
           </section>
           <section class="case-section" id="architecture">
@@ -148,8 +148,8 @@
               Several ways to generate and check.
             </h2>
             <p class="body-copy">
-              The implementation separates generation, review and evaluation. The diagrams below
-              reflect the inspected code; the finalisation step selects and saves an existing draft.
+              I separated generation, review and evaluation so each stage could be configured and
+              inspected. The finalisation step selects and saves an existing draft.
             </p>
             <div class="architecture">
               <div class="arch-tabs" role="tablist" aria-label="Knowledge-base workflow">
@@ -223,8 +223,8 @@
                 </div>
                 <p class="map-caption">
                   LangGraph carries the current draft, feedback, iteration count and best-scored
-                  draft. Finalisation makes no additional model call. The review budget limits draft
-                  iterations; the prototype's network-retry logic is separate.
+                  draft. Finalisation is deterministic. The review budget limits draft iterations;
+                  network retries have separate logic.
                 </p>
               </div>
               <div
@@ -264,13 +264,12 @@
                   <div class="map-node">
                     <span class="node-label">Saved output</span>
                     <strong>Generated article</strong>
-                    <small>No internal auditor stage in these two variants</small>
+                    <small>Single-pass generation</small>
                   </div>
                 </div>
                 <p class="map-caption">
-                  A further variant adds the review loop to CoT generation. The archived CoT
-                  variants handled reasoning text and cache hits inconsistently; this is an
-                  evaluation limitation, detailed below.
+                  A further variant adds the review loop to CoT generation. Run 09 compares these
+                  two CoT workflows; the evaluation notes describe how each path saved its output.
                 </p>
               </div>
               <div
@@ -308,26 +307,24 @@
                 </div>
                 <p class="map-caption">
                   Reference material includes the PR description and diff. Generation also receives
-                  the diff. Method labels and ordering were visible to the judge; the inspected
-                  evaluation is not a blind test.
+                  the diff. The judge scores saved candidate articles using a 0–100 rubric.
                 </p>
               </div>
             </div>
             <div class="context-grid">
               <div>
-                <h3>Model boundary</h3>
+                <h3>Interchangeable model providers</h3>
                 <p>
-                  A provider factory supports cloud APIs and local Ollama. Archived runs document
-                  Gemini and local Llama 3 experiments; an adapter's existence alone is not a
-                  verified run.
+                  A provider factory supports cloud APIs and local Ollama. I used Gemini and local
+                  Llama 3 in the experiments, keeping provider selection separate from the workflow.
                 </p>
               </div>
               <div>
-                <h3>Run boundary</h3>
+                <h3>Recoverable batch work</h3>
                 <p>
-                  Configuration, cached intermediate files, saved results and failure records
-                  support interrupted batch work. They remain prototype mechanisms with limits
-                  around cache versioning and retry behaviour.
+                  Configuration, cached intermediate files, saved results and failure records let me
+                  inspect interrupted batches and reuse completed work. Cache versioning and retry
+                  behaviour are concrete areas for the next iteration.
                 </p>
               </div>
             </div>
@@ -347,8 +344,8 @@
                 <div class="tradeoff">
                   <strong>Trade-off</strong>
                   <span>
-                    Local hardware and smaller-model constraints become part of the operating model.
-                    Local inference does not itself establish zero cost or a compliance guarantee.
+                    Local inference trades API access and usage limits for local hardware capacity,
+                    runtime and smaller-model constraints.
                   </span>
                 </div>
               </div>
@@ -376,15 +373,14 @@
               <div>
                 <h3>Keep simpler baselines in the comparison</h3>
                 <p>
-                  The project began by exploring multi-agent review, then added single-pass CoT as a
-                  simpler alternative. The retained comparisons gave a reason to question the extra
-                  review stage.
+                  I began by exploring multi-agent review, then added single-pass CoT as a simpler
+                  alternative. Comparing both made the extra review stage a testable choice.
                 </p>
                 <div class="tradeoff">
                   <strong>Trade-off</strong>
                   <span>
-                    The judge is another model. Scores help compare these saved runs, while the
-                    study's evaluation design limits stronger claims about accuracy or causation.
+                    A model judge makes batch comparison practical. Its rubric and presentation
+                    settings also shape the scores, so human evaluation is a useful next step.
                   </span>
                 </div>
               </div>
@@ -393,9 +389,9 @@
           <section class="case-section" id="results">
             <p class="section-kicker">04 / Results &amp; interpretation</p>
             <h2>
-              Measure the difference.
+              Single-pass CoT led Run 08.
               <br />
-              Keep the conclusion in scope.
+              Run 09 left the review effect uncertain.
             </h2>
             <p class="lead">
               Single-pass CoT received the highest average score in the retained three-way
@@ -403,9 +399,9 @@
               statistically significant benefit.
             </p>
             <p class="small-note">
-              The figures use stored capstone results, recalculated on 2 October 2026. No model
-              generation was rerun for this portfolio review. Scores come from the configured LLM
-              judge and do not represent an objective accuracy percentage.
+              The figures show the configured LLM judge's 0–100 scores for 69 paired records. Stored
+              scores were recalculated on 2 October 2026; this was an archive review, without a new
+              model run.
             </p>
             <figure class="capstone-chart">
               <a
@@ -459,8 +455,8 @@
               CoT scored 14.28 points above the multi-agent workflow in this run (paired t-test, p ≈
               1.65 × 10
               <sup>−13</sup>
-              ). This is evidence about these samples and this judge configuration; it does not
-              establish that one architecture is universally superior.
+              ). For these records and this judge configuration, the simpler CoT workflow was the
+              stronger baseline.
             </p>
             <figure class="capstone-chart">
               <a
@@ -475,50 +471,48 @@
               </a>
               <figcaption>
                 <strong>Run 09 · Reviewer-loop comparison.</strong>
-                A separate pairwise evaluation of CoT variants, with 69 matched records. Its
-                absolute scores should not be compared directly with Run 08.
+                A separate pairwise evaluation of CoT variants, with 69 matched records. Run 08 used
+                three-way judging; each run is interpreted within its own evaluation setting.
               </figcaption>
             </figure>
             <p class="body-copy">
               The reviewed outputs averaged 0.90 points lower (95% confidence interval for the
-              paired difference: −4.53 to +2.73; p = 0.6232). The data did not demonstrate a benefit
-              from this review loop. They also do not establish a reliable degradation effect or its
-              cause.
+              paired difference: −4.53 to +2.73; p = 0.6232). This result is statistically
+              inconclusive: the interval spans both lower and higher scores. It supports keeping
+              single-pass CoT as the baseline while testing changes to the review stage.
             </p>
             <details class="evidence-details">
-              <summary>Evaluation limits and what the review corrected</summary>
+              <summary>Evaluation method and follow-up checks</summary>
               <ul>
                 <li>
-                  The sample was purposive, with uneven representation across three open-source
-                  projects. It does not establish performance across enterprise support work.
+                  These are LLM-judge scores on a 0–100 rubric, rather than measured accuracy
+                  percentages. The 69-record sample was purposive and unevenly distributed across
+                  three open-source projects. Paired t-tests are exploratory, with unadjusted
+                  p-values.
                 </li>
                 <li>
-                  Candidate method names and their ordering were visible to the judge. A model judge
-                  may introduce ordering, style or self-preference biases.
+                  Candidate method names and ordering were visible to the judge. Randomised, blinded
+                  presentation and human review would help assess ordering, style and
+                  self-preference effects.
                 </li>
                 <li>
-                  Single-pass CoT saved the full response; the multi-agent CoT path removed
-                  reasoning text on fresh generation but retained it on cache hits. These
-                  differences limit claims about a tightly controlled comparison.
+                  Single-pass CoT saved the full response. The multi-agent CoT path removed
+                  reasoning text on fresh generation but retained it on cache hits. A follow-up
+                  comparison should normalise this handling across paths.
                 </li>
                 <li>
-                  Cached outputs were not keyed by a complete model, prompt and input version.
-                  Archived records do not include a model digest, seed and full environment
-                  manifest.
+                  Cache keys captured only part of the model, prompt and input configuration. A
+                  versioned experiment manifest should also capture the model digest, seed and
+                  environment for a reproducible rerun.
                 </li>
                 <li>
-                  Only the score-based evaluation was confirmed in the inspected code and retained
-                  results. Earlier descriptions of blind scoring and ROUGE-L are not used as
-                  verified claims here.
+                  Both generation and evaluation receive PR diffs. The comparison measures article
+                  quality with access to the fix; a separate experiment would be needed to isolate a
+                  mechanism such as information loss during review.
                 </li>
                 <li>
-                  Generation also receives PR diffs. This case does not claim the generator was
-                  isolated from the reference fix, or that the reviewer experimentally proved an
-                  information-loss mechanism.
-                </li>
-                <li>
-                  Recorded durations include possible retry waits and lack controlled hardware or
-                  warm-up conditions. They are not presented as a speedup benchmark.
+                  Timing records include possible retry waits. A runtime comparison would need
+                  consistent hardware and warm-up conditions.
                 </li>
               </ul>
             </details>
@@ -536,8 +530,7 @@
             </p>
             <p class="context-strip">
               <strong>Handwritten, synthetic example.</strong>
-              Created for this case study. It is not an original ticket, model output or measured
-              result.
+              This illustration shows the target article structure for the case study.
             </p>
             <div class="capstone-example-grid">
               <article class="capstone-example">
@@ -591,32 +584,32 @@
               </article>
             </div>
             <p class="small-note">
-              A review should preserve the boundary condition and the actual fix, without inventing
-              infrastructure failures or claiming broader validation than the input supplies.
+              The useful details are the boundary condition, the actual fix and a regression check
+              that targets the failure. A review should preserve all three.
             </p>
           </section>
           <section class="case-section" id="evidence">
-            <p class="section-kicker">06 / Scope &amp; evidence</p>
+            <p class="section-kicker">06 / Work &amp; evidence</p>
             <h2>
-              Show the work.
+              Inspect the workflow.
               <br />
-              State what remains unverified.
+              Recalculate the comparison.
             </h2>
             <table class="evidence-table">
               <caption class="sr-only">
-                Implementation and verification scope
+                Implementation and experiment records
               </caption>
               <thead>
                 <tr>
                   <th scope="col">Area</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Evidence boundary</th>
+                  <th scope="col">Work completed</th>
+                  <th scope="col">What to inspect</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">Generation &amp; orchestration</th>
-                  <td><span class="status implemented">Code inspected</span></td>
+                  <td><span class="status implemented">Implemented</span></td>
                   <td>
                     Python runners, two-role LangGraph review loop, model adapters, caching and
                     saved fallback outcomes.
@@ -624,33 +617,18 @@
                 </tr>
                 <tr>
                   <th scope="row">Offline experiments</th>
-                  <td><span class="status">Records checked</span></td>
+                  <td><span class="status">Scores recalculated</span></td>
                   <td>
-                    Stored output and evaluation records; Run 08 and Run 09 scores recalculated
-                    locally. Model inference was not repeated during this review.
+                    Stored output and evaluation records, with a score export and script for
+                    recalculating Run 08 and Run 09 statistics.
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">Test coverage</th>
-                  <td><span class="status implemented">Limited</span></td>
+                  <th scope="row">Workflow diagnostics</th>
+                  <td><span class="status">Inspection scripts</span></td>
                   <td>
-                    Existing scripts explore workflow behaviour through printed output. The review
-                    does not establish automated assertion coverage or a tested clean installation.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Production use</th>
-                  <td><span class="status implemented">Not established</span></td>
-                  <td>
-                    No production service, enterprise rollout or measured user impact is claimed.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Further verification</th>
-                  <td><span class="status planned">Future work</span></td>
-                  <td>
-                    Tool-assisted review, human evaluation, versioned experiment manifests and
-                    broader model comparisons remain outside the verified scope.
+                    Scripts print workflow behaviour and outcomes for manual inspection during
+                    development.
                   </td>
                 </tr>
               </tbody>
@@ -672,15 +650,15 @@
               </a>
             </div>
             <p class="small-note">
-              The export contains scores and pseudonymous case labels, with no original record IDs,
-              ticket text, generated articles or judge explanations. Readers can use the script to
-              verify the statistics from this export without the private archive. Extracting the
-              scores again requires the retained local files, which are not distributed here.
+              The public export contains scores and pseudonymous case labels. The script
+              recalculates its means, sample variation, paired t-tests and confidence intervals.
+              Original records and research archives remain private.
             </p>
             <p class="body-copy capstone-result-note">
-              The original report, raw dataset, intermediate caches and research submission packages
-              remain outside this portfolio. The public-facing material is a reviewed case study and
-              a limited evidence export.
+              The next iteration would combine consistent output handling and versioned experiment
+              manifests with human evaluation, tool-assisted review and broader model comparisons.
+              The aim is to identify which review steps improve the article enough to justify their
+              added complexity.
             </p>
           </section>
         </div>

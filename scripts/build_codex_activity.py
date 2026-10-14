@@ -202,8 +202,8 @@ def render(data):
       </figcaption>
     </figure>
     <p class="activity-caption">
-      Static snapshot updated {end:%-d %B %Y}; the final day is partial. Activity measures use of
-      Codex, not code output or engineering quality.
+      Recorded Codex work cycles across selected software projects. Snapshot updated
+      {end:%-d %B %Y}; the final day is partial.
     </p>
     <details class="activity-methodology">
       <summary>What these numbers include</summary>
@@ -223,10 +223,10 @@ def render(data):
         one qualifying turn; zero means no qualifying record was retained.
       </p>
       <p>
-        This is a self-reported local snapshot, with coverage limited to retained records. It is
-        not an official OpenAI export or an account-wide total, and it does not count completed
-        features, commits, lines of code or hours worked. Only dates and aggregate counts are
-        published; prompts, responses, workspace paths and credentials stay local.
+        I generated this snapshot from retained records in the selected local workspaces.
+        It reports daily activity in recorded turns; the project pages show the resulting
+        code, decisions and verification. The public export contains dates and aggregate
+        counts. Conversation content and workspace details remain local.
       </p>
       <p>
         <a href="assets/evidence/codex-activity.json">Download the aggregate snapshot (JSON)</a>
@@ -279,8 +279,8 @@ def replace_activity_block(html, block):
         block_end = begin.end() + end.end()
         return html[:begin.start()] + indent(block, begin[1]) + html[block_end:]
 
-    # The writing section is the fallback insertion point for a first snapshot.
-    marker = re.search(r'^([ \t]*)<section class="writing-section wrap"', html, re.MULTILINE)
+    # A first snapshot belongs immediately before About, after the other work sections.
+    marker = re.search(r'^([ \t]*)<section class="about-section wrap"', html, re.MULTILINE)
     if not marker:
         raise ValueError('Homepage insertion point not found.')
     return html[:marker.start()] + indent(block, marker[1]) + html[marker.start():]

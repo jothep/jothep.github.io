@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:description>Run08 archived LLM-judge means with sample standard deviations, 69 paired cases. Not objective accuracy.</dc:description>
+    <dc:description>Run08 configured LLM-judge means with sample standard deviations, 69 paired cases; archived-score recalculation.</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -238,7 +238,7 @@ z
    <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="48.816" transform="rotate(-0 47.88 48.816)">69 paired cases · Mean ± sample SD</text>
   </g>
   <g id="text_15">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #173bcc" x="47.88" y="71.28" transform="rotate(-0 47.88 71.28)">LLM-judge scores, not objective accuracy</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #173bcc" x="47.88" y="71.28" transform="rotate(-0 47.88 71.28)">Configured LLM-judge scores (0–100)</text>
   </g>
   <g id="text_16">
    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #172033" x="47.88" y="364.176" transform="rotate(-0 47.88 364.176)">CoT − multi-agent: +14.28 points</text>
@@ -247,7 +247,7 @@ z
    <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="383.616" transform="rotate(-0 47.88 383.616)">Two-sided paired t-test: p = 1.65e-13</text>
   </g>
   <g id="text_18">
-   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="413.424" transform="rotate(-0 47.88 413.424)">Retrospective check · 02 Oct 2026 · No model rerun</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Helvetica', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Avant Garde', sans-serif; text-anchor: start; fill: #596477" x="47.88" y="413.424" transform="rotate(-0 47.88 413.424)">Archived-score recalculation · 02 Oct 2026</text>
   </g>
  </g>
  <defs>
