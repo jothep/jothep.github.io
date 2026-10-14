@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Authority Brands · AWS platform support · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="SRE support at Authority Brands: Terraform module refactoring, recovery environment service modules and a joint platform assessment."
+    />
+    <link rel="canonical" href="https://jothep.github.io/projects/aws-platform-reliability/" />
+    <meta name="theme-color" content="#805222" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
+    <link rel="stylesheet" href="case.css?v=20261014a" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="authority-brands-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home"
+        ><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a><a href="../../#about">About</a
+        ><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="case-hero wrap">
+        <div class="case-topline">
+          <a class="breadcrumb" href="../../experience/#authority-brands"
+            ><span aria-hidden="true">←</span> Enterprise experience</a
+          >
+        </div>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Thoughtworks · Client engagement</p>
+            <h1>Authority Brands</h1>
+            <p class="case-subtitle">AWS platform support and Terraform refactoring</p>
+          </div>
+          <div class="case-focus">
+            <p class="eyebrow">Case focus</p>
+            <p>Infrastructure code, recovery preparation and operational improvement priorities.</p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item">
+            <span>My role</span><strong>SRE Support / DevOps Developer</strong>
+          </div>
+          <div class="meta-item">
+            <span>Project participation</span><strong>Jul – Nov 2021</strong>
+          </div>
+          <div class="meta-item">
+            <span>Environment</span><strong>AWS · EKS · Terraform · Jenkins</strong>
+          </div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Authority Brands case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="authority-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">Terraform modules</span
+            ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="authority-section-links">
+            <a href="#terraform" aria-current="true"><span>01</span> Terraform modules</a>
+            <a href="#assessment"><span>02</span> Platform assessment</a>
+            <a href="#eks-planning"><span>03</span> EKS upgrade planning</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="terraform">
+            <p class="section-kicker">01 / Terraform modules</p>
+            <h2>Refactoring infrastructure for an existing AWS platform.</h2>
+            <p class="lead">
+              I supported Authority Brands’ AWS platform as a Thoughtworks SRE Support / DevOps
+              Developer. My main hands-on work focused on refactoring Terraform modules. I also
+              built service modules for a recovery environment.
+            </p>
+            <p class="body-copy">
+              This work combined maintenance of existing infrastructure code with provisioning
+              resources for recovery preparation. The platform environment included EKS, RDS, S3 and
+              Lambda, with Terraform and Jenkins as part of its engineering toolset.
+            </p>
+            <div class="recovery-context">
+              <h3>Recovery depends on more than resource provisioning.</h3>
+              <p>
+                Recovery preparation connected the network and Kubernetes platform with data
+                services, container images, Helm charts, configuration and application versions. The
+                service modules formed part of this broader dependency chain, linking infrastructure
+                preparation to the applications it needed to support.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="assessment">
+            <p class="section-kicker">02 / Platform assessment</p>
+            <h2>Turning operational needs into improvement priorities.</h2>
+            <p class="body-copy">
+              Together with a colleague, I assessed security, reliability, operations, platform
+              capabilities, team practices and cost management. We organised improvement areas by
+              risk and estimated effort, connecting technical concerns with the work needed to
+              maintain the platform.
+            </p>
+            <dl class="assessment-topics">
+              <div>
+                <dt>Reliability</dt>
+                <dd>Tenant-level monitoring, resource isolation and recovery readiness.</dd>
+              </div>
+              <div>
+                <dt>Operations</dt>
+                <dd>
+                  Access controls, service responsibilities, change procedures and operational
+                  documentation.
+                </dd>
+              </div>
+              <div>
+                <dt>Team &amp; cost</dt>
+                <dd>Training and knowledge sharing, budget alerts and resource utilisation.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="case-section" id="eks-planning">
+            <p class="section-kicker">03 / EKS upgrade planning</p>
+            <h2>Coordinating versions, capacity and workload movement.</h2>
+            <p class="body-copy">
+              The platform’s upgrade workflow covered the EKS control plane, supporting components
+              and worker nodes. Changes to the EKS version in Terraform were paired with
+              compatibility checks for VPC CNI, CoreDNS, kube-proxy and Cluster Autoscaler.
+            </p>
+            <ol class="upgrade-sequence" aria-label="Planned node migration sequence">
+              <li>
+                <strong>Add capacity</strong
+                ><span>Bring in temporary nodes to accommodate the workloads.</span>
+              </li>
+              <li>
+                <strong>Control scheduling</strong
+                ><span>Cordon old nodes and check Pod Disruption Budgets.</span>
+              </li>
+              <li>
+                <strong>Move workloads</strong
+                ><span>Drain nodes in stages and protect new nodes from scale-in.</span>
+              </li>
+              <li>
+                <strong>Reduce capacity</strong
+                ><span>Retire old nodes, check workloads and remove temporary protection.</span>
+              </li>
+            </ol>
+            <p class="body-copy">
+              Jenkins required separate attention because its StatefulSet affected migration of the
+              DevOps node group. The plan deferred that group’s upgrade, allowing its workload
+              constraints to determine the scope of the change.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span><a href="../../changelog/">Changelog</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

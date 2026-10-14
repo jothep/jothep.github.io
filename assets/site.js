@@ -107,31 +107,39 @@ updateSection();
 }
 
 // Native horizontal scrolling remains available when this enhancement is unavailable.
-{
-  const writing = document.getElementById('writing');
-  const track = writing?.querySelector('#writing-track');
-  const controls = writing?.querySelector('.writing-controls');
-  const previous = controls?.querySelector('[data-writing-prev]');
-  const next = controls?.querySelector('[data-writing-next]');
-  const cards = track ? Array.from(track.querySelectorAll('.writing-card')) : [];
+for (const { sectionId, prefix, singular, plural } of [
+  { sectionId: 'writing', prefix: 'writing', singular: 'article', plural: 'articles' },
+  {
+    sectionId: 'enterprise-experience',
+    prefix: 'experience',
+    singular: 'project',
+    plural: 'projects',
+  },
+]) {
+  const section = document.getElementById(sectionId);
+  const track = section?.querySelector(`#${prefix}-track`);
+  const controls = section?.querySelector(`.${prefix}-controls`);
+  const previous = controls?.querySelector(`[data-${prefix}-prev]`);
+  const next = controls?.querySelector(`[data-${prefix}-next]`);
+  const cards = track ? Array.from(track.querySelectorAll(`.${prefix}-card`)) : [];
 
   if (track && controls && previous && next && cards.length) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const count = writing.querySelector('[data-writing-count]');
+    const count = section.querySelector(`[data-${prefix}-count]`);
     const tolerance = 1;
 
     if (count) {
-      count.textContent = `${cards.length} ${cards.length === 1 ? 'article' : 'articles'}`;
+      count.textContent = `${cards.length} ${cards.length === 1 ? singular : plural}`;
     }
 
-    function updateWritingControls() {
+    function updateControls() {
       const maximum = track.scrollWidth - track.clientWidth;
       controls.hidden = maximum <= tolerance;
       previous.disabled = track.scrollLeft <= tolerance;
       next.disabled = track.scrollLeft >= maximum - tolerance;
     }
 
-    function scrollWriting(direction) {
+    function scrollCards(direction) {
       const maximum = Math.max(0, track.scrollWidth - track.clientWidth);
       const current = Math.max(0, Math.min(track.scrollLeft, maximum));
       const firstLeft = cards[0].getBoundingClientRect().left;
@@ -151,8 +159,8 @@ updateSection();
       track.scrollTo({ left, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
     }
 
-    previous.addEventListener('click', () => scrollWriting('previous'));
-    next.addEventListener('click', () => scrollWriting('next'));
+    previous.addEventListener('click', () => scrollCards('previous'));
+    next.addEventListener('click', () => scrollCards('next'));
     track.addEventListener('keydown', (event) => {
       if (
         event.target !== track ||
@@ -171,15 +179,15 @@ updateSection();
       }[event.key];
       if (!direction) return;
       event.preventDefault();
-      scrollWriting(direction);
+      scrollCards(direction);
     });
-    track.addEventListener('scroll', updateWritingControls, { passive: true });
-    window.addEventListener('resize', updateWritingControls);
+    track.addEventListener('scroll', updateControls, { passive: true });
+    window.addEventListener('resize', updateControls);
     if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver(updateWritingControls);
+      const observer = new ResizeObserver(updateControls);
       observer.observe(track);
       cards.forEach((card) => observer.observe(card));
     }
-    updateWritingControls();
+    updateControls();
   }
 }

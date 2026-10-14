@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Costa application monitoring · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="An application monitoring system I developed for Costa, connecting Graylog, Alertmanager and Slack with scheduled homepage checks."
+    />
+    <link rel="canonical" href="https://jothep.github.io/projects/application-monitoring/" />
+    <meta name="theme-color" content="#17685f" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
+    <link rel="stylesheet" href="case.css?v=20261014a" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="monitoring-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home"
+        ><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a><a href="../../#about">About</a
+        ><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="case-hero wrap">
+        <div class="case-topline">
+          <a class="breadcrumb" href="../../experience/#costa"
+            ><span aria-hidden="true">←</span> Enterprise experience</a
+          >
+        </div>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Thoughtworks · Client engagement</p>
+            <h1>Costa</h1>
+            <p class="case-subtitle">Application monitoring and alert delivery</p>
+          </div>
+          <div class="case-focus">
+            <p class="eyebrow">What I built</p>
+            <p>
+              An application monitoring system with log alerts, team notifications and homepage
+              checks.
+            </p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item"><span>My role</span><strong>DevOps Engineer</strong></div>
+          <div class="meta-item">
+            <span>Project participation</span><strong>Apr – Jun 2019</strong>
+          </div>
+          <div class="meta-item">
+            <span>Core tools</span><strong>Graylog · Alertmanager · Slack</strong>
+          </div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Costa case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="monitoring-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">Monitoring flow</span
+            ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="monitoring-section-links">
+            <a href="#monitoring" aria-current="true"><span>01</span> Monitoring flow</a>
+            <a href="#response"><span>02</span> Team response</a>
+            <a href="#checks"><span>03</span> Homepage checks</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="monitoring">
+            <p class="section-kicker">01 / Monitoring flow</p>
+            <h2>Application logs into team notifications.</h2>
+            <p class="lead">
+              I developed an application monitoring and alerting system for Costa’s digital
+              transformation project. I connected Graylog log alerts with Alertmanager and Slack,
+              and added scheduled checks of the website’s homepage.
+            </p>
+            <p class="body-copy">
+              The system gave the team a central place to review current alerts and a way to receive
+              notifications in its everyday collaboration channels. Log context and environment
+              labels helped connect each notification to the application problem behind it.
+            </p>
+            <figure class="monitor-diagram" aria-labelledby="monitor-diagram-title">
+              <h3 id="monitor-diagram-title">Monitoring paths</h3>
+              <p class="flow-label">Log-based alerts</p>
+              <ol class="monitor-flow" aria-label="Application log alert flow">
+                <li><strong>Application logs</strong><span>Log events</span></li>
+                <li><strong>Graylog</strong><span>Streams &amp; conditions</span></li>
+                <li><strong>Notification integration</strong><span>API callback</span></li>
+                <li><strong>Alertmanager</strong><span>Alert handling</span></li>
+                <li><strong>Slack</strong><span>Team notifications</span></li>
+              </ol>
+              <p class="flow-label probe-label">Scheduled website checks</p>
+              <ol class="monitor-flow probe-flow" aria-label="Homepage check report flow">
+                <li><strong>Homepage checks</strong><span>Scheduled AutoTest</span></li>
+                <li><strong>Slack</strong><span>Check reports</span></li>
+              </ol>
+              <figcaption>
+                Log alerts and homepage checks each deliver signals to the team in Slack.
+              </figcaption>
+            </figure>
+            <h3 class="detail-heading">A concrete alert rule</h3>
+            <p class="body-copy">
+              I configured a Graylog stream to select <code>ERROR</code>-level messages. A
+              message-count condition triggered an alert when at least one matching message appeared
+              within a five-minute window. Graylog’s alert configuration included the last message,
+              giving the alert additional context.
+            </p>
+            <p class="body-copy">
+              A notification callback sent the alert to Alertmanager over HTTP. The integration
+              carried an alert name, environment labels and a Graylog link in its annotations.
+              Alertmanager’s configuration and templates supported delivery to Slack.
+            </p>
+          </section>
+          <section class="case-section" id="response">
+            <p class="section-kicker">02 / Team response</p>
+            <h2>Context and controls for investigation.</h2>
+            <p class="body-copy">
+              I set up separate Slack notification channels for the China and Japan business
+              environments. Alert messages included the environment, alert name and a Graylog link,
+              with distinct firing and resolved states.
+            </p>
+            <dl class="response-details">
+              <div>
+                <dt>Inspect</dt>
+                <dd>
+                  View the current alert, its trigger time, stream and rule details, then follow the
+                  log link to investigate.
+                </dd>
+              </div>
+              <div>
+                <dt>Silence</dt>
+                <dd>
+                  Pause matching notifications by alert name and environment for a defined period
+                  while handling an issue.
+                </dd>
+              </div>
+              <div>
+                <dt>Resume</dt>
+                <dd>
+                  Review active silence rules and end a silence early when the team is ready to
+                  receive notifications again.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy">
+              These controls gave the team a practical workflow for receiving an alert, finding the
+              relevant context and managing notifications during investigation.
+            </p>
+          </section>
+          <section class="case-section" id="checks">
+            <p class="section-kicker">03 / Homepage checks</p>
+            <h2>A view of the website’s availability.</h2>
+            <p class="body-copy">
+              The AutoTest notifier checked the homepage URL on a schedule and sent reports to
+              Slack. This added a view of the website’s entry point alongside the application’s
+              log-based alerts.
+            </p>
+            <p class="body-copy">
+              I delivered a system that combined error detection, alert context and team
+              notification, with controls for investigating issues and scheduled checks for
+              observing the website. The team could see both kinds of signal within Slack.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span><a href="../../changelog/">Changelog</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>
