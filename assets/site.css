@@ -3521,3 +3521,10 @@ summary:focus-visible {
     gap: 20px;
   }
 }
+
+/* Three selected enterprise cases on wide screens. */
+@media (min-width: 1001px) {
+  .experience-selection.three-cases {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://jothep.github.io/projects/banking-container-platform/" />
+    <title>China Merchants Bank · Container platform · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="China Merchants Bank container platform: four phases of platform design, infrastructure and DevOps consulting, BAOps and monitoring design."
+    />
+    <meta name="theme-color" content="#17685f" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2317685f'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261014c" />
+    <link rel="stylesheet" href="case.css" />
+    <script src="../../assets/site.js" defer></script>
+  </head>
+  <body class="banking-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home"
+        ><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a><a href="../../#about">About</a
+        ><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="case-hero wrap">
+        <a class="breadcrumb" href="../../experience/#china-merchants-bank"
+          ><span aria-hidden="true">←</span> Enterprise experience</a
+        >
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Thoughtworks · Client engagement</p>
+            <h1>China Merchants Bank</h1>
+            <p class="case-subtitle">
+              From container platform design to operational requirements and monitoring
+              capabilities.
+            </p>
+          </div>
+          <div class="case-focus">
+            <p class="eyebrow">Case focus</p>
+            <p>
+              Connecting container technology to the constraints of an established banking
+              environment.
+            </p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item">
+            <span>My role</span><strong>Infrastructure / DevOps consultant · BAOps</strong>
+          </div>
+          <div class="meta-item">
+            <span>Core technology</span><strong>Kubernetes · OpenShift</strong>
+          </div>
+          <div class="meta-item">
+            <span>Project participation</span
+            ><strong><time datetime="2018">2018</time> – <time datetime="2020">2020</time></strong>
+          </div>
+        </div>
+        <div class="phase-intro">
+          <p class="eyebrow">My involvement across four phases</p>
+          <ol class="phase-overview">
+            <li>
+              <a href="#phase-1"
+                ><span>Phase 1</span><strong>Planning and platform design</strong></a
+              >
+              <p>
+                Planning, container consulting and solution design; returned near the end of the
+                phase.
+              </p>
+            </li>
+            <li>
+              <a href="#phase-2"
+                ><span>Phase 2</span><strong>Platform expansion and validation</strong></a
+              >
+              <p>Infrastructure, DevOps and container consulting throughout the phase.</p>
+            </li>
+            <li>
+              <a href="#phase-3"
+                ><span>Phase 3</span><strong>Operational features and BAOps</strong></a
+              >
+              <p>Consulting throughout the phase, with BAOps as my main responsibility.</p>
+            </li>
+            <li>
+              <a href="#phase-4"><span>Phase 4</span><strong>Early design contribution</strong></a>
+              <p>Limited involvement in monitoring and availability design.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Bank platform case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="bank-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">Context &amp; role</span
+            ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="bank-section-links">
+            <p class="case-phase-label">Phase 1</p>
+            <a href="#context" aria-current="true"><span>01</span> Context &amp; role</a
+            ><a href="#requirements"><span>02</span> Requirements &amp; interfaces</a
+            ><a href="#design"><span>03</span> Mixed deployment design</a
+            ><a href="#addressing"><span>04</span> Stable application IPs</a
+            ><a href="#standards"><span>05</span> Standards &amp; phased scope</a>
+            <p class="case-phase-label">Phase 2</p>
+            <a href="#phase2-role"><span>06</span> Scope &amp; consulting</a
+            ><a href="#phase2-validation"><span>07</span> Validation requirements</a
+            ><a href="#phase2-platform"><span>08</span> Platform in use</a>
+            <p class="case-phase-label">Phase 3</p>
+            <a href="#phase3-baops"><span>09</span> BAOps &amp; requirements</a
+            ><a href="#phase3-monitoring"><span>10</span> Monitoring MVP</a
+            ><a href="#phase3-resilience"><span>11</span> Recovery design</a>
+            <p class="case-phase-label">Phase 4</p>
+            <a href="#phase4-design"><span>12</span> Early design</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <div class="phase-divider" id="phase-1">
+            <p class="eyebrow">Phase 1</p>
+            <h2>Planning and platform design</h2>
+          </div>
+          <section class="case-section" id="context">
+            <p class="section-kicker">Phase 1 / Context &amp; role</p>
+            <h3>Bringing established applications into a container platform.</h3>
+            <p class="lead">
+              At Thoughtworks, I contributed Kubernetes and OpenShift expertise to the initial phase
+              of a container scheduling platform for China Merchants Bank. I worked with the bank’s
+              architect and the Thoughtworks development lead on the platform design.
+            </p>
+            <p class="body-copy">
+              My work covered project planning, requirements discovery, basic platform design,
+              solution development and container consulting. I worked on the early design, moved to
+              another assignment, and returned near the end of Phase 1.
+            </p>
+            <p class="body-copy">
+              The platform had to fit an existing application environment. Virtual machines and
+              containers needed to coexist, while applications continued to depend on established
+              database, configuration and service-management arrangements.
+            </p>
+          </section>
+          <section class="case-section" id="requirements">
+            <p class="section-kicker">Phase 1 / Requirements &amp; interfaces</p>
+            <h3>Connecting deployment steps to platform responsibilities.</h3>
+            <p class="lead">
+              I helped break down the platform requirements around the full deployment flow:
+              receiving a release task, selecting resources, creating a deployment, tracking its
+              state and synchronising information with other systems.
+            </p>
+            <dl class="scope-list">
+              <div>
+                <dt>Deployment and status</dt>
+                <dd>
+                  Clarify how release requests become container tasks, and how progress and failures
+                  are reported.
+                </dd>
+              </div>
+              <div>
+                <dt>Application lifecycle</dt>
+                <dd>
+                  Identify what the application agent needs for address allocation, runtime
+                  configuration, startup and graceful shutdown.
+                </dd>
+              </div>
+              <div>
+                <dt>Scheduling and resources</dt>
+                <dd>
+                  Account for existing resource zones, storage constraints and node labels when
+                  deciding where workloads can run.
+                </dd>
+              </div>
+              <div>
+                <dt>System interfaces</dt>
+                <dd>
+                  Define the interactions between the container platform and existing release,
+                  resource, monitoring and load-balancing systems.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy">
+              The requirements connected technical functions to user roles and their needs. They
+              also separated the initial scope from later capabilities, including broader monitoring
+              and log-management functions.
+            </p>
+          </section>
+          <section class="case-section" id="design">
+            <p class="section-kicker">Phase 1 / Mixed deployment design</p>
+            <h3>Designing for a period of coexistence.</h3>
+            <p class="lead">
+              The design work considered the current VM environment, a mixed VM-and-container stage,
+              and a future direction with more containerised applications. This made the migration
+              discussion concrete: which application relationships should remain, and which
+              responsibilities would move to the container platform?
+            </p>
+            <figure class="design-flow">
+              <ol>
+                <li>
+                  <strong>Existing environment</strong
+                  ><span>Application calls, database dependencies and resource constraints</span>
+                </li>
+                <li>
+                  <strong>Mixed deployment</strong
+                  ><span>VMs and containers behind coordinated release processes</span>
+                </li>
+                <li>
+                  <strong>Container platform</strong
+                  ><span>Scheduling, lifecycle management and integration interfaces</span>
+                </li>
+              </ol>
+              <figcaption>Conceptual summary, redrawn for this case study.</figcaption>
+            </figure>
+            <p class="body-copy">
+              I contributed container expertise to these discussions. The aim was to introduce
+              OpenShift-based scheduling without treating it as a replacement for every existing
+              platform service.
+            </p>
+          </section>
+          <section class="case-section" id="addressing">
+            <p class="section-kicker">Phase 1 / Stable application IPs</p>
+            <h3>Predictable addresses for business application containers.</h3>
+            <p class="lead">
+              An early technical challenge was giving business application containers predictable IP
+              addresses. The approach had to fit the existing application and database integration
+              requirements while keeping the network and operating model simple.
+            </p>
+            <p class="body-copy">
+              We considered a NodePort-based approach, but it would have required changes to
+              application addressing and additional address-to-port mappings to manage. Keeping the
+              application access pattern and the operational model simple mattered to this design.
+            </p>
+            <p class="body-copy">
+              Working with a Red Hat consultant, I designed a host-level addressing approach using a
+              preallocated IP range and a fixed number of containers per host. This addressed the
+              predictable-address requirement while making host capacity and placement part of the
+              design constraints.
+            </p>
+            <p class="design-result">
+              We reached an agreed design in about three to four weeks. It passed the bank-led
+              security review and provided an accepted approach for the application-addressing
+              requirement.
+            </p>
+          </section>
+          <section class="case-section" id="standards">
+            <p class="section-kicker">Phase 1 / Standards &amp; phased scope</p>
+            <h3>Making the design usable by the delivery team.</h3>
+            <p class="lead">
+              The work also covered containerisation conventions: base and application images,
+              runtime configuration, platform labels, and the agent interfaces used to start and
+              stop applications. These topics connected the platform design to the needs of the
+              applications moving onto it.
+            </p>
+            <p class="body-copy">
+              The project introduced Thoughtworks’ agile development methods. Requirements were
+              broken into smaller pieces, with role-and-value descriptions and staged plans for
+              integration and testing. My Phase 1 contribution combined container consulting with
+              requirements and solution work.
+            </p>
+            <p class="body-copy">
+              This phase shows how I approach platform work: understand the existing system, make
+              the integration boundaries clear, and resolve the constraints that would otherwise
+              prevent adoption. The application-addressing design is one concrete example of that
+              work.
+            </p>
+          </section>
+          <div class="phase-divider" id="phase-2">
+            <p class="eyebrow">Phase 2</p>
+            <h2>Platform expansion and validation</h2>
+          </div>
+          <section class="case-section" id="phase2-role">
+            <p class="section-kicker">Phase 2 / Scope &amp; consulting</p>
+            <h3>Expanding the platform beyond its initial scope.</h3>
+            <p class="lead">
+              I participated throughout Phase 2 as an infrastructure, DevOps and container
+              technology consultant. I worked with the team on platform solutions, connecting
+              infrastructure and container requirements with the development work.
+            </p>
+            <p class="body-copy">
+              Phase 2 focused on a broader scheduling model for multiple OpenShift clusters and
+              virtual-machine workloads. The work also covered application framework support,
+              configuration management, monitoring and resource management.
+            </p>
+            <p class="body-copy">
+              Configuration was a useful example of these connected concerns. The design separated
+              configuration from application delivery artifacts and considered updates, environment
+              differences and version history. Scheduling and release design therefore had to
+              account for how applications were configured and operated, as well as where they ran.
+            </p>
+          </section>
+          <section class="case-section" id="phase2-validation">
+            <p class="section-kicker">Phase 2 / Validation requirements</p>
+            <h3>Testing the platform beyond a successful deployment.</h3>
+            <p class="lead">
+              The bank’s validation requirements covered performance, scale, infrastructure failures
+              and application behaviour. These requirements formed part of the engineering context
+              for the Phase 2 work.
+            </p>
+            <dl class="scope-list">
+              <div>
+                <dt>Performance and scale</dt>
+                <dd>
+                  Consider response time, throughput and behaviour as nodes, workloads and platform
+                  objects increase.
+                </dd>
+              </div>
+              <div>
+                <dt>Recovery and faults</dt>
+                <dd>
+                  Examine restarts, loss of infrastructure, network problems and failures in
+                  external dependencies.
+                </dd>
+              </div>
+              <div>
+                <dt>Delivery environments</dt>
+                <dd>
+                  Check consistency across development, integration, system-test and acceptance
+                  environments.
+                </dd>
+              </div>
+              <div>
+                <dt>Integration and quality</dt>
+                <dd>
+                  Consider API and application compatibility, authentication, authorisation and
+                  defect feedback.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy">
+              This brought application quality, platform behaviour and infrastructure reliability
+              into the same discussion. It required a wider view than checking whether a container
+              could start.
+            </p>
+          </section>
+          <section class="case-section" id="phase2-platform">
+            <p class="section-kicker">Phase 2 / Platform in use</p>
+            <h3>Supporting a platform in production.</h3>
+            <p class="lead">
+              By 2019, the platform was in production, combining virtual machines with OpenShift. It
+              supported application lifecycle management and integrated delivery pipelines with
+              release and scheduling services.
+            </p>
+            <p class="body-copy">
+              Request latency and transaction throughput met the bank’s requirements.
+            </p>
+            <p class="body-copy">
+              My role within this shared engineering effort was infrastructure, DevOps and container
+              consulting. Phase 2 extended my work from the initial platform design into sustained
+              support for the team as the platform developed.
+            </p>
+          </section>
+          <div class="phase-divider" id="phase-3">
+            <p class="eyebrow">Phase 3</p>
+            <h2>Operational features and BAOps</h2>
+          </div>
+          <section class="case-section" id="phase3-baops">
+            <p class="section-kicker">Phase 3 / BAOps &amp; requirements</p>
+            <h3>Turning operational problems into platform features.</h3>
+            <p class="lead">
+              I participated throughout Phase 3, continuing as a consultant while making BAOps —
+              business analysis for the operations domain — my main focus. In this role, I helped
+              clarify operational and business needs and translate them into platform requirements
+              for the development team.
+            </p>
+            <p class="body-copy">
+              The work moved beyond deploying applications to understanding what operators needed
+              when those applications behaved unexpectedly. Joint workshops with
+              application-framework and data-centre teams helped organise operational problems into
+              scenarios and identify the actions operators needed.
+            </p>
+            <p class="body-copy">
+              The resulting requirements connected each scenario to its priority, detection and
+              analysis needs, alerts, actions and user interface. This gave the team a concrete
+              basis for deciding what to build first.
+            </p>
+            <p class="body-copy">
+              This work took place within an agile delivery process. Smaller stories and regular
+              reviews helped connect requirements with working features and feedback. My
+              contribution combined container and infrastructure knowledge with the clarification
+              work needed to make those features useful to operators.
+            </p>
+          </section>
+          <section class="case-section" id="phase3-monitoring">
+            <p class="section-kicker">Phase 3 / Monitoring MVP</p>
+            <h3>From an abnormal signal to a usable operational event.</h3>
+            <p class="lead">
+              The team delivered a monitoring MVP for process anomalies and spikes in API traffic.
+              It turned monitoring signals into events that operators could investigate and handle.
+            </p>
+            <figure class="design-flow">
+              <ol>
+                <li>
+                  <strong>Detect and check</strong
+                  ><span>An abnormal signal enters a validation and filtering step.</span>
+                </li>
+                <li>
+                  <strong>Notify and investigate</strong
+                  ><span>A pending event carries diagnostic information for the operator.</span>
+                </li>
+                <li>
+                  <strong>Track and handle</strong
+                  ><span
+                    >The workflow continues monitoring the event, with automatic completion or human
+                    intervention.</span
+                  >
+                </li>
+              </ol>
+              <figcaption>Conceptual summary, redrawn for this case study.</figcaption>
+            </figure>
+            <p class="body-copy">
+              After detection, operators could review diagnostic information and follow the event’s
+              handling status. This connected monitoring with the next steps in investigation and
+              response.
+            </p>
+            <p class="body-copy">
+              The team worked in two-week iterations and used concrete operational scenarios to
+              review features and gather feedback. My BAOps work connected these operational needs
+              with requirements the team could build and validate.
+            </p>
+          </section>
+          <section class="case-section" id="phase3-resilience">
+            <p class="section-kicker">Phase 3 / Recovery design</p>
+            <h3>Making the next operational action clear.</h3>
+            <p class="lead">
+              The resilience design linked detection and diagnosis to a resource check, an
+              appropriate action, recovery verification and an event record. It included both
+              automated actions and operator-triggered actions, rather than assuming every incident
+              should follow the same path.
+            </p>
+            <p class="body-copy">
+              The platform supported VM-process recovery and basic container recovery.
+              Instance-level anomaly recovery was partly implemented, while API-level recovery
+              remained a future capability. These capabilities complemented the event-handling
+              workflow.
+            </p>
+            <p class="body-copy">
+              The project also had established release, rollback, migration and monitoring functions
+              to build on. My Phase 3 contribution was to help turn operational needs into clearer
+              feature scope and business meaning, while remaining involved as a technical
+              consultant.
+            </p>
+          </section>
+          <div class="phase-divider" id="phase-4">
+            <p class="eyebrow">Phase 4</p>
+            <h2>Early design contribution</h2>
+          </div>
+          <section class="case-section" id="phase4-design">
+            <p class="section-kicker">Phase 4 / Early design</p>
+            <h3>Contributing to the next phase of monitoring design.</h3>
+            <p class="lead">
+              I contributed to early Phase 4 design discussions on monitoring coverage, availability
+              measurement and business continuity. My involvement was limited to this design stage.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span
+      ><a href="../../experience/#china-merchants-bank">Enterprise experience</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>
