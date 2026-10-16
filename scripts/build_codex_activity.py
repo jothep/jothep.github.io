@@ -132,7 +132,7 @@ def render_month(month, start, end, counts):
 
 
 def render(data):
-    """Build readable markup from the aggregate snapshot without refreshing it."""
+    """Render a closed-by-default snapshot disclosure from existing aggregate data only."""
     start = date.fromisoformat(data['period_start'])
     end = date.fromisoformat(data['period_end'])
     counts = {day['date']: day['turns'] for day in data['daily']}
@@ -141,7 +141,7 @@ def render(data):
     while month <= end:
         panels.append(render_month(month, start, end, counts))
         month = date(month.year + (month.month == 12), month.month % 12 + 1, 1)
-    month_panels = indent('\n'.join(panels), '        ')
+    month_panels = indent('\n'.join(panels), '          ')
     daily_rows = '\n'.join(
         f'''<tr>
   <th scope="row">{day['date']}</th>
@@ -149,7 +149,7 @@ def render(data):
 </tr>'''
         for day in data['daily']
     )
-    daily_rows = indent(daily_rows, '            ')
+    daily_rows = indent(daily_rows, '              ')
     totals = data['totals']
     exclusions = data['exclusions']
     return f'''{BEGIN_MARKER}
@@ -166,94 +166,97 @@ def render(data):
     I use Codex across planning, implementation, debugging and documentation. This snapshot shows
     the rhythm of that work; the Story Filler case study shows how I check the results.
   </p>
-  <div class="activity-card">
-    <div class="activity-heading">
-      <p class="eyebrow">Selected software-project workspaces</p>
-      <p class="activity-caption">
-        <time datetime="{start}">{start:%-d %b %Y}</time> –
-        <time datetime="{end}">{end:%-d %b %Y}</time> · Auckland time
-      </p>
-    </div>
-    <dl class="activity-metrics">
-      <div>
-        <dt>Recorded turns</dt>
-        <dd>{totals['recorded_turns']:,}</dd>
+  <details class="activity-snapshot">
+    <summary>View activity snapshot</summary>
+    <div class="activity-card">
+      <div class="activity-heading">
+        <p class="eyebrow">Selected software-project workspaces</p>
+        <p class="activity-caption">
+          <time datetime="{start}">{start:%-d %b %Y}</time> –
+          <time datetime="{end}">{end:%-d %b %Y}</time> · Auckland time
+        </p>
       </div>
-      <div>
-        <dt>Active days</dt>
-        <dd>{totals['active_days']}</dd>
-      </div>
-      <div>
-        <dt>Calendar days covered</dt>
-        <dd>{totals['calendar_days']}</dd>
-      </div>
-    </dl>
-    <figure class="activity-calendar" aria-label="Daily Codex activity by month">
-      <div class="activity-months">
+      <dl class="activity-metrics">
+        <div>
+          <dt>Recorded turns</dt>
+          <dd>{totals['recorded_turns']:,}</dd>
+        </div>
+        <div>
+          <dt>Active days</dt>
+          <dd>{totals['active_days']}</dd>
+        </div>
+        <div>
+          <dt>Calendar days covered</dt>
+          <dd>{totals['calendar_days']}</dd>
+        </div>
+      </dl>
+      <figure class="activity-calendar" aria-label="Daily Codex activity by month">
+        <div class="activity-months">
 {month_panels}
-      </div>
-      <figcaption class="activity-legend">
-        <span>Turns per day</span>
-        <span><i data-level="0"></i>0</span>
-        <span><i data-level="1"></i>1–9</span>
-        <span><i data-level="2"></i>10–29</span>
-        <span><i data-level="3"></i>30–59</span>
-        <span><i data-level="4"></i>60+</span>
-      </figcaption>
-    </figure>
-    <p class="activity-caption">
-      Recorded Codex work cycles across selected software projects. Snapshot updated
-      {end:%-d %B %Y}; the final day is partial.
-    </p>
-    <details class="activity-methodology">
-      <summary>What these numbers include</summary>
-      <p>
-        Aggregated locally from retained Codex metadata for explicitly selected software-project
-        workspaces. A turn is one recorded assistant work cycle; a follow-up starts another turn.
-        Planning and documentation in those workspaces are included. Other workspaces, including
-        job-search tasks, are excluded.
+        </div>
+        <figcaption class="activity-legend">
+          <span>Turns per day</span>
+          <span><i data-level="0"></i>0</span>
+          <span><i data-level="1"></i>1–9</span>
+          <span><i data-level="2"></i>10–29</span>
+          <span><i data-level="3"></i>30–59</span>
+          <span><i data-level="4"></i>60+</span>
+        </figcaption>
+      </figure>
+      <p class="activity-caption">
+        Recorded Codex work cycles across selected software projects. Snapshot updated
+        {end:%-d %B %Y}; the final day is partial.
       </p>
-      <p>
-        Only top-level turns with a start time and a finished, failed or interrupted status are
-        counted. Forked copies are deduplicated by turn ID; subagent work is excluded. Dates use
-        each turn’s start in Pacific/Auckland. This export omitted
-        {exclusions['duplicate_turn_records']} duplicate records,
-        {exclusions['records_without_start_time']} records without a start time and
-        {exclusions['nonterminal_turn_records']} nonterminal records. An active day has at least
-        one qualifying turn; zero means no qualifying record was retained.
-      </p>
-      <p>
-        I generated this snapshot from retained records in the selected local workspaces.
-        It reports daily activity in recorded turns; the project pages show the resulting
-        code, decisions and verification. The public export contains dates and aggregate
-        counts. Conversation content and workspace details remain local.
-      </p>
-      <p>
-        <a href="assets/evidence/codex-activity.json">Download the aggregate snapshot (JSON)</a>
-        ·
-        <a
-          href="https://github.com/jothep/jothep.github.io/blob/main/scripts/build_codex_activity.py"
-        >
-          Read the counting script
-        </a>
-      </p>
-      <details>
-        <summary>Daily counts in a table</summary>
-        <table>
-          <caption>Recorded turns by start date</caption>
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Turns</th>
-            </tr>
-          </thead>
-          <tbody>
+      <details class="activity-methodology">
+        <summary>What these numbers include</summary>
+        <p>
+          Aggregated locally from retained Codex metadata for explicitly selected software-project
+          workspaces. A turn is one recorded assistant work cycle; a follow-up starts another turn.
+          Planning and documentation in those workspaces are included. Other workspaces, including
+          job-search tasks, are excluded.
+        </p>
+        <p>
+          Only top-level turns with a start time and a finished, failed or interrupted status are
+          counted. Forked copies are deduplicated by turn ID; subagent work is excluded. Dates use
+          each turn’s start in Pacific/Auckland. This export omitted
+          {exclusions['duplicate_turn_records']} duplicate records,
+          {exclusions['records_without_start_time']} records without a start time and
+          {exclusions['nonterminal_turn_records']} nonterminal records. An active day has at least
+          one qualifying turn; zero means no qualifying record was retained.
+        </p>
+        <p>
+          I generated this snapshot from retained records in the selected local workspaces.
+          It reports daily activity in recorded turns; the project pages show the resulting
+          code, decisions and verification. The public export contains dates and aggregate
+          counts. Conversation content and workspace details remain local.
+        </p>
+        <p>
+          <a href="assets/evidence/codex-activity.json">Download the aggregate snapshot (JSON)</a>
+          ·
+          <a
+            href="https://github.com/jothep/jothep.github.io/blob/main/scripts/build_codex_activity.py"
+          >
+            Read the counting script
+          </a>
+        </p>
+        <details>
+          <summary>Daily counts in a table</summary>
+          <table>
+            <caption>Recorded turns by start date</caption>
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Turns</th>
+              </tr>
+            </thead>
+            <tbody>
 {daily_rows}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </details>
       </details>
-    </details>
-  </div>
+    </div>
+  </details>
   <div class="activity-links">
     <a class="text-link" href="projects/story-filler/#ai-practice">
       See how I verify AI-assisted work

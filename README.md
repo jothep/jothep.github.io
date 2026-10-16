@@ -4,7 +4,7 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, selected work, enterprise experience, technical designs, selected writing, Codex activity, About and Contact.
+- `/`: professional introduction, enterprise experience, selected work, technical designs, selected writing, Codex activity, About and Contact.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/designs/aws-cross-region-dr/`: an independent AWS warm standby design covering recovery goals, architecture and operating decisions.
@@ -63,7 +63,7 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Selected work → Enterprise experience → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`.
+Keep the homepage reading order: **Enterprise experience → Selected work → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`.
 
 Add another selected-work entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
@@ -84,14 +84,17 @@ reduced-motion preferences are respected, and all cards remain visible when prin
 ## Adding technical designs
 
 Keep independent design studies in `designs/<slug>/` and link them from `#technical-designs`,
-immediately after Enterprise experience. Add one readable `article.design-card` with a topic,
+immediately after Selected work. Add one readable `article.design-card` with a topic,
 title, concise summary and one link. The list grows as studies are added; do not add empty cards
 or a separate index page before it is needed. Keep the design's purpose clear in its introduction.
 Do not treat a linked design as the architecture delivered on a past client project.
 
 Keep the Codex activity BEGIN/END markers together when moving content. Its generator replaces
-the block in place and uses About as the first-insertion fallback. Layout changes must not
-refresh the snapshot or access private activity records.
+the block in place and uses About as the first-insertion fallback. The activity figures, calendar,
+dates and methodology sit inside a native `details.activity-snapshot` disclosure, closed by default.
+The short introduction and verification link stay outside it. `render(data)` must preserve this
+structure and accept the existing aggregate JSON without collecting new activity. Layout changes
+must not refresh the snapshot or access private activity records.
 
 ## Maintaining the changelog
 

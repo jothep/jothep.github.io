@@ -2091,6 +2091,26 @@ summary:focus-visible {
 .ai-activity-section {
   padding-bottom: 65px;
 }
+/* Native disclosure keeps the dated snapshot available without dominating the page. */
+.activity-snapshot {
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.activity-snapshot > summary {
+  padding: 18px 24px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.activity-snapshot > summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+.activity-snapshot > .activity-card {
+  border: 0;
+  border-top: 1px solid var(--line);
+}
 .activity-card {
   min-width: 0;
   padding: 28px;
@@ -2415,7 +2435,7 @@ summary:focus-visible {
   gap: 20px;
   flex-shrink: 0;
 }
-.changelog-button {
+.home-experience-button {
   font-size: 14px;
   padding: 11px 16px;
   gap: 22px;
