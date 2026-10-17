@@ -6,7 +6,7 @@
     <title>SadaPay infrastructure case · Xiang Zhu</title>
     <meta
       name="description"
-      content="GitOps delivery with Argo CD, AWS/EKS infrastructure support and Terraform provisioning on the SadaPay engagement, with Istio and Gloo configuration context."
+      content="AWS/EKS platform support, Terraform provisioning and modules for disaster recovery, with hands-on use of the existing Argo CD and GitHub Actions GitOps setup at SadaPay."
     />
     <meta name="theme-color" content="#17685f" />
     <link rel="canonical" href="https://jothep.github.io/projects/fintech-platform/" />
@@ -16,7 +16,7 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
-    <link rel="stylesheet" href="case.css?v=20261014a" />
+    <link rel="stylesheet" href="case.css?v=20261017a" />
     <script src="../../assets/site.js?v=20261011d" defer></script>
   </head>
   <body class="fintech-case">
@@ -40,14 +40,14 @@
             <p class="eyebrow">Thoughtworks · Client engagement</p>
             <h1>SadaPay</h1>
             <p class="case-subtitle">
-              GitOps delivery, AWS/EKS infrastructure support and service networking.
+              AWS/EKS platform support, Terraform provisioning and GitOps delivery.
             </p>
           </div>
           <div class="case-focus">
             <p class="eyebrow">Case focus</p>
             <p>
-              AWS/EKS operations, Terraform provisioning and an established GitOps delivery
-              environment.
+              Day-to-day platform support, infrastructure provisioning and Terraform modules for
+              disaster recovery.
             </p>
           </div>
         </div>
@@ -78,7 +78,7 @@
           </button>
           <div class="case-nav-links" id="fintech-section-links">
             <a href="#context" aria-current="true"><span>01</span> GitOps &amp; platform support</a>
-            <a href="#routing"><span>02</span> Gloo &amp; Istio</a>
+            <a href="#routing"><span>02</span> Platform context</a>
           </div>
         </aside>
         <div class="case-content">
@@ -87,14 +87,9 @@
             <p class="section-kicker">01 / GitOps &amp; platform support</p>
             <h2>GitOps delivery on an AWS/EKS platform.</h2>
             <p class="lead">
-              As a Thoughtworks Cloud Infrastructure Engineer on the SadaPay engagement, I supported
-              AWS/EKS infrastructure, provisioned resources with Terraform and worked with Argo CD
-              and GitHub Actions for GitOps delivery.
-            </p>
-            <p class="body-copy">
-              I used the established GitOps setup as part of day-to-day platform work, alongside
-              Terraform provisioning and infrastructure support. This delivery model is a defining
-              part of the engagement.
+              My day-to-day work at SadaPay covered AWS/EKS platform support, Terraform
+              infrastructure provisioning and GitOps delivery using the existing Argo CD and GitHub
+              Actions setup.
             </p>
             <div class="related-design" id="terraform-dr">
               <h3>Terraform modules for disaster recovery</h3>
@@ -120,37 +115,19 @@
                 Argo CD’s core concepts <span aria-hidden="true">↗</span>
               </a>
             </div>
-          </section>
-
-          <section class="case-section" id="routing">
-            <p class="section-kicker">02 / Gloo &amp; Istio</p>
-            <h2>Understanding the platform’s service networking.</h2>
-            <p class="body-copy">
-              Istio was part of the platform’s service-mesh environment. Retained Gloo gateway
-              values provide configuration context: they describe how requests are matched,
-              rewritten and forwarded to downstream services.
-            </p>
-            <dl class="route-reading">
-              <div>
-                <dt>Match</dt>
-                <dd>
-                  Path, method, header and query criteria determine which route handles a request.
-                </dd>
-              </div>
-              <div>
-                <dt>Transform</dt>
-                <dd>Rewriting changes the path presented to a downstream service.</dd>
-              </div>
-              <div>
-                <dt>Forward</dt>
-                <dd>An upstream destination and route-specific settings describe the next step.</dd>
-              </div>
-            </dl>
-            <p class="body-copy">
-              The retained Helm values include several route groups with their own limits and
-              timeouts. Reading these settings provides context for tracing a request beyond its
-              public URL and examining what the downstream application receives.
-            </p>
+            <!-- Supporting platform context, kept brief beside the confirmed work above. -->
+            <section
+              class="delivery-context"
+              id="routing"
+              aria-labelledby="platform-context-heading"
+            >
+              <h3 id="platform-context-heading">Platform context</h3>
+              <p>
+                Istio was part of the platform’s service-mesh environment. The retained Gloo
+                configuration shows request matching, path rewriting, upstream routing and per-route
+                timeout settings.
+              </p>
+            </section>
           </section>
         </div>
       </div>
