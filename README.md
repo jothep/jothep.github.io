@@ -67,7 +67,7 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Enterprise experience → Selected work → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`.
+Keep the homepage reading order: **Enterprise experience → Selected work → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps the compact **View changelog** button in its original position; Enterprise experience already follows immediately below.
 
 Add another selected-work entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
