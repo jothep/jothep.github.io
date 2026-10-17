@@ -106,88 +106,82 @@ updateSection();
   }
 }
 
-// Native horizontal scrolling remains available when this enhancement is unavailable.
-for (const { sectionId, prefix, singular, plural } of [
-  { sectionId: 'writing', prefix: 'writing', singular: 'article', plural: 'articles' },
-  {
-    sectionId: 'enterprise-experience',
-    prefix: 'experience',
-    singular: 'project',
-    plural: 'projects',
-  },
-]) {
-  const section = document.getElementById(sectionId);
-  const track = section?.querySelector(`#${prefix}-track`);
-  const controls = section?.querySelector(`.${prefix}-controls`);
-  const previous = controls?.querySelector(`[data-${prefix}-prev]`);
-  const next = controls?.querySelector(`[data-${prefix}-next]`);
-  const cards = track ? Array.from(track.querySelectorAll(`.${prefix}-card`)) : [];
+// Writing stays horizontally scrollable even without these optional controls.
+function initialiseWritingCarousel() {
+  const section = document.getElementById('writing');
+  const track = section?.querySelector('#writing-track');
+  const controls = section?.querySelector('.writing-controls');
+  const previous = controls?.querySelector('[data-writing-prev]');
+  const next = controls?.querySelector('[data-writing-next]');
+  const cards = track ? Array.from(track.querySelectorAll('.writing-card')) : [];
 
-  if (track && controls && previous && next && cards.length) {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const count = section.querySelector(`[data-${prefix}-count]`);
-    const tolerance = 1;
+  if (!track || !controls || !previous || !next || !cards.length) return;
 
-    if (count) {
-      count.textContent = `${cards.length} ${cards.length === 1 ? singular : plural}`;
-    }
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const count = section.querySelector('[data-writing-count]');
+  const tolerance = 1;
 
-    function updateControls() {
-      const maximum = track.scrollWidth - track.clientWidth;
-      controls.hidden = maximum <= tolerance;
-      previous.disabled = track.scrollLeft <= tolerance;
-      next.disabled = track.scrollLeft >= maximum - tolerance;
-    }
-
-    function scrollCards(direction) {
-      const maximum = Math.max(0, track.scrollWidth - track.clientWidth);
-      const current = Math.max(0, Math.min(track.scrollLeft, maximum));
-      const firstLeft = cards[0].getBoundingClientRect().left;
-      const positions = cards.map((card) =>
-        Math.min(maximum, card.getBoundingClientRect().left - firstLeft),
-      );
-      let left;
-
-      if (direction === 'start') left = 0;
-      else if (direction === 'end') left = maximum;
-      else if (direction === 'next') {
-        left = positions.find((position) => position > current + tolerance) ?? maximum;
-      } else {
-        left = positions.reverse().find((position) => position < current - tolerance) ?? 0;
-      }
-
-      track.scrollTo({ left, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
-    }
-
-    previous.addEventListener('click', () => scrollCards('previous'));
-    next.addEventListener('click', () => scrollCards('next'));
-    track.addEventListener('keydown', (event) => {
-      if (
-        event.target !== track ||
-        controls.hidden ||
-        event.altKey ||
-        event.ctrlKey ||
-        event.metaKey
-      ) {
-        return;
-      }
-      const direction = {
-        ArrowLeft: 'previous',
-        ArrowRight: 'next',
-        Home: 'start',
-        End: 'end',
-      }[event.key];
-      if (!direction) return;
-      event.preventDefault();
-      scrollCards(direction);
-    });
-    track.addEventListener('scroll', updateControls, { passive: true });
-    window.addEventListener('resize', updateControls);
-    if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver(updateControls);
-      observer.observe(track);
-      cards.forEach((card) => observer.observe(card));
-    }
-    updateControls();
+  if (count) {
+    count.textContent = `${cards.length} ${cards.length === 1 ? 'article' : 'articles'}`;
   }
+
+  function updateControls() {
+    const maximum = track.scrollWidth - track.clientWidth;
+    controls.hidden = maximum <= tolerance;
+    previous.disabled = track.scrollLeft <= tolerance;
+    next.disabled = track.scrollLeft >= maximum - tolerance;
+  }
+
+  function scrollCards(direction) {
+    const maximum = Math.max(0, track.scrollWidth - track.clientWidth);
+    const current = Math.max(0, Math.min(track.scrollLeft, maximum));
+    const firstLeft = cards[0].getBoundingClientRect().left;
+    const positions = cards.map((card) =>
+      Math.min(maximum, card.getBoundingClientRect().left - firstLeft),
+    );
+    let left;
+
+    if (direction === 'start') left = 0;
+    else if (direction === 'end') left = maximum;
+    else if (direction === 'next') {
+      left = positions.find((position) => position > current + tolerance) ?? maximum;
+    } else {
+      left = positions.reverse().find((position) => position < current - tolerance) ?? 0;
+    }
+
+    track.scrollTo({ left, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  }
+
+  previous.addEventListener('click', () => scrollCards('previous'));
+  next.addEventListener('click', () => scrollCards('next'));
+  track.addEventListener('keydown', (event) => {
+    if (
+      event.target !== track ||
+      controls.hidden ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey
+    ) {
+      return;
+    }
+    const direction = {
+      ArrowLeft: 'previous',
+      ArrowRight: 'next',
+      Home: 'start',
+      End: 'end',
+    }[event.key];
+    if (!direction) return;
+    event.preventDefault();
+    scrollCards(direction);
+  });
+  track.addEventListener('scroll', updateControls, { passive: true });
+  window.addEventListener('resize', updateControls);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(updateControls);
+    observer.observe(track);
+    cards.forEach((card) => observer.observe(card));
+  }
+  updateControls();
 }
+
+initialiseWritingCarousel();
