@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daimler AG · Secrets management and CI/CD · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="Daimler AG DevOps work: migrating gopass credentials to Vault on OpenShift, GoCD Pipeline-as-Code, delivery support and operational handover."
+    />
+    <link rel="canonical" href="https://jothep.github.io/projects/automotive-devops/" />
+    <meta name="theme-color" content="#37586d" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
+    <link rel="stylesheet" href="case.css?v=20261017a" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="daimler-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home"
+        ><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a><a href="../../#about">About</a
+        ><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <!-- Engagement overview: role and dates refer to the whole assignment. -->
+      <div class="case-hero wrap">
+        <div class="case-topline">
+          <a class="breadcrumb" href="../../experience/#daimler">
+            <span aria-hidden="true">←</span> Enterprise experience
+          </a>
+        </div>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Thoughtworks · Client engagement · Germany</p>
+            <h1>Daimler AG</h1>
+            <p class="case-subtitle">Secrets management and CI/CD on OpenShift</p>
+          </div>
+          <div class="case-focus">
+            <p class="eyebrow">Case focus</p>
+            <p>Shared credentials, delivery workflows and the teams operating them.</p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item"><span>My role</span><strong>DevOps Team Lead</strong></div>
+          <div class="meta-item">
+            <span>Project participation</span><strong>Nov 2020 – May 2021</strong>
+          </div>
+          <div class="meta-item">
+            <span>Environment</span><strong>OpenShift · Vault · GoCD · Nexus</strong>
+          </div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Daimler case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="daimler-section-links"
+          >
+            <span>On this page</span>
+            <span class="case-nav-current">Role &amp; scope</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="daimler-section-links">
+            <a href="#role" aria-current="true"><span>01</span> Role &amp; scope</a>
+            <a href="#credentials"><span>02</span> Credential migration</a>
+            <a href="#delivery"><span>03</span> Pipeline-as-Code</a>
+            <a href="#team-operations"><span>04</span> Team &amp; operations</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="role">
+            <p class="section-kicker">01 / Role &amp; scope</p>
+            <h2>Supporting a shared delivery environment.</h2>
+            <p class="lead">
+              As DevOps Team Lead on a Daimler engagement, I worked on shared credential management,
+              CI/CD and OpenShift delivery. I migrated the existing gopass-based credential workflow
+              to HashiCorp Vault and implemented GoCD Pipeline-as-Code with Nexus-based container
+              management.
+            </p>
+            <p class="body-copy">
+              My work also included platform and delivery support, coordinating service migrations,
+              operating documentation and handover. The changes needed to fit the teams using the
+              platform across development, test and production.
+            </p>
+          </section>
+
+          <section class="case-section" id="credentials">
+            <p class="section-kicker">02 / Credential migration</p>
+            <h2>Moving shared credentials from gopass to Vault.</h2>
+            <p class="body-copy">
+              The existing credential workflow had become slow as the user base grew. In our setup,
+              updates involved re-encrypting stored secrets and pushing changes to Git. Encryption
+              and upload time made password synchronisation a lengthy operation.
+            </p>
+            <p class="body-copy">
+              I migrated the credential system to a highly available HashiCorp Vault deployment on
+              OpenShift, reducing password synchronisation from over an hour to seconds for more
+              than 200 users.
+            </p>
+            <dl class="credential-result" aria-label="Password synchronisation outcome">
+              <div>
+                <dt>Before migration</dt>
+                <dd>Over 1 hour</dd>
+              </div>
+              <div>
+                <dt>After migration</dt>
+                <dd>Seconds</dd>
+              </div>
+              <div>
+                <dt>Users supported</dt>
+                <dd>200+</dd>
+              </div>
+            </dl>
+            <div class="decision-note">
+              <h3>Choosing around the access workflow.</h3>
+              <p>
+                Speed was one part of the decision. Adding users, removing access when people left
+                and managing shared secrets also mattered. Vault offered a central service with
+                access controls and CLI/API interfaces suited to the Kubernetes-based environment.
+              </p>
+              <p>
+                The Vault service used active and standby replicas with PostgreSQL storage. This
+                made credential access a platform service, with its own availability, storage and
+                access-management responsibilities.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="delivery">
+            <p class="section-kicker">03 / Pipeline-as-Code</p>
+            <h2>Making build and deployment steps explicit.</h2>
+            <p class="body-copy">
+              I implemented GoCD Pipeline-as-Code and Nexus-based container management to support
+              automated delivery across environments. Pipeline definitions moved into versioned
+              files, with reusable templates and helpers for application builds and OpenShift
+              deployment.
+            </p>
+            <p class="body-copy">
+              The work included local validation of pipeline YAML and staged service migrations to
+              the updated delivery environment. Build and deployment remained distinct steps, making
+              it easier to see where a change had reached and where a failure occurred.
+            </p>
+            <!-- Text-based diagram: readable without images or JavaScript. -->
+            <figure class="delivery-figure" aria-labelledby="delivery-caption">
+              <div class="delivery-source">Git source · GoCD pipeline definitions</div>
+              <ol class="delivery-flow" aria-label="Delivery workflow">
+                <li><strong>GoCD build</strong><span>Build application artifacts.</span></li>
+                <li><strong>Nexus</strong><span>Store versioned artifacts.</span></li>
+                <li>
+                  <strong>OpenShift</strong
+                  ><span>Build and tag images; apply deployment configuration.</span>
+                </li>
+                <li><strong>Rollout check</strong><span>Track deployment completion.</span></li>
+              </ol>
+              <div class="delivery-secret">
+                <strong>Vault</strong><span>Application secrets supplied during deployment.</span>
+              </div>
+              <figcaption id="delivery-caption">
+                GoCD orchestrates build and deployment; Nexus stores artifacts and Vault provides
+                application credentials.
+              </figcaption>
+            </figure>
+            <dl class="implementation-details">
+              <div>
+                <dt>Build</dt>
+                <dd>
+                  Separate API and UI paths used Gradle or npm helpers, OpenShift binary builds and
+                  pipeline labels for image tags.
+                </dd>
+              </div>
+              <div>
+                <dt>Deploy</dt>
+                <dd>
+                  Templates and helpers prepared configuration and application secrets before
+                  starting an OpenShift DeploymentConfig rollout.
+                </dd>
+              </div>
+              <div>
+                <dt>Check</dt>
+                <dd>Rollout-status checks made deployment progress visible in the pipeline.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="case-section" id="team-operations">
+            <p class="section-kicker">04 / Team &amp; operations</p>
+            <h2>Helping teams adopt and operate the changes.</h2>
+            <p class="body-copy">
+              The work extended beyond configuring Vault and pipelines. I coordinated migration
+              timing with service teams, supported delivery work and maintained practical material
+              for colleagues taking over the environment.
+            </p>
+            <dl class="implementation-details">
+              <div>
+                <dt>Coordinate</dt>
+                <dd>
+                  Share migration plans, track service-by-service progress and identify work needing
+                  review or agreement.
+                </dd>
+              </div>
+              <div>
+                <dt>Support</dt>
+                <dd>
+                  Help teams with pipelines and platform access, including provision of a
+                  development/test host for another team’s Kubernetes work.
+                </dd>
+              </div>
+              <div>
+                <dt>Transfer</dt>
+                <dd>
+                  Bring together operating instructions, platform references, open decisions and
+                  ownership tasks for handover, alongside DevOps guild sharing.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy closing-note">
+              The engagement combined a faster credential workflow with repeatable delivery and the
+              coordination needed to keep those shared services usable by other teams.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span><a href="../../changelog/">Changelog</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

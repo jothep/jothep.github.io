@@ -1,0 +1,254 @@
+/* Daimler case: scoped additions to the shared portfolio layout. */
+.daimler-case {
+  --case-accent: #37586d;
+  --case-wash: #eef3f6;
+}
+
+/* A consistent engagement heading, using the shared portfolio structure. */
+.daimler-case .case-topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 36px;
+}
+.daimler-case .case-topline .breadcrumb {
+  margin: 0;
+}
+
+.daimler-case .case-heading {
+  grid-template-columns: minmax(0, 1fr) 245px;
+  gap: 50px;
+}
+.daimler-case .case-heading h1 {
+  font-size: clamp(2.5rem, 4.4vw, 4rem);
+}
+.daimler-case .case-focus {
+  padding-left: 22px;
+  border-left: 2px solid var(--case-accent);
+  align-self: center;
+}
+.daimler-case .case-focus > p:last-child {
+  margin-top: 14px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+.daimler-case .section-kicker,
+.daimler-case .case-nav a[aria-current='true'] {
+  color: var(--case-accent);
+}
+.daimler-case .case-nav a[aria-current='true'] {
+  border-color: var(--case-accent);
+}
+.daimler-case .lead + .body-copy,
+.daimler-case .body-copy + .body-copy {
+  margin-top: 20px;
+}
+
+/* One outcome, shown as before / after / scope rather than unrelated metrics. */
+.daimler-case .credential-result {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 30px 0;
+  padding: 26px;
+  background: var(--case-wash);
+  border-left: 3px solid var(--case-accent);
+}
+.daimler-case .credential-result dt {
+  color: var(--muted);
+  font: 11px/1.5 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.daimler-case .credential-result dd {
+  margin: 10px 0 0;
+  color: var(--case-accent);
+  font-size: clamp(24px, 2.5vw, 34px);
+  font-weight: 600;
+}
+.daimler-case .decision-note h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.daimler-case .decision-note p {
+  color: var(--muted);
+  font-size: 17px;
+}
+.daimler-case .decision-note p + p {
+  margin-top: 16px;
+}
+
+/* The delivery figure uses ordinary HTML, with arrows that reflow on small screens. */
+.daimler-case .delivery-figure {
+  margin: 32px 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+}
+.daimler-case .delivery-source {
+  color: var(--case-accent);
+  font: 12px/1.5 var(--mono);
+  margin-bottom: 22px;
+}
+.daimler-case .delivery-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.daimler-case .delivery-flow li {
+  position: relative;
+  padding: 16px 12px;
+  background: var(--case-wash);
+  border-top: 2px solid var(--case-accent);
+}
+.daimler-case .delivery-flow li + li::before {
+  content: '→';
+  position: absolute;
+  left: -19px;
+  top: 17px;
+  color: var(--case-accent);
+}
+.daimler-case .delivery-flow strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.daimler-case .delivery-flow span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.daimler-case .delivery-secret {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  border: 1px dashed var(--case-accent);
+  padding: 12px 16px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.daimler-case .delivery-secret strong {
+  color: var(--case-accent);
+}
+.daimler-case .delivery-secret span {
+  color: var(--muted);
+}
+.daimler-case .delivery-figure figcaption {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Compact responsibility rows, shared by the implementation and handover sections. */
+.daimler-case .implementation-details {
+  margin: 28px 0 0;
+  border-top: 1px solid var(--line);
+}
+.daimler-case .implementation-details > div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.daimler-case .implementation-details dt {
+  color: var(--case-accent);
+  font-size: 16px;
+  font-weight: 600;
+}
+.daimler-case .implementation-details dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+.daimler-case .closing-note {
+  margin-top: 28px;
+}
+
+@media (max-width: 1000px) {
+  .daimler-case .case-heading {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    gap: 30px;
+  }
+  .daimler-case .case-meta {
+    gap: 30px;
+  }
+  .daimler-case .delivery-flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .daimler-case .delivery-flow li + li::before {
+    content: '↓';
+    left: 18px;
+    top: -25px;
+  }
+  .daimler-case .delivery-flow li {
+    padding: 14px 18px;
+  }
+  .daimler-case .delivery-flow span {
+    margin-top: 4px;
+  }
+}
+@media (max-width: 760px) {
+  .daimler-case .case-topline {
+    margin-bottom: 28px;
+  }
+  .daimler-case .case-heading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .daimler-case .case-focus > p:last-child {
+    font-size: 18px;
+    margin-top: 8px;
+  }
+  .daimler-case .case-nav a[aria-current='true'] {
+    background: var(--case-wash);
+  }
+  .daimler-case .case-nav-current {
+    color: var(--case-accent);
+  }
+  .daimler-case .case-meta {
+    gap: 18px 28px;
+  }
+}
+@media (max-width: 560px) {
+  .daimler-case .case-heading h1 {
+    font-size: clamp(2.35rem, 10vw, 3rem);
+  }
+  .daimler-case .case-topline {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+  .daimler-case .credential-result {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 22px;
+  }
+  .daimler-case .credential-result dd {
+    margin-top: 5px;
+  }
+  .daimler-case .delivery-figure {
+    padding: 20px;
+  }
+  .daimler-case .delivery-secret {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .daimler-case .implementation-details > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}
+@media print {
+  .daimler-case .credential-result,
+  .daimler-case .delivery-figure,
+  .daimler-case .implementation-details > div {
+    break-inside: avoid;
+  }
+}

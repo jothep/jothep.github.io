@@ -11,6 +11,9 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
 - `/projects/ai-knowledge-base/`: the MSE907 capstone, with implemented architecture, decisions, checked score comparisons, an original synthetic example and explicit evidence limits.
+- `/projects/banking-cms-consulting/`: Shenzhen Rural Commercial Bank CMS consulting, two inspections and operations guidance.
+- `/projects/banking-devops-consulting/`: ICBC, Zhuhai consulting on delivery measures, database changes and traffic switching.
+- `/projects/automotive-devops/`: Daimler AG credential migration, GoCD Pipeline-as-Code, OpenShift delivery and handover.
 - `/projects/aws-platform-reliability/`: Authority Brands SRE support, Terraform module refactoring, platform assessment and EKS upgrade planning.
 - `/projects/application-monitoring/`: Costa application monitoring, Graylog-to-Alertmanager-to-Slack integration and scheduled homepage checks.
 - `/projects/banking-container-platform/`: China Merchants Bank container-platform consulting and BAOps across four phases, with design decisions, delivery support and monitoring capabilities.
@@ -22,8 +25,8 @@ The maintained site uses its own HTML pages and shared CSS and JavaScript in `as
 ## Enterprise cases added on 14 October 2026
 
 The author approved publication of Authority Brands and Costa on 14 October 2026, following
-local review. The homepage Enterprise experience carousel includes all five documented
-projects, ordered by participation end date, with project-title links and dates. The full
+local review. The homepage Enterprise experience carousel and directory include each documented
+project, ordered by participation end date, with project-title links and dates. The full
 directory follows the same order. Each case has a canonical URL and is maintained in HTML/CSS.
 
 Authority Brands: Jul–Nov 2021, SRE Support / DevOps Developer at Thoughtworks. Lead with
@@ -52,7 +55,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/automotive-devops/`, `/projects/banking-devops-consulting/`, `/projects/banking-cms-consulting/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -312,3 +315,59 @@ outside this repository. The case uses authored prose and conceptual diagrams. M
 homepage card, chronological directory entry and case breadcrumb together. This publication is
 a portfolio update, not a client-platform deployment. Edit the public HTML and scoped `case.css`
 directly; the historical local generator is not part of this site.
+
+## Daimler case — published 17 October 2026
+
+The author approved publication on 17 October 2026 after reviewing the local portfolio additions.
+`/projects/automotive-devops/` has a canonical URL and is included in the homepage, directory and
+changelog. The earlier five-case wording update was published separately in commit `f7af0f6`.
+
+Use Daimler AG as the public client name; keep internal project identifiers and original files
+private. The confirmed engagement is Nov 2020–May 2021, DevOps Team Lead as the client-facing
+role within Thoughtworks employment. Lead with the overall credential, CI/CD and platform
+support scope before selected technical examples.
+
+The canonical account confirms gopass to HA Vault on OpenShift and password synchronisation
+from over one hour to seconds for 200+ users. Describe that deployment’s workflow, not a
+universal gopass limitation or an encryption benchmark. Do not merge a separate source’s user
+population or onboarding timing into this result. GoCD Pipeline-as-Code and Nexus container
+management are separately confirmed. The new HTML diagram summarises delivery responsibilities;
+it is not an imported client topology or a claim of original diagram authorship.
+
+Interim reports establish staged migrations and local pipeline-file validation. They also contain
+ongoing backup/recovery investigations, access-control proposals and a future AWS move. Do not
+promote those items into completed implementations or tested recovery outcomes. Preserve broad
+confirmed responsibilities even where retained records cover only part of the engagement.
+No raw files, original screenshots, commands, internal URLs or credential values belong here.
+
+## ICBC consulting case — published 17 October 2026
+
+The author confirms a Thoughtworks consulting engagement in Zhuhai lasting about three months.
+Use 2021, supported by the retained materials; precise start/end months are not confirmed. The
+chronological entry is between Authority Brands and Daimler, using the June/July working
+material context without turning document dates into an exact employment period. Its route is
+`/projects/banking-devops-consulting/`; the directory anchor is `#icbc`.
+
+Present analysis, option comparison and advice in response to bank-defined problems. Concrete
+examples include remaining manual delivery work, obtainable measures, cloned database baselines,
+parallel migration histories and traffic-control options. Do not claim personal implementation of
+all programme plans, metric collection, production canary rollouts or quantified improvements.
+Bank-authored configuration and measurement plans are context. Generic presentations and the
+cross-project architecture image are reference material, not ICBC delivery evidence. The diagram
+is a newly written conceptual sequence. No client source attachments or private identifiers belong
+in this repository. Preserve the separate CMB and Daimler experiences.
+
+The author approved publication of this case and its directory/changelog entries on 17 October 2026.
+
+## Shenzhen Rural Commercial Bank case — published 17 October 2026
+
+The author confirmed a small Thoughtworks client engagement in 2023: two inspections and help
+looking into two specific issues. The concise case lives at `/projects/banking-cms-consulting/`,
+linked from directory anchor `#szrcb`. Do not infer precise months or a larger implementation role.
+The inspection template describes the method; blank result fields are not completed check results.
+The written responses cover more topics than the two recalled issues; do not identify two particular
+symptoms as confirmed incidents or turn the document into nine delivered investigations.
+Personally attributed training material supports prepared operations guidance, without establishing
+a delivered workshop, platform build or recovery exercise. Keep old commands, internal addresses,
+version inventory, topology and original files private. The author approved publication with the
+ICBC and Daimler cases on 17 October 2026. Nimble is not being added.
