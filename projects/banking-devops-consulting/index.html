@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ICBC, Zhuhai · DevOps consulting · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="DevOps consulting for ICBC in Zhuhai: analysing delivery pain points and proposing approaches to measurement, database changes and traffic switching."
+    />
+    <link rel="canonical" href="https://jothep.github.io/projects/banking-devops-consulting/" />
+    <meta name="theme-color" content="#76533e" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261012e" />
+    <link rel="stylesheet" href="case.css?v=20261017a" />
+    <script src="../../assets/site.js?v=20261011d" defer></script>
+  </head>
+  <body class="icbc-case">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home"
+        ><span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="../../#work">Work</a><a href="../../#about">About</a
+        ><a href="../../#writing">Writing</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <!-- An advisory engagement, with the contribution stated positively and directly. -->
+      <div class="case-hero wrap">
+        <div class="case-topline">
+          <a class="breadcrumb" href="../../experience/#icbc"
+            ><span aria-hidden="true">←</span> Enterprise experience</a
+          >
+        </div>
+        <div class="case-heading">
+          <div>
+            <p class="eyebrow">Thoughtworks · Client engagement · Zhuhai</p>
+            <h1>ICBC</h1>
+            <p class="case-subtitle">DevOps consulting and delivery improvement</p>
+          </div>
+          <div class="case-focus">
+            <p class="eyebrow">My contribution</p>
+            <p>Problem analysis, technical options and recommendations.</p>
+          </div>
+        </div>
+        <div class="case-meta">
+          <div class="meta-item"><span>My role</span><strong>DevOps Consultant</strong></div>
+          <div class="meta-item">
+            <span>Project participation</span><strong>2021 · About three months</strong>
+          </div>
+          <div class="meta-item">
+            <span>Focus</span><strong>Delivery · Database changes · Traffic routing</strong>
+          </div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="ICBC case sections">
+          <p>In this case study</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="icbc-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">Consulting scope</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="icbc-section-links">
+            <a href="#scope" aria-current="true"><span>01</span> Consulting scope</a>
+            <a href="#delivery-measures"><span>02</span> Delivery &amp; measurement</a>
+            <a href="#database-changes"><span>03</span> Database changes</a>
+            <a href="#traffic-switching"><span>04</span> Traffic switching</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="scope">
+            <p class="section-kicker">01 / Consulting scope</p>
+            <h2>Starting with the problems the bank needed to solve.</h2>
+            <p class="lead">
+              As a Thoughtworks consultant on an ICBC engagement in Zhuhai, I analysed pain points
+              raised by the bank and provided technical advice and solution options. The work
+              covered deployment standardisation, delivery measurement, test-environment database
+              changes and traffic switching.
+            </p>
+            <p class="body-copy">
+              I worked through the existing processes and constraints before proposing changes. This
+              meant connecting technical choices with release schedules, audit requirements, team
+              handoffs and the effort needed to adopt a different way of working.
+            </p>
+          </section>
+
+          <section class="case-section" id="delivery-measures">
+            <p class="section-kicker">02 / Delivery &amp; measurement</p>
+            <h2>Connecting automation measures to delivery problems.</h2>
+            <p class="body-copy">
+              The bank was improving application deployment and wanted to understand its progress.
+              Existing workflows combined automated pipelines, manual steps and handoffs between
+              development, integration and operations teams. A pipeline could be in use while
+              substantial work still happened outside it.
+            </p>
+            <p class="body-copy">
+              My analysis followed the release path from build and artifact handoff through
+              deployment and verification. This helped identify where manual work remained and what
+              a measure would need to capture. I recommended a small, obtainable set of measures
+              that fitted the bank’s existing reporting and addressed those specific gaps.
+            </p>
+            <p class="body-copy">
+              Standardisation also needed clear boundaries: common deployment steps and
+              configuration rules had to leave room for application-specific release needs,
+              including canary strategies. The advice balanced consistency with that flexibility.
+            </p>
+            <dl class="consulting-points">
+              <div>
+                <dt>Coverage</dt>
+                <dd>
+                  Identify which applications and release steps use the standard workflow, and where
+                  manual intervention remains.
+                </dd>
+              </div>
+              <div>
+                <dt>Effort &amp; time</dt>
+                <dd>
+                  Examine deployment duration, manual work and handoff delays alongside pipeline
+                  usage. Agree what each measurement includes.
+                </dd>
+              </div>
+              <div>
+                <dt>Quality</dt>
+                <dd>
+                  Consider successful deployment and recovery measures together with delivery speed,
+                  so the assessment reflects how well the process works.
+                </dd>
+              </div>
+            </dl>
+            <div class="decision-note">
+              <h3>Agree on the measure before building its collection.</h3>
+              <p>
+                The consulting work separated metric definition from collection implementation.
+                First establish the question, calculation and available data; then decide how to
+                collect it. This kept the proposed measures useful and practical to obtain.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="database-changes">
+            <p class="section-kicker">03 / Database changes</p>
+            <h2>Keeping database changes consistent across parallel releases.</h2>
+            <p class="body-copy">
+              Test environments were created by cloning VMs while development continued on monthly
+              branches. Database structure changes and data changes were managed in different
+              places. This made it difficult to know the starting state of a new environment and
+              which changes it still needed.
+            </p>
+            <p class="body-copy">
+              Test database updates also relied on a production pre-release verification workflow,
+              bringing release-related requirements into routine development. I proposed separating
+              the test-environment deployment path and making database versions, baselines and
+              application changes easier to track together.
+            </p>
+            <!-- A new conceptual diagram of the recommendation, not a client topology. -->
+            <figure class="database-figure" aria-labelledby="database-caption">
+              <p class="figure-label">Recommended checks for test-environment changes</p>
+              <ol class="database-flow" aria-label="Database change decision sequence">
+                <li>
+                  <strong>Establish the baseline</strong
+                  ><span
+                    >Identify the state inherited from the clone and the changes already
+                    applied.</span
+                  >
+                </li>
+                <li>
+                  <strong>Resolve change order</strong
+                  ><span>Coordinate overlapping schema and data changes across branches.</span>
+                </li>
+                <li>
+                  <strong>Verify compatibility</strong
+                  ><span>Check the resulting schema, data and application behaviour together.</span>
+                </li>
+              </ol>
+              <figcaption id="database-caption">
+                A shared migration history helps track change; coordination and testing establish
+                whether the combined result is correct.
+              </figcaption>
+            </figure>
+            <div class="options-grid">
+              <article>
+                <p class="option-label">a. Integrate changes earlier</p>
+                <h3>Shorter branches, earlier conflict detection.</h3>
+                <p>
+                  Where release constraints allowed, I recommended trunk-based development or
+                  shorter-lived feature branches. Frequent integration would expose conflicting
+                  schema changes sooner. Adopting it would also require changes to team practices.
+                </p>
+              </article>
+              <article>
+                <p class="option-label">b. Retain monthly branches</p>
+                <h3>Make ordering and reconciliation explicit.</h3>
+                <p>
+                  If the monthly model remained, late changes to an earlier release needed careful
+                  handling in later environments. Replaying migrations or allowing out-of-order
+                  changes brought different costs and risks of overwriting or masking conflicts.
+                </p>
+              </article>
+            </div>
+            <p class="body-copy after-options">
+              The options included Flyway and Liquibase for managing migration histories. Tooling
+              needed to be paired with coordination over shared fields, compatibility tests and care
+              around destructive changes. The existing audit purpose of separate DDL and DML
+              management also had to be considered before recommending consolidation.
+            </p>
+            <div class="decision-note">
+              <h3>Where should a database migration task run?</h3>
+              <p>
+                A related design question arose when considering a move from VM-hosted databases to
+                a container platform: the old assumption of a deployment agent installed on the same
+                VM no longer held. The options included dynamic agents and separate migration jobs,
+                with execution location, network access and resource lifecycle considered together.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="traffic-switching">
+            <p class="section-kicker">04 / Traffic switching</p>
+            <h2>Choosing the right place to control traffic.</h2>
+            <p class="body-copy">
+              I also worked on traffic-switching and canary-release advice. The discussion compared
+              DNS-level routing, API-gateway controls and service-mesh approaches, considering where
+              routing decisions belonged and how much change each option introduced.
+            </p>
+            <dl class="consulting-points">
+              <div>
+                <dt>Routing scope</dt>
+                <dd>
+                  Separate directing users to an endpoint from routing requests between application
+                  versions and managing service-to-service traffic.
+                </dd>
+              </div>
+              <div>
+                <dt>Controlled rollout</dt>
+                <dd>
+                  Use staged traffic movement, health checks and monitoring to judge whether a new
+                  version should receive more traffic or have traffic withdrawn.
+                </dd>
+              </div>
+              <div>
+                <dt>Platform fit</dt>
+                <dd>
+                  Compare gateway and mesh options against the required controls and the complexity
+                  the team would need to operate.
+                </dd>
+              </div>
+            </dl>
+            <p class="body-copy closing-note">
+              Across these topics, my contribution was to turn broad improvement requests into
+              concrete technical decisions: clarify the problem, compare workable options and
+              explain the consequences of each choice.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span><a href="../../changelog/">Changelog</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

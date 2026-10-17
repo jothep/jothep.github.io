@@ -1,0 +1,113 @@
+/* CMS consulting: a compact case using the shared portfolio layout. */
+.cms-case {
+  --case-accent: #376b64;
+  --case-wash: #f0f6f3;
+}
+
+/* Engagement heading and breadcrumb. */
+.cms-case .case-topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 36px;
+}
+.cms-case .case-topline .breadcrumb {
+  margin: 0;
+}
+
+.cms-case .case-heading {
+  grid-template-columns: minmax(0, 1fr) 245px;
+  gap: 40px;
+}
+.cms-case .case-heading h1 {
+  font-size: clamp(2.4rem, 4vw, 3.7rem);
+}
+.cms-case .case-focus {
+  padding-left: 22px;
+  border-left: 2px solid var(--case-accent);
+  align-self: center;
+}
+.cms-case .case-focus > p:last-child {
+  margin-top: 14px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+.cms-case .section-kicker,
+.cms-case .case-nav a[aria-current='true'] {
+  color: var(--case-accent);
+}
+.cms-case .case-nav a[aria-current='true'] {
+  border-color: var(--case-accent);
+}
+.cms-case .body-copy + .body-copy {
+  margin-top: 20px;
+}
+
+/* Inspection areas stay readable as rows on desktop and stack on small screens. */
+.cms-case .inspection-areas {
+  margin: 28px 0 0;
+  border-top: 1px solid var(--line);
+}
+.cms-case .inspection-areas > div {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.cms-case .inspection-areas dt {
+  color: var(--case-accent);
+  font-size: 16px;
+  font-weight: 600;
+}
+.cms-case .inspection-areas dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+@media (max-width: 1000px) {
+  .cms-case .case-heading {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    gap: 30px;
+  }
+  .cms-case .case-meta {
+    gap: 30px;
+  }
+}
+@media (max-width: 760px) {
+  .cms-case .case-topline {
+    margin-bottom: 28px;
+  }
+  .cms-case .case-heading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .cms-case .case-focus > p:last-child {
+    font-size: 18px;
+    margin-top: 8px;
+  }
+  .cms-case .case-meta {
+    gap: 18px 28px;
+  }
+  .cms-case .case-nav a[aria-current='true'] {
+    background: var(--case-wash);
+  }
+  .cms-case .case-nav-current {
+    color: var(--case-accent);
+  }
+}
+@media (max-width: 560px) {
+  .cms-case .case-heading h1 {
+    font-size: clamp(2rem, 8vw, 2.7rem);
+  }
+  .cms-case .case-topline {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+  .cms-case .inspection-areas > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}
