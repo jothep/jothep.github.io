@@ -31,9 +31,10 @@ confirmed Terraform module refactoring and the jointly prepared platform assessm
 EKS upgrade planning as a project workflow, without turning it into a new personal execution
 claim. Recovery service modules are a confirmed contribution.
 
-Costa: Apr–Jun 2019, DevOps Engineer at Thoughtworks. The author confirmed developing the
-monitoring system. Its log alert path is Graylog to Alertmanager via a notification integration,
-then Slack. Scheduled homepage checks have a separate Slack reporting path. China/Japan are
+Costa: Apr–Jun 2019, DevOps Engineer at Thoughtworks, using AWS, Terraform and monitoring
+tools including Prometheus. Keep this broader context separate from the specific alert path.
+The author confirmed developing the monitoring system. Its log alert path is Graylog to
+Alertmanager via a notification integration, then Slack. Scheduled homepage checks have a separate Slack reporting path. China/Japan are
 business contexts; use functional diagrams without client addresses or original screenshots.
 
 Keep internal source analysis outside the visitor-facing text. These are portfolio case
@@ -245,6 +246,8 @@ personal delivery or an interview example without renewed confirmation. The reta
 values do not establish Gloo selection, introduction, configuration authorship or a deployment
 result. Do not infer detailed Istio configuration ownership or an Istio/Gloo integration topology.
 
+Lead with day-to-day AWS/EKS support, Terraform provisioning and the confirmed DR-module work.
+Keep Istio/Gloo as brief platform context rather than a main personal workstream.
 Keep product-level explanations of Argo CD separate from confirmed use of the existing setup.
 No specific sync policy, repository layout or rollout strategy has been supplied. Do not add
 GitOps design ownership, zero-downtime attribution, DR execution or recovery-time claims. The
@@ -291,7 +294,10 @@ writer isolation, database takeover, capacity preparation and application valida
 
 The author approved publication on 14 October 2026 after reviewing the local case. Project
 participation is 2018–2020; do not invent months or combine it with a later, separate consulting
-engagement. Phase 1 includes initial planning/design and a return near its end. Phases 2 and 3
+engagement. Use the confirmed client-project role, Container Platform Consultant & DevOps Lead.
+Give a brief overall account of deployment standardisation, technical guidance and project/team coordination
+before the phase-specific examples. BAOps began in Phase 2 and became the main focus in Phase 3.
+Phase 1 includes initial planning/design and a return near its end. Phases 2 and 3
 were full-phase participation; Phase 3 mainly involved BAOps alongside consulting. Phase 4
 coverage stays brief: early design only, without claims about its subsequent delivery.
 
