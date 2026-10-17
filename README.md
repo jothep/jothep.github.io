@@ -4,7 +4,7 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, enterprise experience, selected work, technical designs, selected writing, Codex activity, About and Contact.
+- `/`: professional introduction, enterprise experience, projects and research, technical designs, selected writing, Codex activity, About and Contact.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/designs/aws-cross-region-dr/`: an independent AWS warm standby design covering recovery goals, architecture and operating decisions.
@@ -16,7 +16,7 @@ A small static personal site with engineering case studies covering infrastructu
 - `/projects/automotive-devops/`: Daimler AG credential migration, GoCD Pipeline-as-Code, OpenShift delivery and handover.
 - `/projects/aws-platform-reliability/`: Authority Brands SRE support, Terraform module refactoring, platform assessment and EKS upgrade planning.
 - `/projects/application-monitoring/`: Costa application monitoring, Graylog-to-Alertmanager-to-Slack integration and scheduled homepage checks.
-- `/projects/banking-container-platform/`: China Merchants Bank container-platform consulting and BAOps across four phases, with design decisions, delivery support and monitoring capabilities.
+- `/projects/banking-container-platform/`: China Merchants Bank container-platform consulting and business analysis for operations systems across four phases, with design decisions, delivery support and monitoring capabilities.
 - `/projects/fintech-platform/`: SadaPay GitOps delivery, AWS/EKS responsibilities and Terraform provisioning, with Istio and Gloo configuration context.
 - `/projects/government-health-delivery/`: a Health Promotion Board, Singapore DevOps retrospective covering day-to-day platform and developer support, pipeline troubleshooting, migration ownership and client execution boundaries.
 
@@ -25,9 +25,9 @@ The maintained site uses its own HTML pages and shared CSS and JavaScript in `as
 ## Enterprise cases added on 14 October 2026
 
 The author approved publication of Authority Brands and Costa on 14 October 2026, following
-local review. The homepage Enterprise experience carousel and directory include each documented
-project, ordered by participation end date, with project-title links and dates. The full
-directory follows the same order. Each case has a canonical URL and is maintained in HTML/CSS.
+local review. Each case has a canonical URL and is maintained in HTML/CSS. The full directory
+includes all documented engagements in chronological order. The homepage features four representative
+cases; its selection and maintenance rules are described below.
 
 Authority Brands: Jul–Nov 2021, SRE Support / DevOps Developer at Thoughtworks. Lead with
 confirmed Terraform module refactoring and the jointly prepared platform assessment. Describe
@@ -67,9 +67,9 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Enterprise experience → Selected work → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps the compact **View changelog** button in its original position; Enterprise experience already follows immediately below.
+Keep the homepage reading order: **Enterprise experience → Projects & research → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps the compact **View changelog** button in its original position; Enterprise experience already follows immediately below.
 
-Add another selected-work entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
+Add another Projects & research entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
 Do not copy application credentials, environment files, Terraform state, private archives or the application's Git history into this repository.
 
@@ -88,7 +88,7 @@ reduced-motion preferences are respected, and all cards remain visible when prin
 ## Adding technical designs
 
 Keep independent design studies in `designs/<slug>/` and link them from `#technical-designs`,
-immediately after Selected work. Add one readable `article.design-card` with a topic,
+immediately after Projects & research. Add one readable `article.design-card` with a topic,
 title, concise summary and one link. The list grows as studies are added; do not add empty cards
 or a separate index page before it is needed. Keep the design's purpose clear in its introduction.
 Do not treat a linked design as the architecture delivered on a past client project.
@@ -156,10 +156,14 @@ personal delivery. Preserve the distinction between the main role in the later m
 collaborative participation in an earlier incident. Terraform import results describe sandbox
 experiments with selected ignored attributes, not production recovery or complete drift coverage.
 
-Keep all documented enterprise cases in the homepage's `#experience-track` carousel and in
-`experience/index.html`, ordered by participation end date, newest first; use start date as
-the tie-breaker. Show participation dates on each homepage card. Link the project title directly to its case on both surfaces;
-do not add a separate “Read the case” link. Each `article.experience-entry` has a stable ID, client or approved anonymous
+Keep all documented enterprise cases in `experience/index.html`, ordered by participation end
+date, newest first; use start date as the tie-breaker. The homepage features four representative
+cases in this order: Health Promotion Board, China Merchants Bank, Daimler and ICBC. Its two-column
+`.experience-grid` becomes a single column on narrow screens and needs no JavaScript. This is a
+curated selection, not a timeline; participation dates remain visible on each card.
+
+Link the project title directly to its case on both surfaces; do not add a separate “Read the case”
+link. Each `article.experience-entry` in the directory has a stable ID, client or approved anonymous
 name, role, participation dates, employer relationship, short contribution summary and optional
 case link. A short, confirmed account can remain in the directory until a full case is ready;
 do not invent details or create placeholder pages to fill the structure.
@@ -174,14 +178,24 @@ not separate homepage cards. Distinguish the employer from its client and partic
 from the date of any particular delivery. Keep existing case URLs and section anchors stable.
 Each case breadcrumb returns to its own directory entry.
 
-When adding an engagement, add its directory entry and homepage card in the same order, and
-update the static `[data-experience-count]` fallback. The shared carousel code derives its count
-and supports the same scrolling, arrow buttons and track-focused Arrow/Home/End keys as Selected
-writing. The two tracks operate independently. Native horizontal scrolling works without JavaScript;
-print styles display every card. Do not add automatic rotation or duplicate cases.
-Keep these entries above About and Contact. Do not manufacture performance metrics, testimonials
+When adding an engagement, add its directory entry in chronological order and update the homepage's
+“View all N engagements” link. Change the four-case homepage selection only as an intentional
+editorial decision; do not automatically add every new case to it. Keep the static selected-case
+count aligned with its cards. Selected writing retains its independent horizontal carousel.
+
+The shared main navigation uses “Experience” and links to the homepage's `#enterprise-experience`.
+The visible “Projects & research” heading retains the `#work` ID so existing links keep working.
+Keep these sections above About and Contact. Do not manufacture performance metrics, testimonials
 or answers to new interview challenges. The Codex activity snapshot is not refreshed as part of
 enterprise-case work. Preserve draft labels and publication boundaries for unpublished cases.
+
+### Publication approved — 17 October 2026
+
+This update features four enterprise cases, updates the shared navigation and
+Projects & research label, and strengthens existing case summaries and the China Merchants Bank
+introduction. The full directory retains all eight engagements and its chronological order.
+The author approved publication after reviewing the local layout and the clarified wording
+for business analysis for operations systems.
 
 ## Public writing: contributions, decisions and results
 
@@ -210,7 +224,7 @@ For routine edits, use this file map:
 | `projects/story-filler/decisions.html` | Questions addressed to the author, answers and AI review notes |
 | `changelog/index.html` | Dated website changes |
 | `assets/site.css` | Shared visual styles, grouped by section comments |
-| `assets/site.js` | Architecture tabs, compact contents menu and section highlighting |
+| `assets/site.js` | Architecture tabs, compact contents menu, section highlighting and writing carousel |
 | `scripts/` | Optional evidence and activity generators; not required to serve the site |
 | `assets/evidence/` | Published, dated evidence; do not regenerate it as part of formatting |
 
@@ -299,10 +313,16 @@ The author approved publication on 14 October 2026 after reviewing the local cas
 participation is 2018–2020; do not invent months or combine it with a later, separate consulting
 engagement. Use the confirmed client-project role, Container Platform Consultant & DevOps Lead.
 Give a brief overall account of deployment standardisation, technical guidance and project/team coordination
-before the phase-specific examples. BAOps began in Phase 2 and became the main focus in Phase 3.
+before the phase-specific examples. Business analysis for operations systems began in Phase 2
+and became the main focus in Phase 3.
 Phase 1 includes initial planning/design and a return near its end. Phases 2 and 3
-were full-phase participation; Phase 3 mainly involved BAOps alongside consulting. Phase 4
+were full-phase participation; Phase 3 mainly involved business analysis for operations systems
+alongside consulting. Phase 4
 coverage stays brief: early design only, without claims about its subsequent delivery.
+
+Use “business analysis for operations systems” for this responsibility, as clarified by the author
+on 17 October 2026. Use “business analyst for operations systems” when naming the role. Preserve
+the existing `#phase3-baops` anchor for older links; its visible label uses the clarified wording.
 
 The fixed-address solution concerned business application containers. Preserve collaboration
 with the bank architect, Thoughtworks development lead and Red Hat consultant where stated.

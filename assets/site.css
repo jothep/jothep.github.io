@@ -1799,8 +1799,7 @@ summary:focus-visible {
   line-height: 1.7;
   margin: 0 0 26px;
 }
-.writing-toolbar,
-.experience-toolbar {
+.writing-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1808,22 +1807,18 @@ summary:focus-visible {
   margin-bottom: 18px;
   min-height: 44px;
 }
-.writing-order,
-.experience-order {
+.writing-order {
   color: var(--muted);
   font: 12px/1.5 var(--mono);
 }
-.writing-controls,
-.experience-controls {
+.writing-controls {
   display: flex;
   gap: 8px;
 }
-.writing-controls[hidden],
-.experience-controls[hidden] {
+.writing-controls[hidden] {
   display: none;
 }
-.writing-arrow,
-.experience-arrow {
+.writing-arrow {
   display: grid;
   place-items: center;
   width: 44px;
@@ -1835,19 +1830,16 @@ summary:focus-visible {
   font-size: 24px;
   cursor: pointer;
 }
-.writing-arrow:hover:not(:disabled),
-.experience-arrow:hover:not(:disabled) {
+.writing-arrow:hover:not(:disabled) {
   background: var(--blue-light);
   border-color: var(--blue);
 }
-.writing-arrow:disabled,
-.experience-arrow:disabled {
+.writing-arrow:disabled {
   color: #a3adbb;
   cursor: default;
   background: var(--wash);
 }
-.writing-grid,
-.experience-selection {
+.writing-grid {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: calc((100% - 40px) / 2.5);
@@ -1860,8 +1852,7 @@ summary:focus-visible {
   scrollbar-color: var(--blue) var(--wash);
   padding: 4px 4px 18px;
 }
-.writing-grid:focus-visible,
-.experience-selection:focus-visible {
+.writing-grid:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 4px;
 }
@@ -1925,16 +1916,14 @@ summary:focus-visible {
   line-height: 1.6;
   text-underline-offset: 4px;
 }
-.writing-footer,
-.experience-footer {
+.writing-footer {
   margin-top: 25px;
 }
 .writing-footer .text-link {
   color: var(--blue);
 }
 @media (max-width: 1000px) {
-  .writing-grid,
-  .experience-selection {
+  .writing-grid {
     grid-auto-columns: 46%;
     gap: 16px;
   }
@@ -1956,8 +1945,7 @@ summary:focus-visible {
   .writing-section {
     padding-top: 46px;
   }
-  .writing-grid,
-  .experience-selection {
+  .writing-grid {
     grid-auto-columns: 88%;
     gap: 16px;
   }
@@ -1982,8 +1970,7 @@ summary:focus-visible {
     font-size: 15px;
     margin-bottom: 23px;
   }
-  .writing-footer,
-  .experience-footer {
+  .writing-footer {
     margin-top: 23px;
   }
 }
@@ -2003,12 +1990,10 @@ summary:focus-visible {
 }
 
 @media print {
-  .writing-controls,
-  .experience-controls {
+  .writing-controls {
     display: none;
   }
-  .writing-grid,
-  .experience-selection {
+  .writing-grid {
     grid-auto-flow: row;
     grid-auto-columns: auto;
     grid-template-columns: 1fr;
@@ -3255,7 +3240,7 @@ summary:focus-visible {
   }
 }
 
-/* Enterprise experience: a horizontal project track and a full directory. */
+/* Enterprise experience: featured homepage cards and a chronological directory. */
 .enterprise-section {
   padding-bottom: 64px;
 }
@@ -3265,8 +3250,12 @@ summary:focus-visible {
 .enterprise-heading .text-link {
   color: #17685f;
 }
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
 .experience-card {
-  scroll-snap-align: start;
   min-width: 0;
   background: white;
   display: flex;
@@ -3275,6 +3264,16 @@ summary:focus-visible {
   padding: 28px;
   border: 1px solid var(--line);
   border-top: 3px solid #17685f;
+}
+.experience-card > .experience-period {
+  margin-bottom: 17px;
+  font: 11px/1.6 var(--mono);
+}
+.experience-footer {
+  margin-top: 25px;
+}
+.experience-footer .text-link {
+  color: #17685f;
 }
 .experience-card h3,
 .experience-details h3 {
@@ -3369,6 +3368,13 @@ summary:focus-visible {
   .enterprise-heading {
     flex-wrap: wrap;
   }
+  .experience-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .experience-footer {
+    margin-top: 23px;
+  }
   .experience-card {
     padding: 24px;
   }
@@ -3394,6 +3400,15 @@ summary:focus-visible {
   }
   .experience-meta p + p {
     margin-top: 0;
+  }
+}
+
+@media print {
+  .experience-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .experience-card {
+    break-inside: avoid;
   }
 }
 
@@ -3539,30 +3554,5 @@ summary:focus-visible {
   .enterprise-case .case-meta {
     flex-wrap: wrap;
     gap: 20px;
-  }
-}
-
-/* Enterprise carousel uses the same scrolling pattern with the section accent. */
-.experience-selection {
-  scrollbar-color: #17685f var(--wash);
-}
-.experience-selection:focus-visible {
-  outline-color: #17685f;
-}
-.experience-arrow:not(:disabled),
-.experience-footer .text-link {
-  color: #17685f;
-}
-.experience-arrow:hover:not(:disabled) {
-  background: #eef5f3;
-  border-color: #17685f;
-}
-.experience-card > .experience-period {
-  margin-bottom: 17px;
-  font: 11px/1.6 var(--mono);
-}
-@media print {
-  .experience-card {
-    break-inside: avoid;
   }
 }
