@@ -6,6 +6,8 @@ A small static personal site with engineering case studies covering infrastructu
 
 - `/`: professional introduction, enterprise experience, projects and research, technical designs, selected writing, Codex activity, About and Contact.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
+- `/engineering/`: directory of completed project questions, considered answers and follow-ups.
+- `/projects/banking-container-platform/decisions.html`: CMB fixed network identities and VM/container coexistence, with operational and collaboration follow-ups.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
 - `/designs/aws-cross-region-dr/`: an independent AWS warm standby design covering recovery goals, architecture and operating decisions.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
@@ -67,7 +69,7 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Enterprise experience → Projects & research → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps the compact **View changelog** button in its original position; Enterprise experience already follows immediately below.
+Keep the homepage reading order: **Enterprise experience → Projects & research → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps two compact shortcuts: **Engineering judgment & inquiry** first as a teal filled button, followed by the outlined **View changelog**. Enterprise experience follows immediately below.
 
 Add another Projects & research entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
@@ -221,7 +223,8 @@ For routine edits, use this file map:
 | `experience/index.html` | Full directory of documented enterprise engagements |
 | `projects/*/index.html` | Detailed case-study content |
 | `designs/*/index.html` | Independent technical designs; distinguish proposals from delivered work |
-| `projects/story-filler/decisions.html` | Questions addressed to the author, answers and AI review notes |
+| `engineering/index.html` and `engineering/directory.css` | Project inquiry directory and its scoped layout |
+| `projects/*/decisions.html` | Questions addressed to the author, considered answers and follow-ups |
 | `changelog/index.html` | Dated website changes |
 | `assets/site.css` | Shared visual styles, grouped by section comments |
 | `assets/site.js` | Architecture tabs, compact contents menu, section highlighting and writing carousel |
@@ -248,6 +251,32 @@ Keep substantive technical extensions separate when they go beyond the author's 
 
 Write every question and follow-up as a reviewer addressing the author with "you" or "your". Keep the author's answers in the first person and label AI review separately. Do not present the exchange as an interview with real experts. Use question titles without job-role labels. Keep planned Go or Operator work out of the current case study until there is work to present. Distinguish the date of a retrospective/source review from the dates of deployment evidence, and do not imply that a historical forecast was recorded at the time unless it was.
 
+
+## Engineering inquiry directory — publication approved, 18 October 2026
+
+`engineering/index.html` links to the completed CMB and Story Filler discussions. Add future
+projects as readable `article.inquiry-entry` rows, with a short context, topic summary and one
+primary link to `projects/<slug>/decisions.html`. Keep the displayed project/question counts in
+sync with the actual entries. Do not add placeholders for discussions not yet prepared.
+
+The CMB page reuses the shared judgment-page styles and optional mobile contents menu. Its
+case-study entry, the directory and the individual inquiry page should remain connected.
+Keep the main questions lettered a., b., etc., with follow-ups under the associated answer.
+Questions address the author; considered answers use first-person language. Do not add an
+AI-answer panel when the author has already understood and incorporated the clarification.
+
+The author confirmed during the 18 October discussion that database access required fixed
+application source IPs **and source ports**. hostNetwork shares the host network; the complete
+configuration satisfies the access rule. Do not infer the specific source-port implementation,
+a universal NodePort latency problem, or automatic host failover. The old host is shut down and
+removed before a replacement takes its addresses; bank system administrators use the platform
+management interface. VM/container coexistence was planned around unchanged legacy systems
+and permissions. UX and development colleagues led the common UI; the author's focus was
+infrastructure and container integration. Retained private records remain outside this site.
+
+The author approved publication on 18 October 2026 after reviewing the local pages. Verify
+`/engineering/` and both inquiry pages alongside the existing publication checks. The project
+participation dates remain 2018–2020.
 
 ## SadaPay case publication boundary
 

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Project questions and considered answers from Xiang Zhu: architecture choices, operating trade-offs, migration constraints and delivery decisions."
+    />
+    <meta name="theme-color" content="#17685f" />
+    <title>Engineering judgment &amp; inquiry · Xiang Zhu</title>
+    <link rel="canonical" href="https://jothep.github.io/engineering/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../assets/site.css?v=20261017c" />
+    <link rel="stylesheet" href="directory.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../#enterprise-experience">Experience</a>
+        <a href="../#about">About</a>
+        <a href="../#writing">Writing</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main" class="inquiry-directory">
+      <div class="experience-hero wrap">
+        <a class="breadcrumb" href="../"><span aria-hidden="true">↗</span> Back to portfolio</a>
+        <p class="eyebrow">Decisions · Trade-offs · Follow-up questions</p>
+        <h1>Engineering judgment &amp; inquiry.</h1>
+        <p class="experience-intro">
+          How I reason through engineering choices: the constraints I work within, the alternatives
+          I consider and the responsibilities that follow.
+        </p>
+        <p class="inquiry-method">
+          Each project brings together questions put to me during AI-assisted review and my
+          considered answers, with follow-ups that explore the decisions in more depth.
+        </p>
+      </div>
+      <section class="inquiry-list wrap" aria-labelledby="inquiries-title">
+        <div class="section-label">
+          <h2 id="inquiries-title">Explore by project</h2>
+          <span>2 project discussions</span>
+        </div>
+        <!-- Add a row only when that project's questions and answers are ready to read. -->
+        <article
+          class="inquiry-entry"
+          id="china-merchants-bank"
+          aria-labelledby="cmb-inquiry-title"
+        >
+          <div class="inquiry-meta">
+            <p class="eyebrow">Enterprise experience</p>
+            <p>2 questions · 2 follow-ups</p>
+          </div>
+          <div class="inquiry-copy">
+            <h3 id="cmb-inquiry-title">
+              <a href="../projects/banking-container-platform/decisions.html">
+                China Merchants Bank <span aria-hidden="true">↗</span>
+              </a>
+            </h3>
+            <p>
+              Designing a container platform around existing database access rules, legacy systems
+              and the bank’s release process.
+            </p>
+            <ul class="inquiry-topics" aria-label="China Merchants Bank discussion topics">
+              <li>Fixed network identities and controlled host replacement</li>
+              <li>VM and container coexistence, with a common release interface</li>
+            </ul>
+          </div>
+        </article>
+        <article class="inquiry-entry" id="story-filler" aria-labelledby="story-inquiry-title">
+          <div class="inquiry-meta">
+            <p class="eyebrow">Independent project</p>
+            <p>4 questions &amp; follow-ups</p>
+          </div>
+          <div class="inquiry-copy">
+            <h3 id="story-inquiry-title">
+              <a href="../projects/story-filler/decisions.html">
+                Story Filler <span aria-hidden="true">↗</span>
+              </a>
+            </h3>
+            <p>
+              Taking a course project into a public demonstration, with decisions about delivery
+              scope, managed hosting and the behaviour of slow requests.
+            </p>
+            <ul class="inquiry-topics" aria-label="Story Filler discussion topics">
+              <li>Delivery priorities, hosting choices and operating trade-offs</li>
+              <li>Loading behaviour, timeouts, retries and implementation evidence</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <span>Infrastructure, architecture &amp; delivery</span>
+      <a href="../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">
+        GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </body>
+</html>
