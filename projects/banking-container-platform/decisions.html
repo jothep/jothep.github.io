@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Engineering judgment &amp; inquiry · China Merchants Bank · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="China Merchants Bank engineering questions: fixed application network identities, controlled host replacement, and VM and container coexistence."
+    />
+    <link
+      rel="canonical"
+      href="https://jothep.github.io/projects/banking-container-platform/decisions.html"
+    />
+    <meta name="theme-color" content="#122344" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261017c" />
+    <script src="../../assets/site.js?v=20261017c" defer></script>
+  </head>
+  <body class="judgment-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#enterprise-experience">Experience</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <!-- Two completed discussions from the author's platform work. -->
+      <div class="decision-hero wrap">
+        <a class="breadcrumb" href="../../engineering/">
+          <span aria-hidden="true">↗</span>
+          All engineering inquiries
+        </a>
+        <p class="eyebrow">China Merchants Bank / Platform design decisions</p>
+        <h1>Engineering judgment<br />&amp; inquiry.</h1>
+        <p class="decision-intro">
+          Preserving application network identities and introducing containers within an established
+          banking environment.
+        </p>
+        <div class="decision-method">
+          <p>
+            I use my engineering-judgment framework to explain my choices, respond to challenges and
+            examine the operating responsibilities that follow from a design.
+          </p>
+          <p class="decision-method-steps">
+            Context <span aria-hidden="true">→</span> Question
+            <span aria-hidden="true">→</span> Judgment <span aria-hidden="true">→</span> Trade-offs
+          </p>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Engineering inquiry sections">
+          <p>In this reflection</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="inquiry-section-links"
+          >
+            <span>On this page</span>
+            <span class="case-nav-current">The constraints</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="inquiry-section-links">
+            <a href="#context" aria-current="true"><span>01</span> The constraints</a>
+            <a href="#questions"><span>02</span> Questions &amp; answers</a>
+            <div class="case-nav-questions" aria-label="Individual questions">
+              <a href="#network-identity"><span>a.</span> Fixed network identities</a>
+              <a href="#coexistence"><span>b.</span> VMs and containers</a>
+            </div>
+            <a href="#related-reading"><span>03</span> Related reading</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="context">
+            <p class="section-kicker">01 / The constraints</p>
+            <h2>Build around the existing environment.</h2>
+            <div class="decision-context-grid">
+              <article class="decision-context">
+                <p class="eyebrow">Network identity</p>
+                <h3>Keep database access rules intact.</h3>
+                <p>
+                  Applications had to connect to databases using specified source IP addresses and
+                  source ports. Moving an application into a container had to preserve those access
+                  requirements.
+                </p>
+              </article>
+              <article class="decision-context">
+                <p class="eyebrow">Migration scope</p>
+                <h3>Support years of coexistence.</h3>
+                <p>
+                  Some legacy systems had to remain unchanged. The platform needed to support both
+                  VM and container deployments within the bank’s release process and ownership
+                  boundaries.
+                </p>
+              </article>
+            </div>
+          </section>
+          <section class="case-section" id="questions">
+            <p class="section-kicker">02 / Questions &amp; answers</p>
+            <h2>Two decisions, examined in detail.</h2>
+            <p class="body-copy qa-section-intro">
+              These questions were put to me during an AI-assisted review of my project experience.
+              The answers present my conclusions after discussion. Follow-ups explore how the
+              choices affected operations and collaboration.
+            </p>
+            <!-- Keep the complete source-address configuration distinct from hostNetwork itself. -->
+            <article
+              class="judgment-qa"
+              id="network-identity"
+              aria-labelledby="network-identity-title"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">a.</span>
+                <div>
+                  <p class="qa-topic">Fixed addresses / Access control</p>
+                  <h3 id="network-identity-title">
+                    Why did you choose fixed host addresses and hostNetwork? Why was NodePort
+                    insufficient?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  Database access rules required applications to connect using specific source IP
+                  addresses and source ports. Those rules had to remain in place as we moved
+                  applications into containers.
+                </p>
+                <p>
+                  We considered NodePort so callers could reach application Pods through a fixed
+                  node address and port. That provided an application access point, but NodePort
+                  alone could not ensure that connections from the application to the database used
+                  the required source IP and port. It would also introduce changes to application
+                  addressing and additional address-to-port mappings to maintain.
+                </p>
+                <p>
+                  Working with a Red Hat consultant, I designed a host-level addressing approach. We
+                  allocated an IP range to each host and planned a fixed number of business
+                  application containers per host. The addresses were configured on the host’s
+                  network interfaces, and applications used <code>hostNetwork</code> to share the
+                  host network. The complete configuration preserved the source addresses and ports
+                  required for database access. This traffic did not depend on ClusterIP or NodePort
+                  forwarding.
+                </p>
+                <p>
+                  The benefit was compatibility with existing access controls and application
+                  integrations. The trade-off was a closer relationship between application
+                  placement, host capacity and address allocation. We had to coordinate address and
+                  port use on each host and follow that allocation plan when deploying applications
+                  or replacing hosts.
+                </p>
+                <div class="qa-followup" aria-labelledby="host-replacement-question">
+                  <p class="qa-response-label">Follow-up / Host replacement</p>
+                  <h4 id="host-replacement-question">
+                    How did your platform preserve addresses during host replacement without
+                    allowing both hosts to use them?
+                  </h4>
+                </div>
+                <p class="qa-response-label">My answer to the follow-up</p>
+                <p>
+                  We used a controlled replacement process. The old host was shut down and removed
+                  from the environment first. Only after confirming that it could no longer use
+                  those addresses did the replacement host take them over.
+                </p>
+                <p>
+                  Bank system administrators performed these operations through the platform’s
+                  management interface. Preserving the addresses maintained compatibility with the
+                  existing database allowlist. Confirming that the old host had exited prevented
+                  conflicting ownership of the same addresses.
+                </p>
+              </div>
+            </article>
+            <article class="judgment-qa" id="coexistence" aria-labelledby="coexistence-title">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">b.</span>
+                <div>
+                  <p class="qa-topic">Migration boundaries / Platform integration</p>
+                  <h3 id="coexistence-title">
+                    How did you introduce containers when some legacy systems could not be changed?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  We planned for VMs and containers to coexist for several years. The bank had
+                  explicitly identified legacy systems that had to remain unchanged. Permissions,
+                  maintenance responsibilities and ownership across teams constrained what we could
+                  migrate.
+                </p>
+                <p>
+                  Within the agreed scope, we prioritised applications with clear structures, a
+                  straightforward path to standardisation and no dependence on special host-level
+                  parameter changes. We favoured containers where applications met those conditions.
+                  Systems that needed to remain unchanged continued in their existing environments.
+                </p>
+                <p>
+                  The platform supported both deployment targets through a common release interface
+                  aligned with the bank’s processes. This allowed container adoption to proceed
+                  gradually while the platform continued to serve applications running on VMs.
+                </p>
+                <div class="qa-followup" aria-labelledby="common-interface-question">
+                  <p class="qa-response-label">Follow-up / Workflow and responsibilities</p>
+                  <h4 id="common-interface-question">
+                    What did that common interface actually provide, and which parts were your
+                    responsibility?
+                  </h4>
+                </div>
+                <p class="qa-response-label">My answer to the follow-up</p>
+                <p>
+                  It was a purpose-built platform UI that followed the bank’s application release
+                  process and requirements. Users could submit releases and choose a VM or container
+                  deployment target, together with the relevant deployment options.
+                </p>
+                <p>
+                  UX and development colleagues led the interface design and implementation. I
+                  focused on infrastructure, container platform design and integration.
+                </p>
+                <p>
+                  At the network level, containers used planned fixed addresses. Routing connected
+                  the container and VM address ranges, with access governed by the bank’s network
+                  security and firewall rules. This provided the foundation for applications in both
+                  environments to communicate under the existing access requirements.
+                </p>
+                <p>
+                  The common interface brought the release workflow together, while the
+                  infrastructure still had to meet the different operating requirements of VMs and
+                  containers.
+                </p>
+              </div>
+            </article>
+          </section>
+          <section class="case-section" id="related-reading">
+            <p class="section-kicker">03 / Related reading</p>
+            <h2>The wider project context.</h2>
+            <div class="reading-list">
+              <a class="reading-item" href="./#addressing">
+                <div>
+                  <strong>Application addressing and platform design</strong>
+                  <small
+                    >The collaborative design work, integration requirements and accepted
+                    approach.</small
+                  >
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a class="reading-item" href="./#phase-3">
+                <div>
+                  <strong>Business analysis for operations systems</strong>
+                  <small
+                    >Later work connecting operational needs with monitoring and recovery
+                    features.</small
+                  >
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <details class="evidence-details qa-references">
+              <summary>Technical references</summary>
+              <ul>
+                <li>
+                  <a
+                    href="https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport"
+                    >Kubernetes: NodePort services <span aria-hidden="true">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://kubernetes.io/docs/reference/kubernetes-api/core/pod-v1/"
+                    >Kubernetes: Pod configuration and hostNetwork
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://man7.org/linux/man-pages/man7/ip.7.html"
+                    >Linux: local addresses, ports and socket binding
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </li>
+              </ul>
+            </details>
+            <p class="decision-editorial-note">
+              Retrospective prepared on <time datetime="2026-10-18">18 October 2026</time>
+              from my account of the 2018–2020 engagement. AI assisted with questions, editing and
+              technical clarification.
+            </p>
+          </section>
+        </div>
+      </div>
+      <div class="wrap back-home">
+        <div class="case-actions">
+          <a class="text-link" href="./"
+            >China Merchants Bank case study <span aria-hidden="true">↗</span></a
+          >
+          <a class="text-link" href="../../engineering/"
+            >All engineering inquiries <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <span>Infrastructure, architecture &amp; delivery</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">
+        GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </body>
+</html>
