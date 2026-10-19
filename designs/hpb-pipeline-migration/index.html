@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bamboo to GitLab CI/CD · HPB technical deep dive · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="How Xiang Zhu rebuilt HPB delivery from Bamboo to GitLab CI/CD: Ansible-managed runners, reusable scripts, the SIT pipeline and separate builds across SIT, UAT and production."
+    />
+    <meta name="theme-color" content="#17685f" />
+    <link rel="canonical" href="https://jothep.github.io/designs/hpb-pipeline-migration/" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261017c" />
+    <link rel="stylesheet" href="design.css" />
+    <script src="../../assets/site.js?v=20261017c" defer></script>
+  </head>
+  <body class="pipeline-design">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span><span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#enterprise-experience">Experience</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="pipeline-hero wrap">
+        <a class="breadcrumb" href="../../#technical-designs"
+          ><span aria-hidden="true">↗</span> Technical deep dives</a
+        >
+        <p class="eyebrow">Technical deep dive · Health Promotion Board · CI/CD</p>
+        <h1>Bamboo to GitLab CI/CD</h1>
+        <p class="pipeline-intro">
+          Rebuilding delivery around environment-specific runners, reusable scripts and the checks
+          required for an AKS deployment.
+        </p>
+        <p class="pipeline-context">
+          I was the main engineer for this migration at Health Promotion Board, Singapore, during my
+          Thoughtworks engagement. This page explains the implementation behind the
+          <a href="../../projects/government-health-delivery/"
+            >HPB case study <span aria-hidden="true">↗</span></a
+          >.
+        </p>
+        <div class="case-meta">
+          <div class="meta-item"><span>Environments</span><strong>SIT · UAT · PRD</strong></div>
+          <div class="meta-item">
+            <span>Delivery platform</span><strong>Bamboo → GitLab CI/CD</strong>
+          </div>
+          <div class="meta-item"><span>Outcome</span><strong>Migration completed</strong></div>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Pipeline technical sections">
+          <p>In this deep dive</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="pipeline-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">Environment preparation</span
+            ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="pipeline-section-links">
+            <a href="#environment" aria-current="true"><span>01</span> Environment preparation</a>
+            <a href="#script-design"><span>02</span> Script structure</a>
+            <a href="#sit-pipeline"><span>03</span> SIT pipeline</a>
+            <a href="#release-model"><span>04</span> Environment differences</a>
+            <a href="#completion"><span>05</span> Validation &amp; outcome</a>
+            <a href="#questions"><span>06</span> Technical questions</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="environment">
+            <p class="section-kicker">01 / Environment preparation</p>
+            <h2>Prepare the place where the jobs run.</h2>
+            <p class="lead">
+              The migration began with access and runner-host preparation. Each environment had one
+              runner VM in a designated network segment, managed through VPN and a bastion host.
+            </p>
+            <!-- Logical management relationships only; no client network topology or identifiers. -->
+            <figure class="access-figure" aria-labelledby="access-title">
+              <figcaption id="access-title">Management access and runner allocation</figcaption>
+              <div
+                class="access-path"
+                aria-label="Management access through VPN and a bastion host"
+              >
+                <span>Management access</span><span aria-hidden="true">→</span><strong>VPN</strong
+                ><span aria-hidden="true">→</span><strong>Bastion host</strong>
+              </div>
+              <p class="flow-connector">
+                <span aria-hidden="true">↓</span> Manage the designated hosts
+              </p>
+              <div class="runner-grid">
+                <div><span class="eyebrow">SIT</span><strong>1 runner VM</strong></div>
+                <div><span class="eyebrow">UAT</span><strong>1 runner VM</strong></div>
+                <div><span class="eyebrow">PRD</span><strong>1 runner VM</strong></div>
+              </div>
+            </figure>
+            <dl class="implementation-list">
+              <div>
+                <dt>Host automation</dt>
+                <dd>
+                  I wrote Ansible scripts to manage host creation, software installation and
+                  updates. I prepared the required users and permissions, then registered the hosts
+                  as GitLab runners.
+                </dd>
+              </div>
+              <div>
+                <dt>Network and identity dependencies</dt>
+                <dd>
+                  I prepared the NSG connectivity, registry access permissions and allowlists, and
+                  managed identity setup needed by the delivery environment.
+                </dd>
+              </div>
+              <div>
+                <dt>Execution across access boundaries</dt>
+                <dd>
+                  I prepared and coordinated the work. The client’s support teams executed
+                  operations that were outside our team’s permitted access.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="case-section" id="script-design">
+            <p class="section-kicker">02 / Script structure</p>
+            <h2>Preserve the tasks. Rework how they fit together.</h2>
+            <p class="body-copy">
+              I reviewed the Bamboo steps, their dependencies and their expected results. This
+              established which tasks had to remain when the workflow moved to GitLab CI/CD.
+            </p>
+            <p class="body-copy">
+              Some inherited scripts mixed several responsibilities. I rewrote most of them,
+              separating common functionality from task-specific work and building reusable GitLab
+              steps around those boundaries.
+            </p>
+            <div class="implementation-pair">
+              <article>
+                <p class="eyebrow">a. Shared functionality</p>
+                <h3>Reusable scripts and templates</h3>
+                <p>
+                  Common tasks became reusable parts of the pipeline, following the client’s
+                  approach to shared functionality.
+                </p>
+              </article>
+              <article>
+                <p class="eyebrow">b. Specific responsibilities</p>
+                <h3>Focused task scripts</h3>
+                <p>
+                  Work specific to a particular task stayed separate, making the script structure
+                  clearer and easier to follow.
+                </p>
+              </article>
+            </div>
+            <p class="body-copy">
+              I also adapted the environment automation and security-scanning integration. The
+              pipeline, its scripts and the hosts running them needed to work together in the
+              migrated environment.
+            </p>
+          </section>
+
+          <section class="case-section" id="sit-pipeline">
+            <p class="section-kicker">03 / SIT pipeline</p>
+            <h2>From a pull request to a checked deployment.</h2>
+            <p class="lead">
+              Creating a pull request triggered the SIT pipeline automatically. The deployment
+              counted as successful after every stage passed, including the checks after the Helm
+              deployment.
+            </p>
+            <!-- Native HTML flow: stage order remains readable without JavaScript or a diagram library. -->
+            <figure class="sit-flow" aria-labelledby="sit-flow-title">
+              <figcaption id="sit-flow-title">SIT delivery sequence</figcaption>
+              <div class="flow-trigger">
+                <span class="eyebrow">Trigger</span><strong>Create a pull request</strong
+                ><span>Starts the SIT pipeline automatically</span>
+              </div>
+              <p class="flow-connector">
+                <span aria-hidden="true">↓</span> Check source and build the package
+              </p>
+              <ol
+                class="pipeline-row pipeline-row-three"
+                aria-label="Stages 1 to 3: code checks and application package"
+              >
+                <li><span class="stage-number">01</span><strong>Static code scanning</strong></li>
+                <li>
+                  <span class="stage-number">02</span
+                  ><strong>Dependency and vulnerability scanning</strong>
+                </li>
+                <li>
+                  <span class="stage-number">03</span><strong>Build application package</strong>
+                </li>
+              </ol>
+              <p class="flow-connector">
+                <span aria-hidden="true">↓</span> Build, check and publish the image
+              </p>
+              <ol
+                class="pipeline-row pipeline-row-three"
+                start="4"
+                aria-label="Stages 4 to 6: container image"
+              >
+                <li><span class="stage-number">04</span><strong>Build container image</strong></li>
+                <li><span class="stage-number">05</span><strong>Scan image</strong></li>
+                <li><span class="stage-number">06</span><strong>Push image to registry</strong></li>
+              </ol>
+              <p class="flow-connector">
+                <span aria-hidden="true">↓</span> Deploy and check the running application
+              </p>
+              <ol
+                class="pipeline-row pipeline-row-four"
+                start="7"
+                aria-label="Stages 7 to 10: deployment and running application checks"
+              >
+                <li><span class="stage-number">07</span><strong>Create Helm chart</strong></li>
+                <li>
+                  <span class="stage-number">08</span
+                  ><strong>Deploy through Helm to SIT AKS</strong>
+                </li>
+                <li>
+                  <span class="stage-number">09</span
+                  ><strong>Check application liveness and status</strong>
+                </li>
+                <li><span class="stage-number">10</span><strong>Run DAST</strong></li>
+              </ol>
+              <p class="flow-connector"><span aria-hidden="true">↓</span> All stages pass</p>
+              <div class="flow-result"><strong>SIT deployment successful</strong></div>
+            </figure>
+            <div class="design-note">
+              <h3>Scanning at different points in the workflow</h3>
+              <p>
+                Fortify on Demand (FOD) provided the SAST/DAST integration. The workflow also used
+                other scanning tools, including SonarQube. Code, dependency and image checks had
+                separate places in the sequence; DAST followed deployment and application-status
+                checks.
+              </p>
+            </div>
+          </section>
+
+          <section class="case-section" id="release-model">
+            <p class="section-kicker">04 / Environment differences</p>
+            <h2>The same release source, built in each environment.</h2>
+            <p class="body-copy">
+              Access between environments was strictly restricted. SIT, UAT and PRD each built and
+              deployed from the same code for a given release version. We did not promote one
+              immutable package or image through all three environments.
+            </p>
+            <!-- These are separate environment paths, not an artifact-promotion chain. -->
+            <figure class="release-figure" aria-labelledby="release-title">
+              <figcaption id="release-title">Release model across environments</figcaption>
+              <div class="release-source">
+                <strong>Same code for the same release version</strong
+                ><span>Used separately in each environment</span>
+              </div>
+              <div class="release-grid">
+                <article>
+                  <span class="release-arrow" aria-hidden="true">↓</span>
+                  <h3>SIT</h3>
+                  <p>Build and deploy separately</p>
+                  <strong class="release-control">Automatic deployment</strong>
+                </article>
+                <article>
+                  <span class="release-arrow" aria-hidden="true">↓</span>
+                  <h3>UAT</h3>
+                  <p>Build and deploy separately</p>
+                  <strong class="release-control">Manual confirmation</strong>
+                </article>
+                <article>
+                  <span class="release-arrow" aria-hidden="true">↓</span>
+                  <h3>PRD</h3>
+                  <p>Build and deploy separately</p>
+                  <strong class="release-control">Manual confirmation</strong>
+                </article>
+              </div>
+            </figure>
+            <p class="body-copy">
+              <strong>Migration order:</strong> I completed and validated the SIT/UAT migration work
+              before progressing PRD, reusing the work already prepared. This migration sequence was
+              separate from the release controls shown above.
+            </p>
+          </section>
+
+          <section class="case-section" id="completion">
+            <p class="section-kicker">05 / Validation &amp; outcome</p>
+            <h2>Complete the required checks and integration.</h2>
+            <p class="body-copy">
+              All stages had to pass for a SIT deployment to count as successful. The wider
+              migration was completed after the environment, access and scanning dependencies were
+              resolved and the required validation passed.
+            </p>
+            <a class="text-link" href="../../projects/government-health-delivery/#dependencies">
+              Delivery responsibilities and cross-team coordination
+              <span aria-hidden="true">↗</span>
+            </a>
+          </section>
+
+          <section class="case-section" id="questions">
+            <p class="section-kicker">06 / Technical questions</p>
+            <h2>Build on the implementation walkthrough.</h2>
+            <p class="body-copy">
+              The questions below clarify the release model and deployment checks. Further questions
+              focus on script behaviour, repeatable builds and failure handling.
+            </p>
+            <article class="judgment-qa" id="environment-builds" aria-labelledby="build-question">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">a.</span>
+                <div>
+                  <p class="qa-topic">Build and deployment model</p>
+                  <h3 id="build-question">Did the environments deploy the same image?</h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p>
+                  Each environment built and deployed separately from the same code for a release
+                  version. The <a href="#release-model">environment model</a> shows these separate
+                  paths and the automatic or manual release controls.
+                </p>
+              </div>
+            </article>
+            <article
+              class="judgment-qa"
+              id="migration-checks"
+              aria-labelledby="completion-question"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">b.</span>
+                <div>
+                  <p class="qa-topic">Post-deployment checks</p>
+                  <h3 id="completion-question">
+                    Was completing the Helm deployment enough to call the SIT deployment successful?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p>
+                  No. Application liveness and status checks followed Helm deployment, then DAST ran
+                  against the deployed application. Every stage in the
+                  <a href="#sit-pipeline">SIT sequence</a> had to pass.
+                </p>
+              </div>
+            </article>
+            <details class="pending-inquiries">
+              <summary>Technical follow-ups · Answers in preparation</summary>
+              <p>The next topics will examine the mechanisms behind the workflow.</p>
+              <ul>
+                <li>
+                  How would you make Ansible host preparation safe to repeat, including recovery
+                  from a partially completed run?
+                </li>
+                <li>
+                  Can you walk through a shared script’s inputs, outputs and failure reporting, and
+                  how its calling pipeline step handles that failure?
+                </li>
+                <li>
+                  Which build inputs could cause environments to produce different artifacts from
+                  the same source, and how would you investigate a difference?
+                </li>
+                <li>
+                  If image upload succeeded but deployment or a later check failed, how would you
+                  narrow down the failing layer and verify the application’s actual state?
+                </li>
+              </ul>
+            </details>
+            <div class="design-note">
+              <h3>The decisions behind the implementation</h3>
+              <p>
+                The
+                <a href="../../projects/government-health-delivery/decisions.html"
+                  >engineering judgment discussion <span aria-hidden="true">↗</span></a
+                >
+                explores script responsibilities, environment constraints and migration ownership,
+                with further challenges to develop.
+              </p>
+            </div>
+            <p class="decision-editorial-note">
+              Prepared on <time datetime="2026-10-19">19 October 2026</time> from my project account
+              and retained working notes. AI assisted with editing and visual presentation.
+            </p>
+            <a class="text-link" href="../../projects/government-health-delivery/">
+              HPB case study <span aria-hidden="true">↗</span>
+            </a>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span><a href="../../changelog/">Changelog</a
+      ><a href="https://github.com/jothep">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>
