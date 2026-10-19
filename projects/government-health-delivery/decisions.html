@@ -138,6 +138,16 @@
                   scripts and templates while keeping task-specific work distinct. This fitted the
                   client’s approach to shared functionality and made the pipeline easier to follow.
                 </p>
+                <p>
+                  For example, I reused the Helm deployment script across SIT, UAT and production.
+                  HPB also supplied shared functions such as image scanning, which I reused in
+                  the pipelines. I integrated those functions rather than writing them myself.
+                </p>
+                <p>
+                  The technical deep dive includes my
+                  <a href="../../designs/hpb-pipeline-migration/#shared-deployment-design">
+                    proposed design for shared deployment logic and environment settings</a>.
+                </p>
                 <div class="qa-followup" aria-labelledby="script-challenge">
                   <p class="qa-response-label">Next challenge · Answer in preparation</p>
                   <h4 id="script-challenge">
