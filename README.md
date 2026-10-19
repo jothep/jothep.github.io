@@ -464,7 +464,11 @@ addresses, resource identifiers, code or private documents are copied into the s
 
 The judgment page has three considered answers drawn from confirmed experience. Each has a
 clearly marked next challenge with its answer in preparation. The technical page has two concise
-clarifications and four pending mechanism questions. Do not supply retrospective implementation
+implementation clarifications, one proposed deployment-script design and four pending mechanism
+questions. The 19 October follow-up confirms cross-environment Helm-script reuse and use of
+HPB-provided image-scanning scripts. The new design answer separates shared deployment logic
+from environment settings and reads credentials from GitLab CI/CD variables. Keep this as a
+current proposal, not a claim about HPB’s original configuration or credential-loading mechanism. Do not supply retrospective implementation
 details or answers to new challenges before the author works through and confirms them. A topic
 being listed does not establish that its mechanism was implemented. No private interview notes or
 interview-employer details belong in the public pages.

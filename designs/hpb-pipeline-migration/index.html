@@ -149,8 +149,9 @@
                 <p class="eyebrow">a. Shared functionality</p>
                 <h3>Reusable scripts and templates</h3>
                 <p>
-                  Common tasks became reusable parts of the pipeline, following the client’s
-                  approach to shared functionality.
+                  I reused the Helm deployment script across SIT, UAT and production. HPB also
+                  provided shared scripts for tasks such as image scanning, which I integrated
+                  into the pipelines.
                 </p>
               </article>
               <article>
@@ -306,8 +307,9 @@
             <p class="section-kicker">06 / Technical questions</p>
             <h2>Build on the implementation walkthrough.</h2>
             <p class="body-copy">
-              The questions below clarify the release model and deployment checks. Further questions
-              focus on script behaviour, repeatable builds and failure handling.
+              The questions below clarify the release model and deployment checks, then explore
+              how I would separate shared deployment logic from environment settings. Further
+              questions focus on script behaviour, repeatable builds and failure handling.
             </p>
             <article class="judgment-qa" id="environment-builds" aria-labelledby="build-question">
               <div class="qa-heading">
@@ -346,6 +348,36 @@
                   No. Application liveness and status checks followed Helm deployment, then DAST ran
                   against the deployed application. Every stage in the
                   <a href="#sit-pipeline">SIT sequence</a> had to pass.
+                </p>
+              </div>
+            </article>
+            <article class="judgment-qa" id="shared-deployment-design" aria-labelledby="shared-deployment-question">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">c.</span>
+                <div>
+                  <p class="qa-topic">Design discussion / Reusable deployment logic</p>
+                  <h3 id="shared-deployment-question">
+                    How would you design a deployment script that can be reused across SIT, UAT and production?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My proposed design</p>
+                <p>
+                  I would put the common deployment steps in one shared script. I would pass in
+                  each environment’s settings, such as the cluster, namespace and Helm values.
+                  Non-secret settings could come from GitLab variables or configuration files.
+                  I would read credentials from the CI/CD variables configured in GitLab.
+                </p>
+                <p>
+                  Each environment’s pipeline would mainly control the job order and deployment
+                  rules. This would let me reuse the deployment logic while keeping environment
+                  settings separate.
+                </p>
+                <p class="decision-editorial-note">
+                  This is my current design approach. The project example confirms shared Helm
+                  deployment scripts; it does not establish their original configuration or
+                  credential-loading mechanism.
                 </p>
               </div>
             </article>
