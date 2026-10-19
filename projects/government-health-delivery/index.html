@@ -36,7 +36,7 @@
       <!-- A historical delivery account; internal project names and operational identifiers are omitted. -->
       <div class="case-hero wrap">
         <a class="breadcrumb" href="../../experience/#health-promotion-board">
-          <span aria-hidden="true">←</span> Enterprise experience
+          <span aria-hidden="true">↗</span> Enterprise experience
         </a>
         <div class="case-heading">
           <div>
@@ -48,7 +48,10 @@
           </div>
           <div class="enterprise-outcome">
             <p class="eyebrow">Migration outcome</p>
-            <p>Required access secured. Configuration validated. Migration completed.</p>
+            <p>
+              Bamboo-to-GitLab workflows rebuilt. Environment and scanning dependencies resolved.
+              Migration completed.
+            </p>
           </div>
         </div>
         <div class="case-meta">
@@ -60,6 +63,14 @@
           <div class="meta-item">
             <span>Project participation</span><strong>October 2022 – June 2024</strong>
           </div>
+        </div>
+        <div class="case-actions">
+          <a class="button judgment-button" href="decisions.html">
+            Engineering judgment &amp; inquiry <span aria-hidden="true">↗</span>
+          </a>
+          <a class="button secondary" href="../../designs/hpb-pipeline-migration/">
+            Pipeline technical deep dive <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
       <div class="case-grid wrap">
@@ -76,7 +87,7 @@
           </button>
           <div class="case-nav-links" id="enterprise-section-links">
             <a href="#remit" aria-current="true"><span>01</span> Role &amp; daily work</a>
-            <a href="#rebuild"><span>02</span> Delivery rebuild</a>
+            <a href="#rebuild"><span>02</span> Pipeline migration</a>
             <a href="#dependencies"><span>03</span> Cross-team coordination</a>
             <a href="#outcome"><span>04</span> Delivery outcome</a>
           </div>
@@ -114,63 +125,70 @@
           </section>
 
           <section class="case-section" id="rebuild">
-            <p class="section-kicker">02 / Delivery rebuild</p>
-            <h2>Why did you rewrite most of the scripts?</h2>
-            <p class="body-copy">
-              I rewrote most of the inherited scripts. Some Bamboo workflows embedded their
-              functionality in bespoke Bash scripts. The move to GitLab CI/CD changed how those
-              functions fitted into the pipeline.
+            <p class="section-kicker">02 / Pipeline migration</p>
+            <h2>Rebuild delivery for the migrated environments.</h2>
+            <p class="lead">
+              Moving from Bamboo to GitLab CI/CD meant rebuilding both the workflow and the
+              environment it depended on. The required delivery tasks and security checks had to
+              work across SIT, UAT and production under the client’s access restrictions.
             </p>
             <p class="body-copy">
-              I rebuilt them as more general-purpose scripts that could be reused across pipeline
-              steps. This matched the client’s approach of combining shared functionality with
-              custom scripts and made the script structure clearer. I traced the original workflows,
-              scripts and settings, then re-established the configuration and tested the rebuilt
-              setup.
+              I reviewed the old steps, dependencies and expected results, then rewrote most of the
+              scripts. Shared functions became reusable GitLab steps, with task-specific work kept
+              separate. I was the main engineer for this migration and guided another engineer
+              through some repeated work.
             </p>
             <div class="enterprise-workstreams">
               <article>
-                <p class="eyebrow">a. Pipeline structure</p>
-                <h3>Reusable GitLab steps</h3>
+                <p class="eyebrow">a. Execution environment</p>
+                <h3>Ansible-managed runner hosts</h3>
                 <p>
-                  I organised the rebuilt workflow around reusable functionality and the custom
-                  scripts needed for the migrated environment.
+                  I prepared one runner VM per environment, with host automation, users,
+                  permissions, connectivity, registry access and managed identity dependencies.
                 </p>
               </article>
               <article>
-                <p class="eyebrow">b. Environment automation</p>
-                <h3>Ansible adaptation</h3>
+                <p class="eyebrow">b. Delivery workflow</p>
+                <h3>Reusable steps and required checks</h3>
                 <p>
-                  I rewrote Ansible automation for the migrated environment. Runner setup,
-                  operating-system compatibility and package dependencies all had to fit the new
-                  execution environment.
+                  I rebuilt the path from code scanning and application builds to Helm deployment,
+                  application-status checks and DAST, including the FOD SAST/DAST integration.
                 </p>
               </article>
               <article>
-                <p class="eyebrow">c. Credentials and connectivity</p>
+                <p class="eyebrow">c. Migration sequence</p>
+                <h3>Validate SIT/UAT before PRD</h3>
+                <p>
+                  I completed and validated the SIT/UAT migration work before progressing
+                  production, reusing the prepared automation and pipeline work.
+                </p>
+              </article>
+              <article>
+                <p class="eyebrow">d. Supporting services</p>
                 <h3>Vault and private endpoints</h3>
                 <p>
                   I implemented Vault integration for startup credential injection and developed its
                   backup approach. I also introduced private endpoints for internal services.
                 </p>
               </article>
-              <article>
-                <p class="eyebrow">d. Shared delivery</p>
-                <h3>Validation and coordination</h3>
-                <p>
-                  I tested the rebuilt setup and coordinated the external access and supporting
-                  changes needed to complete the migration.
-                </p>
-              </article>
             </div>
+            <p class="body-copy">
+              The migration was completed after the environment, access and scanning dependencies
+              were resolved and the required validation passed.
+            </p>
+            <a class="text-link" href="../../designs/hpb-pipeline-migration/">
+              Runner preparation, SIT pipeline and environment differences
+              <span aria-hidden="true">↗</span>
+            </a>
           </section>
 
           <section class="case-section" id="dependencies">
             <p class="section-kicker">03 / Cross-team coordination</p>
             <h2>Working across team boundaries.</h2>
             <p class="body-copy">
-              The team’s CI/CD pipelines ran independently of the external service-request process.
-              For deployments, we coordinated release timing with the Product Owner (PO).
+              Routine releases did not require the external service-request process. SIT deployed
+              automatically; UAT and production required manual confirmation. We coordinated release
+              timing with the Product Owner (PO).
             </p>
             <p class="body-copy">
               Some migration tasks and operations or queries in restricted environments required
@@ -231,9 +249,10 @@
                 set up Fortify on Demand became a major blocker.
               </p>
               <p>
-                I repeatedly coordinated with the client, who contacted the relevant support teams
-                and external provider. The required permissions were secured, the configuration was
-                completed correctly and validation passed. The migration then finished successfully.
+                I provided the issue details and requirements, then followed up through the PO and
+                support team to obtain help from the provider. The provider resolved its managed
+                part. Required access and configuration were completed, validation passed and the
+                migration finished successfully.
               </p>
             </div>
           </section>
@@ -262,7 +281,7 @@
                 This retrospective draws on my working notes, Terraform teaching materials and
                 project experience.
               </p>
-              <p>Reviewed and updated on <time datetime="2026-10-17">17 October 2026</time>.</p>
+              <p>Reviewed and updated on <time datetime="2026-10-19">19 October 2026</time>.</p>
             </div>
           </section>
         </div>

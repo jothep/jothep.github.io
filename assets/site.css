@@ -3191,7 +3191,7 @@ summary:focus-visible {
   margin-top: 10px;
 }
 
-/* Independent technical designs: a compact list that can grow with later studies. */
+/* Technical deep dives: a compact list for implementation, mechanism and design studies. */
 .designs-section {
   padding-bottom: 65px;
 }

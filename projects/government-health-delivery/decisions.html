@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Engineering judgment &amp; inquiry · Health Promotion Board · Xiang Zhu</title>
+    <meta
+      name="description"
+      content="Health Promotion Board engineering questions: script boundaries, release constraints, migration ownership and cross-team coordination."
+    />
+    <link
+      rel="canonical"
+      href="https://jothep.github.io/projects/government-health-delivery/decisions.html"
+    />
+    <meta name="theme-color" content="#122344" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/site.css?v=20261017c" />
+    <script src="../../assets/site.js?v=20261017c" defer></script>
+  </head>
+  <body class="judgment-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../../" aria-label="Xiang Zhu, home">
+        <span class="brand-mark" aria-hidden="true">xz</span>
+        <span>Xiang Zhu</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../../#enterprise-experience">Experience</a>
+        <a href="../../#about">About</a>
+        <a href="../../#writing">Writing</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="decision-hero wrap">
+        <a class="breadcrumb" href="../../engineering/">
+          <span aria-hidden="true">↗</span> All engineering inquiries
+        </a>
+        <p class="eyebrow">Health Promotion Board / Pipeline migration decisions</p>
+        <h1>Engineering judgment<br />&amp; inquiry.</h1>
+        <p class="decision-intro">
+          Restructuring delivery scripts, working within environment boundaries and completing a
+          migration across several teams.
+        </p>
+        <div class="decision-method">
+          <p>
+            These answers bring together my project account and an AI-assisted review. The follow-up
+            challenges identify the next questions I will work through using my engineering-judgment
+            framework.
+          </p>
+          <p class="decision-method-steps">
+            Context <span aria-hidden="true">→</span> Question
+            <span aria-hidden="true">→</span> Judgment <span aria-hidden="true">→</span> Follow-up
+          </p>
+        </div>
+      </div>
+      <div class="case-grid wrap">
+        <aside class="case-nav mobile-case-nav" aria-label="Engineering inquiry sections">
+          <p>In this reflection</p>
+          <button
+            class="case-nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="inquiry-section-links"
+          >
+            <span>On this page</span><span class="case-nav-current">The constraints</span>
+            <span class="case-nav-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="case-nav-links" id="inquiry-section-links">
+            <a href="#context" aria-current="true"><span>01</span> The constraints</a>
+            <a href="#questions"><span>02</span> Questions &amp; answers</a>
+            <div class="case-nav-questions" aria-label="Individual questions">
+              <a href="#script-boundaries"><span>a.</span> Script responsibilities</a>
+              <a href="#environment-constraints"><span>b.</span> Environment constraints</a>
+              <a href="#delivery-ownership"><span>c.</span> Delivery ownership</a>
+            </div>
+            <a href="#related-reading"><span>03</span> Related reading</a>
+          </div>
+        </aside>
+        <div class="case-content">
+          <section class="case-section" id="context">
+            <p class="section-kicker">01 / The constraints</p>
+            <h2>Change the workflow within the project’s boundaries.</h2>
+            <div class="decision-context-grid">
+              <article class="decision-context">
+                <p class="eyebrow">Existing delivery</p>
+                <h3>Retain the required work.</h3>
+                <p>
+                  Moving from Bamboo to GitLab CI/CD required reviewing the old steps, their
+                  dependencies and expected results. The workflow also needed prepared runner hosts
+                  and the project’s required security checks.
+                </p>
+              </article>
+              <article class="decision-context">
+                <p class="eyebrow">Environment and responsibility boundaries</p>
+                <h3>Work across restricted access.</h3>
+                <p>
+                  SIT, UAT and production had separate runner hosts and restricted access between
+                  environments. Client support teams performed restricted operations; I prepared and
+                  coordinated the work needed for the migration.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="case-section" id="questions">
+            <p class="section-kicker">02 / Questions &amp; answers</p>
+            <h2>Choices about structure, constraints and responsibility.</h2>
+            <p class="body-copy qa-section-intro">
+              Each answer describes the work and reasoning established so far. The next challenge
+              beneath it is marked for a future answer.
+            </p>
+
+            <article class="judgment-qa" id="script-boundaries" aria-labelledby="script-question">
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">a.</span>
+                <div>
+                  <p class="qa-topic">Script boundaries / Maintainability</p>
+                  <h3 id="script-question">
+                    Why did you restructure the scripts instead of copying the Bamboo steps into
+                    GitLab?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  I reviewed what each step did, what it depended on and what result it should
+                  produce. The necessary tasks stayed, but scripts that mixed several
+                  responsibilities needed a different structure.
+                </p>
+                <p>
+                  I rewrote most of the scripts, separating common functionality into reusable
+                  scripts and templates while keeping task-specific work distinct. This fitted the
+                  client’s approach to shared functionality and made the pipeline easier to follow.
+                </p>
+                <div class="qa-followup" aria-labelledby="script-challenge">
+                  <p class="qa-response-label">Next challenge · Answer in preparation</p>
+                  <h4 id="script-challenge">
+                    When changing most of the scripts, how did you decide which behaviour had to
+                    stay, and how did you check that it was preserved?
+                  </h4>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="judgment-qa"
+              id="environment-constraints"
+              aria-labelledby="environment-question"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">b.</span>
+                <div>
+                  <p class="qa-topic">Environment boundaries / Release approach</p>
+                  <h3 id="environment-question">
+                    How did the project’s access restrictions shape your release approach?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  Access between environments was strictly restricted. In this project, SIT, UAT and
+                  production each built and deployed from the same code for a given release version,
+                  rather than promoting one immutable package or image.
+                </p>
+                <p>
+                  I worked within those boundaries when rebuilding the pipelines. SIT deployed
+                  automatically, while UAT and production required manual confirmation. For the
+                  migration itself, I completed and validated SIT/UAT before progressing production
+                  and reused the work already prepared.
+                </p>
+                <p>
+                  The
+                  <a href="../../designs/hpb-pipeline-migration/#release-model"
+                    >environment model <span aria-hidden="true">↗</span></a
+                  >
+                  shows the separate build paths and release controls.
+                </p>
+                <div class="qa-followup" aria-labelledby="environment-challenge">
+                  <p class="qa-response-label">Next challenge · Answer in preparation</p>
+                  <h4 id="environment-challenge">
+                    With separate builds, what evidence would you require before accepting a release
+                    as consistent across environments?
+                  </h4>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="judgment-qa"
+              id="delivery-ownership"
+              aria-labelledby="ownership-question"
+            >
+              <div class="qa-heading">
+                <span class="qa-number" aria-hidden="true">c.</span>
+                <div>
+                  <p class="qa-topic">Delivery ownership / Coordination</p>
+                  <h3 id="ownership-question">
+                    What did you own when some migration work required action outside your team’s
+                    access?
+                  </h3>
+                </div>
+              </div>
+              <div class="qa-answer">
+                <p class="qa-response-label">My answer</p>
+                <p class="qa-stance">
+                  I mainly handled the migration and guided another engineer through some repeated
+                  scripts and steps. I prepared and coordinated restricted changes, while client
+                  support teams executed the operations outside our permitted access.
+                </p>
+                <p>
+                  For the FOD integration issue, I supplied the details and requirements, followed
+                  up through the PO and support team, and used the agreed process to obtain vendor
+                  help. The vendor resolved its managed part. We completed the required
+                  configuration and validation, and finished the migration.
+                </p>
+                <div class="qa-followup" aria-labelledby="ownership-challenge">
+                  <p class="qa-response-label">Next challenge · Answer in preparation</p>
+                  <h4 id="ownership-challenge">
+                    How did you divide and check your colleague’s work, and decide which tasks could
+                    progress while an external dependency was unresolved?
+                  </h4>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="case-section" id="related-reading">
+            <p class="section-kicker">03 / Related reading</p>
+            <h2>Experience and implementation.</h2>
+            <div class="reading-list">
+              <a class="reading-item" href="./">
+                <div>
+                  <strong>Health Promotion Board case study</strong>
+                  <small>My wider role, daily platform support and the migration outcome.</small>
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a class="reading-item" href="../../designs/hpb-pipeline-migration/">
+                <div>
+                  <strong>Bamboo to GitLab CI/CD · Technical deep dive</strong>
+                  <small
+                    >Runner preparation, the SIT sequence, environment builds and technical
+                    questions.</small
+                  >
+                </div>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="decision-editorial-note">
+              Prepared on <time datetime="2026-10-19">19 October 2026</time> from my project account
+              and retained working notes. AI assisted with questions, editing and presentation.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer wrap">
+      <span>© 2026 Xiang Zhu</span>
+      <span>Infrastructure, architecture &amp; delivery</span>
+      <a href="../../changelog/">Changelog</a>
+      <a href="https://github.com/jothep">
+        GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </body>
+</html>

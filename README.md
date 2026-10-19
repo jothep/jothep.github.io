@@ -4,11 +4,13 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, enterprise experience, projects and research, technical designs, selected writing, Codex activity, About and Contact.
+- `/`: professional introduction, enterprise experience, projects and research, technical deep dives, selected writing, Codex activity, About and Contact.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/engineering/`: directory of completed project questions, considered answers and follow-ups.
 - `/projects/banking-container-platform/decisions.html`: CMB fixed network identities and VM/container coexistence, with operational and collaboration follow-ups.
 - `/changelog/`: dated portfolio updates, including earlier milestones reconstructed from website commits.
+- `/designs/hpb-pipeline-migration/`: HPB delivery implementation, runner preparation, SIT pipeline, environment differences and technical questions.
+- `/projects/government-health-delivery/decisions.html`: HPB engineering judgment about script boundaries, environment constraints and delivery ownership, with pending challenges.
 - `/designs/aws-cross-region-dr/`: an independent AWS warm standby design covering recovery goals, architecture and operating decisions.
 - `/projects/story-filler/`: context, architecture, decisions, local platform practice, delivery, AI-assisted engineering and dated evidence.
 - `/projects/story-filler/decisions.html`: an engineering-judgment retrospective, with edited author answers and linked implementation evidence.
@@ -57,7 +59,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/automotive-devops/`, `/projects/banking-devops-consulting/`, `/projects/banking-cms-consulting/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/automotive-devops/`, `/projects/banking-devops-consulting/`, `/projects/banking-cms-consulting/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/`, `/designs/hpb-pipeline-migration/`, `/projects/government-health-delivery/decisions.html`, `/engineering/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -69,7 +71,7 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Enterprise experience → Projects & research → Technical designs → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps two compact shortcuts: **Engineering judgment & inquiry** first as a teal filled button, followed by the outlined **View changelog**. Enterprise experience follows immediately below.
+Keep the homepage reading order: **Enterprise experience → Projects & research → Technical deep dives → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps two compact shortcuts: **Engineering judgment & inquiry** first as a teal filled button, followed by the outlined **View changelog**. Enterprise experience follows immediately below.
 
 Add another Projects & research entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
@@ -87,13 +89,16 @@ Readers can swipe or scroll the row, use the newer/older buttons, or focus the r
 arrow keys, Home and End. Scrolling and links still work without JavaScript. There is no autoplay;
 reduced-motion preferences are respected, and all cards remain visible when printing.
 
-## Adding technical designs
+## Adding technical deep dives
 
-Keep independent design studies in `designs/<slug>/` and link them from `#technical-designs`,
+Keep technical studies in `designs/<slug>/` and link them from `#technical-designs`,
 immediately after Projects & research. Add one readable `article.design-card` with a topic,
 title, concise summary and one link. The list grows as studies are added; do not add empty cards
 or a separate index page before it is needed. Keep the design's purpose clear in its introduction.
-Do not treat a linked design as the architecture delivered on a past client project.
+Use this section for implementation walkthroughs, technical mechanisms, failure analysis and
+architecture studies. Identify confirmed implementation through its project context; introduce
+independent proposals by their design purpose. Do not treat an independent proposal as a past
+client deployment. Link to the related case and engineering judgment page where available.
 
 Keep the Codex activity BEGIN/END markers together when moving content. Its generator replaces
 the block in place and uses About as the first-insertion fallback. The activity figures, calendar,
@@ -222,7 +227,7 @@ For routine edits, use this file map:
 | `index.html` | Homepage content and the dated activity snapshot |
 | `experience/index.html` | Full directory of documented enterprise engagements |
 | `projects/*/index.html` | Detailed case-study content |
-| `designs/*/index.html` | Independent technical designs; distinguish proposals from delivered work |
+| `designs/*/index.html` | Technical design studies; distinguish proposals from confirmed implementation retrospectives |
 | `engineering/index.html` and `engineering/directory.css` | Project inquiry directory and its scoped layout |
 | `projects/*/decisions.html` | Questions addressed to the author, considered answers and follow-ups |
 | `changelog/index.html` | Dated website changes |
@@ -256,7 +261,8 @@ Write every question and follow-up as a reviewer addressing the author with "you
 
 `engineering/index.html` links to the completed CMB and Story Filler discussions. Add future
 projects as readable `article.inquiry-entry` rows, with a short context, topic summary and one
-primary link to `projects/<slug>/decisions.html`. Keep the displayed project/question counts in
+primary link to `projects/<slug>/decisions.html`. Keep judgment questions about decisions,
+constraints and ownership there; keep implementation mechanisms in the related technical deep dive. Keep the displayed project/question counts in
 sync with the actual entries. Do not add placeholders for discussions not yet prepared.
 
 The CMB page reuses the shared judgment-page styles and optional mobile contents menu. Its
@@ -325,7 +331,7 @@ work to this case.
 two VPCs and the warm standby topology are example choices, not SadaPay's historical architecture.
 Use the Technical design page type and independent-study link wording to identify its purpose.
 Lead the introduction with the design approach; do not repeat project disclaimers in the hero,
-figures or references. Return links lead to the homepage’s Technical designs section. The original
+figures or references. Return links lead to the homepage’s Technical deep dives section. The original
 project files, private preparation notes and personal archive remain outside this repository.
 
 Edit the readable HTML and scoped `design.css` directly. The original `warm-standby.svg` and
@@ -420,3 +426,49 @@ Personally attributed training material supports prepared operations guidance, w
 a delivered workshop, platform build or recovery exercise. Keep old commands, internal addresses,
 version inventory, topology and original files private. The author approved publication with the
 ICBC and Daimler cases on 17 October 2026. Nimble is not being added.
+
+
+## HPB pipeline deep dive and judgment — publication approved, 19 October 2026
+
+The 19 October candidate account expands the HPB case with an implementation walkthrough at
+`/designs/hpb-pipeline-migration/` and a separate engineering judgment page at
+`/projects/government-health-delivery/decisions.html`. Keep the engagement page concise and retain
+its broader Azure/AKS and developer-support scope. The technical page owns runner preparation,
+script structure, the SIT sequence, environment differences and technical follow-ups. The judgment
+page owns the answers about script responsibilities, environment constraints and delivery ownership.
+Cross-link rather than copying whole answers. The homepage Technical deep dives card leads to the
+walkthrough; `/engineering/#health-promotion-board` leads to the judgment page.
+
+The confirmed model is one runner VM per SIT/UAT/PRD, management through VPN and a generic bastion
+host, Ansible-managed host creation/software updates, users/permissions, NSG connectivity, registry
+access and managed identity dependencies. Do not infer executor, runner tags, identity type or
+roles, exact access rules, a named Bastion product or high availability. Restricted operations
+remain executed by client support teams.
+
+Each environment builds and deploys separately from the same release version's source because
+cross-environment access is restricted. Do not describe immutable-artifact promotion or claim that
+separate builds are the only possible response to restricted access. SIT deploys automatically;
+UAT/PRD require manual confirmation. Do not name approver roles or GitLab approval features.
+Migration work progressed through validated SIT/UAT before PRD.
+
+The SIT sequence is PR creation → static code and dependency/vulnerability checks → application
+package → image build → image scan → registry push → Helm chart creation → Helm deployment to
+SIT AKS → application liveness/status checks → DAST. All stages passing is the stated deployment
+success criterion. FOD provides SAST/DAST integration; other tools include SonarQube. Do not assign
+all scanning to either product or invent commands, chart mechanics, tests, rollback or metrics.
+
+The diagrams are semantic HTML and scoped CSS in `designs/hpb-pipeline-migration/design.css`.
+Keep stage order readable on desktop and narrow screens. Environment arrows represent separate
+use of release source, never cross-environment artifact transfer. No original client diagrams,
+addresses, resource identifiers, code or private documents are copied into the site.
+
+The judgment page has three considered answers drawn from confirmed experience. Each has a
+clearly marked next challenge with its answer in preparation. The technical page has two concise
+clarifications and four pending mechanism questions. Do not supply retrospective implementation
+details or answers to new challenges before the author works through and confirms them. A topic
+being listed does not establish that its mechanism was implemented. No private interview notes or
+interview-employer details belong in the public pages.
+
+The author approved publication on 19 October 2026 after reviewing the local pages. Check the
+HPB case, both new pages, homepage card, inquiry directory and changelog after Pages deployment.
+The Codex activity snapshot and historical application documents are unchanged.
