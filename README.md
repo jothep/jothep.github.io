@@ -425,7 +425,7 @@ symptoms as confirmed incidents or turn the document into nine delivered investi
 Personally attributed training material supports prepared operations guidance, without establishing
 a delivered workshop, platform build or recovery exercise. Keep old commands, internal addresses,
 version inventory, topology and original files private. The author approved publication with the
-ICBC and Daimler cases on 17 October 2026. Nimble is not being added.
+ICBC and Daimler cases on 17 October 2026. Nimble was deferred at that time; its short directory entry was prepared on 20 October 2026 after new material and a candidate clarification.
 
 
 ## HPB pipeline deep dive and judgment — publication approved, 19 October 2026
@@ -476,3 +476,21 @@ interview-employer details belong in the public pages.
 The author approved publication on 19 October 2026 after reviewing the local pages. Check the
 HPB case, both new pages, homepage card, inquiry directory and changelog after Pages deployment.
 The Codex activity snapshot and historical application documents are unchanged.
+
+## Nimble directory entry — publication approved, 20 October 2026
+
+The author supplied a retained AWS build note and confirmed work on a pipeline for the platform
+itself, based on AWS CodePipeline and the client's requirements. The canonical profile records
+Thoughtworks, DevOps Engineer and November–December 2019; the author now recalls about one month.
+Keep both the existing time window and approximate duration. Australia offshore is the delivery
+relationship, not proof of onsite employment.
+
+Use a concise entry at `/experience/#nimble`, between CMB and Costa. The homepage keeps four
+selected cases; only its full-directory count changes to nine. No standalone page is needed for
+the current scope. Preserve the distinction between the confirmed CodePipeline contribution and
+the retained note's S3/CodeBuild/S3 build recipe; do not add an unconfirmed build target, production
+deployment, final run result, trigger, approval, test gate, permissions or metric.
+
+Keep the private source and analysis outside this repository. Existing historical CVs and
+application documents are unchanged. The author approved publication on 20 October 2026
+after reviewing the local directory entry.
