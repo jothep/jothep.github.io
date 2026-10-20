@@ -5,6 +5,7 @@ A small static personal site with engineering case studies covering infrastructu
 ## Pages
 
 - `/`: professional introduction, enterprise experience, projects and research, technical deep dives, selected writing, Codex activity, About and Contact.
+- `/certifications/`: academic degree and professional certificate images with award dates, linked from About.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/engineering/`: directory of completed project questions, considered answers and follow-ups.
 - `/projects/banking-container-platform/decisions.html`: CMB fixed network identities and VM/container coexistence, with operational and collaboration follow-ups.
@@ -59,7 +60,7 @@ Open `http://127.0.0.1:8080/`. No package install or build is required. The arch
 
 ## Publish with GitHub Pages
 
-This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/automotive-devops/`, `/projects/banking-devops-consulting/`, `/projects/banking-cms-consulting/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/`, `/designs/hpb-pipeline-migration/`, `/projects/government-health-delivery/decisions.html`, `/engineering/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
+This repository is the account's user site, `jothep.github.io`. Settings → Pages is configured to publish `main` from `/ (root)`. An empty `.nojekyll` file keeps these HTML/CSS/JS files static. Push reviewed changes to `main`, check the Pages deployment result, then verify `/`, `/experience/`, `/projects/automotive-devops/`, `/projects/banking-devops-consulting/`, `/projects/banking-cms-consulting/`, `/projects/story-filler/`, `/projects/ai-knowledge-base/`, `/projects/government-health-delivery/`, `/projects/fintech-platform/`, `/projects/banking-container-platform/`, `/projects/aws-platform-reliability/`, `/projects/application-monitoring/`, `/designs/aws-cross-region-dr/`, `/designs/hpb-pipeline-migration/`, `/projects/government-health-delivery/decisions.html`, `/engineering/`, `/certifications/` and `/changelog/` on the public site. The application at `/story-filler/` is published independently by its project repository.
 
 ## Content and evidence
 
@@ -225,6 +226,7 @@ For routine edits, use this file map:
 | File or directory | Purpose |
 | --- | --- |
 | `index.html` | Homepage content and the dated activity snapshot |
+| `certifications/index.html` and `certifications/certificates.css` | Certificate gallery and scoped styles |
 | `experience/index.html` | Full directory of documented enterprise engagements |
 | `projects/*/index.html` | Detailed case-study content |
 | `designs/*/index.html` | Technical design studies; distinguish proposals from confirmed implementation retrospectives |
@@ -494,3 +496,44 @@ deployment, final run result, trigger, approval, test gate, permissions or metri
 Keep the private source and analysis outside this repository. Existing historical CVs and
 application documents are unchanged. The author approved publication on 20 October 2026
 after reviewing the local directory entry.
+
+
+## Certificate gallery — publication approved, 21 October 2026
+
+The author requested a dedicated `/certifications/` page. About links to it through
+“View education & certifications”, replacing the earlier AI-example link in that section. Other
+AI-practice links remain in place. Keep About immediately before Contact; the homepage
+contains no certificate images, image preloads or gallery styles. The author approved publication
+on 21 October 2026 after reviewing the local gallery, including the Master’s degree certificate.
+
+Certificate cards and their scoped styles live in `certifications/index.html` and
+`certifications/certificates.css`. The page reuses the shared header, footer and typography,
+with a return link to `/#about`. It uses no JavaScript. The original homepage-card preview
+was revised before publication; it is not a separate released feature.
+
+Use a small WebP preview for each card, with `loading="lazy"`, `decoding="async"` and its real
+width and height. The fixed preview area reserves space and uses `object-fit: contain` to
+preserve the entire image. Each card links to a separate, larger WebP in a new tab; full images
+are not embedded or preloaded. Native links work without JavaScript. Do not add a gallery
+library or original PDFs. The three previews total 69,354 bytes; the separate larger
+images are 66,624, 133,128 and 70,472 bytes. These are file sizes, not measured transfer times.
+
+To add a certificate, duplicate one `article.certificate-card`, update both image paths,
+alt text, intrinsic dimensions, title, issuer and earned year. Keep previews around 720 pixels
+wide and aim below 50 KB per preview where legibility allows. Export without embedded metadata.
+Cards use three columns at 1100 pixels and above, two at intermediate widths and one on narrow
+screens. Future cards stay on this page, so the homepage does not grow as the collection expands.
+
+The CKA image was rendered from the author's certificate PDF; the OCP image comes from the
+existing certificate photograph. Both are resized/encoded derivatives with no content retouching.
+CKA is a historical credential earned in 2019, expired in April 2022; use earned-year wording,
+not a claim of current certification. Preserve the original documents outside this repository.
+Changelog notes describe the gallery feature, not author biography or certification milestones.
+
+The gallery is titled **Education & certifications** and places the Master's degree first,
+followed by CKA and OCP. Card labels distinguish academic degrees from professional
+certifications. The Master of Software Engineering was conferred by Yoobee Colleges on
+27 July 2026 (NZQF Level 9). Its public raster derivatives hide the personal student identifier;
+the original document is unchanged. Only the WebP derivatives belong in this repository,
+not the PDF or its intermediate rendering copy. The local career-document archive already
+holds the identical original and indexes the degree, so no duplicate archive copy was added.

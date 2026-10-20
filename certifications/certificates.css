@@ -1,0 +1,98 @@
+/* Certificate gallery. Add cards in index.html; no JavaScript is required. */
+.certifications-page .experience-hero {
+  padding-block: 32px 30px;
+}
+.certifications-page .experience-hero > .eyebrow {
+  margin-top: 22px;
+}
+.certifications-page h1 {
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+}
+.certifications-page .experience-intro {
+  max-width: 760px;
+}
+.certificate-gallery {
+  padding-bottom: 64px;
+}
+.certification-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.certificate-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.certificate-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--ink);
+  text-decoration: none;
+}
+.certificate-link:hover .certificate-action,
+.certificate-link:focus-visible .certificate-action {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.certificate-link:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.certificate-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+  background: #f5f7fb;
+}
+.certificate-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.certificate-caption {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+.certificate-meta {
+  margin: 0;
+  color: var(--muted);
+  font: 12px/1.6 var(--mono);
+}
+.certificate-caption h2 {
+  margin: 9px 0 10px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.certificate-issuer {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.certificate-action {
+  margin-top: auto;
+  color: var(--blue);
+  font-size: 14px;
+}
+@media (min-width: 1100px) {
+  .certification-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .certification-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .certificate-preview {
+    height: 220px;
+  }
+}
