@@ -110,7 +110,7 @@ must not refresh the snapshot or access private activity records.
 
 ## Maintaining the changelog
 
-For a user-visible website change, add an entry at the top of `changelog/index.html` in the same update. Use the actual change date in Pacific/Auckland, a stable descriptive anchor, a short title, and specific Added, Improved, Updated or Corrected notes. Keep only the newest entry’s Latest badge and maintain the date-navigation links as new months are added.
+For a user-visible website change, add an entry at the top of `changelog/index.html` in the same update. Use the actual change date in Pacific/Auckland, a stable descriptive anchor, a short title, and specific Added, Improved, Updated or Corrected notes. Keep only the newest entry’s Latest badge. Month choices, daily counts and year choices are derived automatically from the entry dates.
 
 Link to the affected page or evidence. Historical entries can cite the relevant website commit or comparison; do not invent version tags, release dates or application features. The log describes portfolio features, project content and technical changes. Do not include author biographies, career details or profile-information updates. Adding project documentation is not an application deployment, and article publication dates are separate from the dates articles were linked here. The initial September entries were backfilled on 2 October 2026 from Git history.
 
@@ -232,7 +232,8 @@ For routine edits, use this file map:
 | `designs/*/index.html` | Technical design studies; distinguish proposals from confirmed implementation retrospectives |
 | `engineering/index.html` and `engineering/directory.css` | Project inquiry directory and its scoped layout |
 | `projects/*/decisions.html` | Questions addressed to the author, considered answers and follow-ups |
-| `changelog/index.html` | Dated website changes |
+| `changelog/index.html` | Dated website changes; source for archive filters and update counts |
+| `changelog/changelog.css` and `changelog/changelog.js` | Scoped calendar, month filtering and pagination |
 | `assets/site.css` | Shared visual styles, grouped by section comments |
 | `assets/site.js` | Architecture tabs, compact contents menu, section highlighting and writing carousel |
 | `scripts/` | Optional evidence and activity generators; not required to serve the site |
@@ -537,3 +538,31 @@ certifications. The Master of Software Engineering was conferred by Yoobee Colle
 the original document is unchanged. Only the WebP derivatives belong in this repository,
 not the PDF or its intermediate rendering copy. The local career-document archive already
 holds the identical original and indexes the degree, so no duplicate archive copy was added.
+
+
+## Changelog browsing — 23 October 2026
+
+Keep all update text as readable, newest-first `article.changelog-entry` elements in
+`changelog/index.html`. Each entry needs a unique stable ID and an ISO `time[datetime]` date.
+Do not create a second JSON content store or duplicate the archive into monthly HTML files.
+
+The optional, deferred `changelog/changelog.js` derives month and year choices, calendar counts
+and eight-entry pages from those articles. The default view is the newest recorded month.
+Choosing a calendar day filters its updates; a control restores the full month. Month/day/page
+state is encoded in query parameters. Existing entry and entry-title hashes reveal the relevant
+month and page, including on initial load and browser Back/Forward navigation.
+
+The compact heatmap counts changelog records, not commits, deployments or engineering effort.
+It has no summary cards. Tooltips and accessible labels retain the dates and counts;
+selecting a day shows its date beside the results. It shows months from the selected year's first
+recorded month to its last, including empty months between them. Additional months scroll
+horizontally. Keep the title, heatmap and month toolbar compact so the newest entry is visible
+in the first desktop viewport. Pagination and the historical archive note sit below the entries.
+Use ISO dates as authored Auckland calendar dates; UTC is only a stable way to calculate weekdays,
+not a conversion of the record's timezone.
+
+Scoped `changelog/changelog.css` explicitly hides filtered articles, preserves visible keyboard
+focus and reveals the complete archive for print. Without JavaScript, all articles remain
+visible. Shared CSS, the homepage and the Codex activity snapshot are unchanged. Check filters,
+pagination, old hashes, history navigation, narrow-screen layout and the new entry's self-count
+before publishing. The compact layout was approved for publication on 23 October 2026.
