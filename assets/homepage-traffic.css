@@ -1,0 +1,26 @@
+/* Home-only footer detail; it does not change the shared footer on other pages. */
+.home-footer {
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+.homepage-traffic {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-left: auto;
+  font-size: 12px;
+}
+.homepage-traffic[hidden] {
+  display: none;
+}
+.homepage-traffic strong {
+  color: var(--ink);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) {
+  .homepage-traffic {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}

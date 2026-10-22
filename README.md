@@ -566,3 +566,29 @@ focus and reveals the complete archive for print. Without JavaScript, all articl
 visible. Shared CSS, the homepage and the Codex activity snapshot are unchanged. Check filters,
 pagination, old hashes, history navigation, narrow-screen layout and the new entry's self-count
 before publishing. The compact layout was approved for publication on 23 October 2026.
+
+
+## Homepage traffic counter — publication approved, 23 October 2026
+
+`assets/homepage-traffic.js` loads the official Busuanzi client only on HTTPS
+`jothep.github.io/` or `/index.html`. Only the homepage includes it. Localhost, file previews,
+and other domains do not contact the service; they show dashes for layout review. Keep both
+`site_pv` and `site_uv` scoped to homepage instrumentation. Do not add this client to other
+pages while labelling these values as homepage traffic.
+
+The service supplies views (including repeat loads) and its own deduplicated visitor count.
+Visitors are not verified people; the original service does not document a precise deduplication
+window. Counts are not reconstructed from Git commits, historical deployment logs or local
+storage. The provider owns persistence; earlier use of the same site domain could affect its
+starting totals. No private API key or account credentials are used in the public source.
+
+The client is loaded asynchronously and requests remote statistics using the page Referer.
+Do not claim this integration is cookie-free: the original provider's server-side data handling
+is not fully documented. The local wrapper waits for two real numeric values, formats them,
+and leaves the counter hidden if loading fails or times out. A blocked or unavailable counter
+does not affect the page content. Do not substitute sample numbers for live traffic.
+
+Official references: https://busuanzi.ibruce.info/ and
+https://ibruce.info/2015/04/04/busuanzi/ . The styles are home-only and keep the counter as a
+small footer detail. The author approved publication on 23 October 2026 after local review.
+Verify both live values on the public homepage after the Pages deployment completes.
