@@ -522,8 +522,7 @@ images are 66,624, 133,128 and 70,472 bytes. These are file sizes, not measured 
 To add a certificate, duplicate one `article.certificate-card`, update both image paths,
 alt text, intrinsic dimensions, title, issuer and earned year. Keep previews around 720 pixels
 wide and aim below 50 KB per preview where legibility allows. Export without embedded metadata.
-Cards use three columns at 1100 pixels and above, two at intermediate widths and one on narrow
-screens. Future cards stay on this page, so the homepage does not grow as the collection expands.
+Cards use two columns on desktop and one on narrow screens. Future cards stay on this page, so the homepage does not grow as the collection expands.
 
 The CKA image was rendered from the author's certificate PDF; the OCP image comes from the
 existing certificate photograph. Both are resized/encoded derivatives with no content retouching.
@@ -592,3 +591,26 @@ Official references: https://busuanzi.ibruce.info/ and
 https://ibruce.info/2015/04/04/busuanzi/ . The styles are home-only and keep the counter as a
 small footer detail. The author approved publication on 23 October 2026 after local review.
 Verify both live values on the public homepage after the Pages deployment completes.
+
+
+## Certificate gallery expansion — 26 October 2026
+
+The author supplied a HashiCorp Terraform Associate (004) certificate and approved publication.
+The certificate names Xiang Zhu and expires on 24 October 2028. The public Credly record
+verifies issuance on 24 October 2026 and acceptance on 26 October 2026. Use the official
+record for the issue date; the download filename is not an issue-date source.
+
+The degree remains first, followed by Terraform, CKA and OCP. Use a two-column desktop grid
+and a single column below 760 pixels. The Terraform card has the stable anchor
+`/certifications/#terraform-associate`. Its preview is 720 × 556 pixels; the linked full image
+is 1800 × 1391 pixels. Both WebP images preserve the certificate's content and contain no
+embedded source metadata. Keep the original PDF in the private career-document archive.
+The homepage continues to link to the gallery without loading its certificate images.
+
+The Terraform card pairs the certificate thumbnail with the unaltered official badge artwork.
+The locally resized badge is 480 × 480 pixels; no Credly embed script or iframe is loaded.
+Both the badge image and “Verify on Credly” link open the verified public record:
+https://www.credly.com/badges/62305abb-76b0-4a8c-b07e-e0bd92ec154a/public_url
+The supplied `/earner/earned/badge/` URL requires sign-in and is not the public verification link.
+Credly lists IBM Professional Certification as issuer; the certificate and badge use the
+HashiCorp certification name. The original badge image is archived privately with the PDF.
