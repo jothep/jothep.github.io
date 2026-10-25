@@ -569,7 +569,7 @@ before publishing. The compact layout was approved for publication on 23 October
 
 ## Homepage traffic counter — publication approved, 23 October 2026
 
-`assets/homepage-traffic.js` loads the official Busuanzi client only on HTTPS
+`assets/homepage-traffic.js` requests the existing Busuanzi JSONP endpoint only on HTTPS
 `jothep.github.io/` or `/index.html`. Only the homepage includes it. Localhost, file previews,
 and other domains do not contact the service; they show dashes for layout review. Keep both
 `site_pv` and `site_uv` scoped to homepage instrumentation. Do not add this client to other
@@ -581,11 +581,19 @@ window. Counts are not reconstructed from Git commits, historical deployment log
 storage. The provider owns persistence; earlier use of the same site domain could affect its
 starting totals. No private API key or account credentials are used in the public source.
 
-The client is loaded asynchronously and requests remote statistics using the page Referer.
-Do not claim this integration is cookie-free: the original provider's server-side data handling
-is not fully documented. The local wrapper waits for two real numeric values, formats them,
-and leaves the counter hidden if loading fails or times out. A blocked or unavailable counter
-does not affect the page content. Do not substitute sample numbers for live traffic.
+The request starts in a new task after `window.load`, using the same page Referer and
+provider endpoint as the original client. It does not load the provider's additional client
+script. Do not claim this integration is cookie-free: the provider's server-side data handling
+is not fully documented. Validate both counts as non-negative safe integers before formatting.
+If loading fails, data is invalid or the ten-second deadline expires, keep both labels and
+dashes visible with a temporary-unavailability status. Remove the request script and ignore
+late callbacks. Do not retry automatically, reload the page or invent fallback totals.
+
+The 26 October 2026 repair addresses a real failure: the data request stalled, delaying the
+homepage load event, while the old wrapper hid the counter after eight seconds. The provider
+and stored totals are unchanged. Test success, failure, timeout and late responses with
+`node --test tests/homepage-traffic.test.cjs`. Keep these simulated counts out of public pages.
+Unreviewed homepage reading-path changes remain local and are not part of this repair.
 
 Official references: https://busuanzi.ibruce.info/ and
 https://ibruce.info/2015/04/04/busuanzi/ . The styles are home-only and keep the counter as a
