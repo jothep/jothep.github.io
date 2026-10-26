@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Copy to ignored wrangler.production.jsonc and enter the existing production database ID.
+  "name": "portfolio-homepage-counter",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "vars": { "ALLOWED_ORIGIN": "https://jothep.github.io" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-homepage-counter",
+      "database_id": "REPLACE_WITH_REAL_DATABASE_ID",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 60, "period": 60 } },
+  ],
+  "triggers": { "crons": ["15 3 * * *"] },
+  "observability": { "enabled": false },
+}

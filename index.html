@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/site.css?v=20261017c" />
     <script src="assets/site.js?v=20261017c" defer></script>
     <link rel="stylesheet" href="assets/homepage-traffic.css?v=20261023" />
-    <script src="assets/homepage-traffic.js?v=20261026" defer></script>
+    <script src="assets/homepage-traffic.js?v=20261026-cloudflare" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -1203,10 +1203,11 @@
         class="homepage-traffic"
         id="homepage-traffic"
         data-homepage-counter
-        title="Homepage traffic recorded by Busuanzi. Views include repeat visits."
+        data-counter-endpoint="https://portfolio-homepage-counter.shelldry325.workers.dev"
+        title="Homepage views and distinct browsers. Repeat visits count as views."
       >
-        <span>Homepage views: <strong id="busuanzi_value_site_pv">—</strong></span>
-        <span>Visitors: <strong id="busuanzi_value_site_uv">—</strong></span>
+        <span>Homepage views: <strong data-traffic-views>—</strong></span>
+        <span>Visitors: <strong data-traffic-visitors>—</strong></span>
         <span data-traffic-status aria-live="polite">Temporarily unavailable</span>
       </span>
     </footer>
