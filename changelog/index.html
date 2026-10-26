@@ -90,12 +90,39 @@
       >
         <article
           class="changelog-entry"
+          id="cloudflare-homepage-counter"
+          aria-labelledby="cloudflare-homepage-counter-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-10-26">26 Oct 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Updated</p>
+            <h2 id="cloudflare-homepage-counter-title">
+              <a href="#cloudflare-homepage-counter">Cloudflare homepage counter</a>
+            </h2>
+            <p class="changelog-description">
+              Replaced the homepage statistics service with a Cloudflare Workers and D1 counter for
+              homepage views and distinct browsers. Requests run after page load, stop after four
+              seconds, and retain previously received counts with a timestamp during outages. Local
+              testing uses a separate database. Public totals start from 26 October 2026; repeat
+              visits increase views without adding another browser.
+            </p>
+            <div class="changelog-links">
+              <a href="../#homepage-traffic"
+                >View homepage traffic <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </article>
+        <article
+          class="changelog-entry"
           id="homepage-counter-loading"
           aria-labelledby="homepage-counter-loading-title"
         >
           <div class="changelog-date">
             <time datetime="2026-10-26">26 Oct 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Corrected</p>

@@ -567,39 +567,22 @@ pagination, old hashes, history navigation, narrow-screen layout and the new ent
 before publishing. The compact layout was approved for publication on 23 October 2026.
 
 
-## Homepage traffic counter — publication approved, 23 October 2026
+## Homepage traffic counter — Cloudflare, 26 October 2026
 
-`assets/homepage-traffic.js` requests the existing Busuanzi JSONP endpoint only on HTTPS
-`jothep.github.io/` or `/index.html`. Only the homepage includes it. Localhost, file previews,
-and other domains do not contact the service; they show dashes for layout review. Keep both
-`site_pv` and `site_uv` scoped to homepage instrumentation. Do not add this client to other
-pages while labelling these values as homepage traffic.
+The homepage uses a dedicated Cloudflare Worker and D1 database on the Workers Free plan.
+The author authorised this counter deployment separately from the local homepage layout drafts.
+Publish counter changes from an isolated checkout; do not include unreviewed reading-path changes.
 
-The service supplies views (including repeat loads) and its own deduplicated visitor count.
-Visitors are not verified people; the original service does not document a precise deduplication
-window. Counts are not reconstructed from Git commits, historical deployment logs or local
-storage. The provider owns persistence; earlier use of the same site domain could affect its
-starting totals. No private API key or account credentials are used in the public source.
+The client remains a small footer detail and starts after the page load event. A four-second
+request deadline, no automatic retries and timestamped cached counts keep statistics independent
+of homepage loading. Views count homepage loads; visitors estimate distinct browsers using a
+stored random identifier. Local previews cannot call the production counter.
 
-The request starts in a new task after `window.load`, using the same page Referer and
-provider endpoint as the original client. It does not load the provider's additional client
-script. Do not claim this integration is cookie-free: the provider's server-side data handling
-is not fully documented. Validate both counts as non-negative safe integers before formatting.
-If loading fails, data is invalid or the ten-second deadline expires, keep both labels and
-dashes visible with a temporary-unavailability status. Remove the request script and ignore
-late callbacks. Do not retry automatically, reload the page or invent fallback totals.
-
-The 26 October 2026 repair addresses a real failure: the data request stalled, delaying the
-homepage load event, while the old wrapper hid the counter after eight seconds. The provider
-and stored totals are unchanged. Test success, failure, timeout and late responses with
-`node --test tests/homepage-traffic.test.cjs`. Keep these simulated counts out of public pages.
-Unreviewed homepage reading-path changes remain local and are not part of this repair.
-
-Official references: https://busuanzi.ibruce.info/ and
-https://ibruce.info/2015/04/04/busuanzi/ . The styles are home-only and keep the counter as a
-small footer detail. The author approved publication on 23 October 2026 after local review.
-Verify both live values on the public homepage after the Pages deployment completes.
-
+Implementation, counting definitions, local tests, preview commands and deployment maintenance
+are in [`services/homepage-counter/README.md`](services/homepage-counter/README.md).
+Use `npm run preview` there for a working local counter. Its **Local test data** label distinguishes
+preview figures from public totals. Public totals start on 26 October 2026. No local test data or
+unverified historical Busuanzi figures were imported.
 
 ## Certificate gallery expansion — 26 October 2026
 
