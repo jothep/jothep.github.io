@@ -1,0 +1,61 @@
+/* Selected engineering questions on the homepage. */
+.question-preview-section {
+  padding-bottom: 64px;
+}
+.question-preview-section .section-label {
+  flex-wrap: wrap;
+}
+.question-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+.question-preview {
+  min-width: 0;
+  border-top: 3px solid #17685f;
+  padding-top: 20px;
+}
+.question-preview .eyebrow {
+  color: #17685f;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+.question-preview h3 {
+  margin-top: 14px;
+  font-size: 23px;
+  line-height: 1.35;
+}
+.question-preview h3 a {
+  text-decoration-color: #b2ccc6;
+}
+.question-preview h3 a:hover {
+  color: #17685f;
+  text-decoration-color: currentColor;
+}
+.question-preview h3 a span {
+  color: #17685f;
+  white-space: nowrap;
+}
+.question-preview > p:not(.eyebrow) {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+@media (max-width: 760px) {
+  .question-preview-section {
+    padding-bottom: 45px;
+  }
+  .question-preview-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+@media print {
+  .question-preview-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .question-preview {
+    break-inside: avoid;
+  }
+}
