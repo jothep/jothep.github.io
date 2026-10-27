@@ -4,7 +4,7 @@ A small static personal site with engineering case studies covering infrastructu
 
 ## Pages
 
-- `/`: professional introduction, enterprise experience, projects and research, technical deep dives, selected writing, Codex activity, About and Contact.
+- `/`: professional introduction, enterprise experience, selected engineering questions, projects and research, technical deep dives, selected writing, Codex activity, About and Contact.
 - `/certifications/`: academic degree and professional certificate images with award dates, linked from About.
 - `/experience/`: chronological enterprise-engagement directory, with role, dates, contribution summaries and links to detailed cases.
 - `/engineering/`: directory of completed project questions, considered answers and follow-ups.
@@ -31,7 +31,7 @@ The maintained site uses its own HTML pages and shared CSS and JavaScript in `as
 
 The author approved publication of Authority Brands and Costa on 14 October 2026, following
 local review. Each case has a canonical URL and is maintained in HTML/CSS. The full directory
-includes all documented engagements in chronological order. The homepage features four representative
+includes all documented engagements in chronological order. The homepage features six selected
 cases; its selection and maintenance rules are described below.
 
 Authority Brands: Jul–Nov 2021, SRE Support / DevOps Developer at Thoughtworks. Lead with
@@ -72,7 +72,27 @@ When updating claims, distinguish implemented configuration, dated deployment ve
 
 ## Adding later work
 
-Keep the homepage reading order: **Enterprise experience → Projects & research → Technical deep dives → Selected writing → Codex project activity → About the author → Get in touch**. Enterprise experience follows the hero immediately, as requested by the author on 16 October 2026. Activity stays immediately before About. Insert future work above this closing activity/About/Contact group. Preserve section IDs and the header About link to `#about`. The homepage introduction keeps two compact shortcuts: **Engineering judgment & inquiry** first as a teal filled button, followed by the outlined **View changelog**. Enterprise experience follows immediately below.
+Keep the homepage reading order: **Enterprise experience → Engineering judgment & inquiry →
+Projects & research → Technical deep dives → Selected writing → Codex project activity →
+About the author → Get in touch**. Enterprise experience follows the hero immediately. Activity
+stays immediately before About. Insert future work above this closing activity/About/Contact
+group. Preserve section IDs and the header About link to `#about`.
+
+The homepage introduction keeps **Engineering judgment & inquiry** as a teal filled button
+linking to the independent directory. A compact clock-icon **Changelog** link sits below it,
+with another Changelog link in the footer. The author approved publication of the five reviewed
+navigation and layout changes on 27 October 2026.
+
+Keep the homepage inquiry section to three selected questions. Each card has project context,
+a question, a short answer summary and a direct link to the relevant answer or follow-up.
+Use **Engineering judgment & inquiry** consistently as the section and directory name, while
+preserving the existing `#engineering-questions` anchor. Future discussions belong in the full
+`engineering/` directory; do not add a homepage card for every new discussion.
+
+Directory topic links and contextual links within cases should point to stable answer anchors.
+Write question labels as someone asking the author, using "you" or "your" where a pronoun is
+needed. When linking to a follow-up, check that its heading clears the fixed contents menu on
+narrow screens. Keep both full-page reading and direct question navigation available.
 
 Add another Projects & research entry only when its context, personal contribution, decisions and evidence are ready. Keep detailed case pages under `projects/<slug>/`. Each selected project needs a complete, reviewable case study rather than a placeholder entry.
 
@@ -114,7 +134,7 @@ For a user-visible website change, add an entry at the top of `changelog/index.h
 
 Link to the affected page or evidence. Historical entries can cite the relevant website commit or comparison; do not invent version tags, release dates or application features. The log describes portfolio features, project content and technical changes. Do not include author biographies, career details or profile-information updates. Adding project documentation is not an application deployment, and article publication dates are separate from the dates articles were linked here. The initial September entries were backfilled on 2 October 2026 from Git history.
 
-Check the homepage button, entry anchors, relative links and mobile layout before publishing. Activity statistics remain a dated snapshot unless a separate, authorised refresh is performed.
+Check both homepage Changelog links, entry anchors, relative links and mobile layout before publishing. Activity statistics remain a dated snapshot unless a separate, authorised refresh is performed.
 
 ## Capstone evidence and publication boundary
 
@@ -165,8 +185,9 @@ collaborative participation in an earlier incident. Terraform import results des
 experiments with selected ignored attributes, not production recovery or complete drift coverage.
 
 Keep all documented enterprise cases in `experience/index.html`, ordered by participation end
-date, newest first; use start date as the tie-breaker. The homepage features four representative
-cases in this order: Health Promotion Board, China Merchants Bank, Daimler and ICBC. Its two-column
+date, newest first; use start date as the tie-breaker. The homepage features six selected
+cases in this order: Health Promotion Board, China Merchants Bank, SadaPay, Authority Brands,
+Daimler and ICBC. Its two-column
 `.experience-grid` becomes a single column on narrow screens and needs no JavaScript. This is a
 curated selection, not a timeline; participation dates remain visible on each card.
 
@@ -187,7 +208,7 @@ from the date of any particular delivery. Keep existing case URLs and section an
 Each case breadcrumb returns to its own directory entry.
 
 When adding an engagement, add its directory entry in chronological order and update the homepage's
-“View all N engagements” link. Change the four-case homepage selection only as an intentional
+“View all N engagements” link. Change the homepage selection only as an intentional
 editorial decision; do not automatically add every new case to it. Keep the static selected-case
 count aligned with its cards. Selected writing retains its independent horizontal carousel.
 
@@ -235,6 +256,7 @@ For routine edits, use this file map:
 | `changelog/index.html` | Dated website changes; source for archive filters and update counts |
 | `changelog/changelog.css` and `changelog/changelog.js` | Scoped calendar, month filtering and pagination |
 | `assets/site.css` | Shared visual styles, grouped by section comments |
+| `assets/homepage-paths.css` | Homepage-only engineering question previews |
 | `assets/site.js` | Architecture tabs, compact contents menu, section highlighting and writing carousel |
 | `scripts/` | Optional evidence and activity generators; not required to serve the site |
 | `assets/evidence/` | Published, dated evidence; do not regenerate it as part of formatting |
