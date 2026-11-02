@@ -78,8 +78,8 @@
             <strong>Course project → personal practice</strong>
           </div>
           <div class="meta-item">
-            <span>Deployment evidence</span>
-            <strong>28 September 2026</strong>
+            <span>Latest release verification</span>
+            <strong>3 November 2026</strong>
           </div>
         </div>
       </div>
@@ -176,8 +176,9 @@
               </p>
               <p>
                 <strong>Verification.</strong>
-                During the September review, I used AI assistance to investigate a blocked image
-                release and checked the fix through tests, scanning and deployed API reads.
+                I used AI assistance to investigate release and security findings, then checked the
+                changes through regression tests, independent review, scanning and deployed API
+                reads.
               </p>
             </div>
             <figure class="figure-shot">
@@ -608,15 +609,15 @@
               an observable result.
             </h2>
             <p class="body-copy">
-              The backend pipeline connects a source revision to a built image, a vulnerability
-              gate, a Cloud Run update and a read-only check of the deployed public API. Frontend
-              delivery is independent.
+              The backend pipeline connects a source revision to a tested image, security checks, a
+              Cloud Run update and read-only checks of the deployed API. Frontend delivery is
+              independent. Both releases require fresh source-code and Git-history secret scans.
             </p>
             <div class="pipeline" aria-label="Backend delivery stages">
               <div>
                 <small>Step 1</small>
                 <strong>Test</strong>
-                <span>Django + smoke-check tests</span>
+                <span>PostgreSQL + regression checks</span>
               </div>
               <div>
                 <small>Step 2</small>
@@ -626,7 +627,7 @@
               <div>
                 <small>Step 3</small>
                 <strong>Scan</strong>
-                <span>Trivy severity gate</span>
+                <span>Vulnerability + secret gates</span>
               </div>
               <div>
                 <small>Step 4</small>
@@ -653,10 +654,12 @@
                 smoke check.
               </p>
             </div>
-            <p class="small-note">
-              The release gate covers fixable HIGH/CRITICAL findings. Backend lint and CodeQL are
-              advisory; the independent history secret scan runs separately from deployment.
-              Post-deployment failures require manual investigation and recovery.
+            <p class="body-copy">
+              The November review made source findings blocking and extended the image gate to
+              HIGH/CRITICAL findings including those without a vendor fix. Five required checks
+              protect merges. Documentation-only pull requests keep source, dependency and unit
+              checks, while avoiding an unnecessary image rebuild and recovery exercise.
+              <a href="#security-review">See the verified results</a>.
             </p>
           </section>
           <section class="case-section" id="delivery-history">
@@ -828,8 +831,8 @@
               Use evidence to decide.
             </h2>
             <p class="lead">
-              AI assisted the September review, implementation and documentation. The useful outcome
-              is an inspectable chain from a problem to a verified change.
+              AI assisted the September–November reviews, implementation and documentation. The
+              useful outcome is an inspectable chain from a problem to a verified change.
             </p>
             <ol class="ai-steps">
               <li>
@@ -846,9 +849,11 @@
                 <div>
                   <strong>Investigate and implement with assistance</strong>
                   <p>
-                    The work used AI to trace configuration and dependency behavior, add secret
-                    scanning and API checks, and prepare a bounded image fix. Generated suggestions
-                    were checked against source, runtime behavior and pipeline results.
+                    The work used AI to trace configuration, dependencies and source findings. The
+                    November changes replaced affected frontend tooling, separated build and runtime
+                    dependencies, removed unused SQLite, and added regressions for the security
+                    fixes. Suggestions were checked against source, runtime behavior and pipeline
+                    results.
                   </p>
                 </div>
               </li>
@@ -856,10 +861,10 @@
                 <div>
                   <strong>Keep the verification visible</strong>
                   <p>
-                    The failed scan and successful retry remain separate records. Tests, image
-                    scanning and public API checks establish the release result. Production
-                    credential rotation and administrator access were also confirmed during the
-                    review.
+                    Failed checks and successful reruns remain inspectable. The November release
+                    passed 522 automated tests and seven recovery scenarios before publication, with
+                    independent review and fresh scans. Public API and page checks then confirmed
+                    the deployed result.
                   </p>
                 </div>
               </li>
@@ -879,64 +884,88 @@
               <br />
               the release.
             </h2>
-            <p class="body-copy">
-              These checks span
-              <strong>27–28 September 2026</strong>. The cloud delivery row records the new
-              repository’s migration release. Each row identifies the method used to check the
-              application, infrastructure or local configuration.
+            <p class="body-copy" id="security-review">
+              The <strong>3 November 2026</strong> review connected individual findings to code
+              changes, regression tests and the published release. The source-security review,
+              dependency audits and complete application-image reports returned no known findings in
+              this dated check.
             </p>
             <table class="evidence-table">
               <caption class="sr-only">
-                Implementation and verification status of the Story Filler project
+                Story Filler security review and release verification, 3 November 2026
               </caption>
               <thead>
                 <tr>
                   <th scope="col">Area</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">What the evidence establishes</th>
+                  <th scope="col">Result</th>
+                  <th scope="col">What was checked</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">Cloud delivery</th>
+                  <th scope="row">Source security</th>
+                  <td><span class="status">11 alerts fixed</span></td>
+                  <td>
+                    Each CodeQL finding was assessed for its actual input and execution path. Fixes
+                    hardened demo responses, request logging and the local Pages check. Full release
+                    scans passed; all 11 original alerts were marked fixed without dismissals or
+                    query exclusions.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Regression coverage</th>
+                  <td><span class="status">522 tests passed</span></td>
+                  <td>
+                    40 Django tests against PostgreSQL, 172 maintenance tests, four demo checks, 229
+                    lint/type contracts, 71 frontend component tests and six real Pages HTTP tests.
+                    Seven additional backup and recovery scenarios passed in isolated PostgreSQL and
+                    media resources.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Dependencies &amp; images</th>
+                  <td><span class="status">Scans passed</span></td>
+                  <td>
+                    Separate runtime, development and build locks were audited with exact package
+                    coverage. The runtime image contains no SQLite. Complete reports covered 68
+                    backend and 71 frontend image packages, with zero vulnerabilities reported at
+                    all severities; full and production npm audits also passed.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Published application</th>
                   <td><span class="status">Verified</span></td>
                   <td>
-                    Verified on 28 September: the new repository delivered the frontend and backend.
-                    Image
-                    <code>1713b97</code>
-                    reached revision
-                    <code>00028-gdm</code>
-                    with 100% of service traffic; public API reads passed.
+                    Reviewed source <code>6497dce</code> reached Cloud Run revision
+                    <code>00034-frg</code> and GitHub Pages. The backend serves 100% of service
+                    traffic; public story, detail and configuration reads passed, along with
+                    frontend page and asset requests.
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">Application checks</th>
-                  <td><span class="status">Verified</span></td>
+                  <th scope="row">Recurring checks</th>
+                  <td><span class="status">First run passed</span></td>
                   <td>
-                    The migration release passed 11 backend tests (SQLite/local media), six offline
-                    smoke-check tests and six frontend tests (mocked HTTP/audio). Browser checks
-                    covered the story list, detail and image; deployed API checks used read-only
-                    requests.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Infrastructure code</th>
-                  <td><span class="status implemented">Configuration checked</span></td>
-                  <td>
-                    Terraform formatting and validation passed. State inspection listed four
-                    declared resources.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Local lab &amp; demo</th>
-                  <td><span class="status implemented">Implemented</span></td>
-                  <td>
-                    Compose configurations parsed successfully. Static review examined Kubernetes
-                    networking, workload and storage manifests.
+                    Weekly maintenance repeats source, Git-history, dependency and image checks. Its
+                    first manual execution passed. New findings enter a reviewed change; the
+                    scanning workflow does not deploy or apply upgrades automatically.
                   </td>
                 </tr>
               </tbody>
             </table>
+            <p class="small-note">
+              Published run records:
+              <a href="https://github.com/jothep/story-filler/actions/runs/41537985637"
+                >backend release</a
+              >,
+              <a href="https://github.com/jothep/story-filler/actions/runs/41537985736"
+                >frontend release</a
+              >
+              and
+              <a href="https://github.com/jothep/story-filler/actions/runs/41538044774"
+                >first maintenance run</a
+              >.
+            </p>
             <details class="evidence-details" id="local-review-notes">
               <summary>Local configuration review method</summary>
               <p>
@@ -945,14 +974,21 @@
                 supports <code>/story-filler/</code>. Compose configurations passed parsing.
               </p>
               <p>
-                A future runtime reproduction would rebuild the historical images and check non-root
-                access to host mounts and newly created media volumes. The earlier demo has a
-                separate API contract; the application test counts above come from the maintained
-                release.
+                This September configuration review also checked Terraform formatting and
+                validation; state inspection listed four declared resources. A runtime reproduction
+                of the historical Kubernetes lab would additionally check host-mount and
+                media-volume permissions.
               </p>
             </details>
             <details class="evidence-details">
-              <summary>Historical release records</summary>
+              <summary>Historical release records · September 2026</summary>
+              <p>
+                The 28 September repository-migration release passed 11 backend tests using SQLite
+                and local media, six offline smoke-check tests and six frontend tests. Source
+                <code>1713b97</code> reached revision <code>00028-gdm</code>; read-only API checks
+                and browser checks of the story list, detail and image passed. The November record
+                above uses the expanded test suite and PostgreSQL.
+              </p>
               <p>
                 The
                 <a
@@ -970,18 +1006,20 @@
             <div class="reading-list">
               <a
                 class="reading-item"
-                href="https://github.com/jothep/story-filler/blob/main/docs/verification.md"
+                href="https://github.com/jothep/story-filler/blob/4a419071aeb1f4215f9795c40fb18c78534fa6fe/docs/security-closeout.md"
               >
                 <div>
-                  <strong>Inspect the verification record</strong>
-                  <small> Public repository · Check methods, results and release records </small>
+                  <strong>Inspect the November security review</strong>
+                  <small
+                    >Alert assessments, regression coverage, release gates and run records</small
+                  >
                 </div>
                 <span aria-hidden="true">↗</span>
               </a>
               <a class="reading-item" href="https://jothep.github.io/story-filler/">
                 <div>
                   <strong>Explore the Story Filler application</strong>
-                  <small>Public demo · Story list and detail checked on 28 September 2026</small>
+                  <small>Public demo · API, page and assets checked on 3 November 2026</small>
                 </div>
                 <span aria-hidden="true">↗</span>
               </a>
@@ -1072,9 +1110,9 @@
                 migration article describes S3-compatible storage; the current media backend is GCS.
               </p>
               <p>
-                The September review documents the current delivery model: Terraform manages defined
-                GCP resources, backend lint is advisory, and image scanning gates fixable
-                HIGH/CRITICAL findings. See the
+                Later reviews strengthened delivery checks and updated the runtime. Terraform
+                continues to manage the declared GCP resources; source security, image scanning and
+                regression checks now protect publication. See the
                 <a href="#evidence">dated checks and release results</a>.
               </p>
             </details>

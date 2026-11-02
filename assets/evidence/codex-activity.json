@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-10T23:59:53+00:00",
+  "generated_at": "2026-11-02T22:48:54+00:00",
   "timezone": "Pacific/Auckland",
   "scope": "Selected local software-project workspaces",
   "source": "Local Codex thread metadata; self-reported snapshot",
   "metric": "Distinct top-level turns with a recorded start time and a terminal status",
   "period_start": "2026-09-05",
-  "period_end": "2026-10-11",
+  "period_end": "2026-11-03",
   "totals": {
-    "recorded_turns": 461,
-    "active_days": 26,
-    "calendar_days": 37
+    "recorded_turns": 728,
+    "active_days": 48,
+    "calendar_days": 60
   },
   "exclusions": {
     "duplicate_turn_records": 0,
     "records_without_start_time": 0,
-    "nonterminal_turn_records": 1
+    "nonterminal_turn_records": 2
   },
   "limitations": [
     "Selected workspaces include planning, implementation, debugging and documentation.",
@@ -174,7 +174,99 @@
     },
     {
       "date": "2026-10-11",
+      "turns": 19
+    },
+    {
+      "date": "2026-10-12",
+      "turns": 25
+    },
+    {
+      "date": "2026-10-13",
+      "turns": 6
+    },
+    {
+      "date": "2026-10-14",
+      "turns": 8
+    },
+    {
+      "date": "2026-10-15",
+      "turns": 5
+    },
+    {
+      "date": "2026-10-16",
+      "turns": 6
+    },
+    {
+      "date": "2026-10-17",
+      "turns": 21
+    },
+    {
+      "date": "2026-10-18",
+      "turns": 29
+    },
+    {
+      "date": "2026-10-19",
       "turns": 7
+    },
+    {
+      "date": "2026-10-20",
+      "turns": 4
+    },
+    {
+      "date": "2026-10-21",
+      "turns": 35
+    },
+    {
+      "date": "2026-10-22",
+      "turns": 3
+    },
+    {
+      "date": "2026-10-23",
+      "turns": 21
+    },
+    {
+      "date": "2026-10-24",
+      "turns": 10
+    },
+    {
+      "date": "2026-10-25",
+      "turns": 0
+    },
+    {
+      "date": "2026-10-26",
+      "turns": 15
+    },
+    {
+      "date": "2026-10-27",
+      "turns": 10
+    },
+    {
+      "date": "2026-10-28",
+      "turns": 7
+    },
+    {
+      "date": "2026-10-29",
+      "turns": 4
+    },
+    {
+      "date": "2026-10-30",
+      "turns": 4
+    },
+    {
+      "date": "2026-10-31",
+      "turns": 6
+    },
+    {
+      "date": "2026-11-01",
+      "turns": 5
+    },
+    {
+      "date": "2026-11-02",
+      "turns": 18
+    },
+    {
+      "date": "2026-11-03",
+      "turns": 6
     }
   ]
 }
