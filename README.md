@@ -64,11 +64,30 @@ This repository is the account's user site, `jothep.github.io`. Settings → Pag
 
 ## Content and evidence
 
-The Story Filler case reflects the project review and application release checks on 27–28 September 2026. Its screenshot shows the actual public application, captured on 28 September 2026. A displayed screenshot is not a full gameplay test.
+The Story Filler case includes the published code and security review completed on 3 November
+2026, alongside the retained September delivery history. Its screenshot shows the public
+application captured on 28 September 2026; it is separate from the later release checks.
 
 Canonical engineering sources live in the separate public [`jothep/story-filler`](https://github.com/jothep/story-filler) repository: `docs/engineering-case-study.md`, `docs/local-platform-lab.md`, `docs/architecture-production-gcp.md`, and `docs/verification.md`. The original repository remains private. Public aggregate snapshots preserve its historical delivery record; the new repository has its own public release records.
 
-When updating claims, distinguish implemented configuration, dated deployment verification, and future work. Do not infer current uptime, billing, security guarantees, original design intent, or personal authorship from the existence of code. The AI-assisted example describes the September 2026 follow-up review; it does not invent an AI development history for the original application.
+When updating claims, distinguish implemented configuration, dated deployment verification, and future work. Do not infer current uptime, billing, security guarantees, original design intent, or personal authorship from the existence of code. The AI-assisted example covers the September follow-up and November maintenance review; it does not invent an AI development history for the original application.
+
+## Story Filler maintenance evidence — 3 November 2026
+
+The current delivery and AI-assisted review sections cite the immutable security closeout at
+application commit `4a419071aeb1f4215f9795c40fb18c78534fa6fe`. The deployed application source is
+`6497dcecc604be9291735e722b755ef904e35c8e`; the later commit records its verification.
+Keep the 522 automated tests separate from the seven recovery integration scenarios. The
+11 original CodeQL alerts were fixed without dismissals. Dependency and image findings are
+dated scan results, not a permanent security guarantee. Weekly maintenance is configured;
+the linked successful execution was manually dispatched through the same workflow.
+
+The current case covers PostgreSQL tests and the production runtime, development/build/runtime
+dependency separation, checked recovery tools and proportionate release gates. Preserve the
+September legacy commit and workflow totals as historical evidence. The engineering inquiry
+page links the new review without rewriting the author's earlier answers as new experience.
+This portfolio update does not redeploy the application, alter the traffic counter or refresh
+the old delivery-history snapshot.
 
 ## Adding later work
 
@@ -138,7 +157,13 @@ Check both homepage Changelog links, entry anchors, relative links and mobile la
 
 ## Capstone evidence and publication boundary
 
-The AI knowledge-base page is a retrospective review of retained capstone artefacts. Its Run 08 and Run 09 scores were recalculated on 2 October 2026 without running model inference. The homepage activity snapshot is a separate artefact. Its latest refresh covers 5 September–11 October 2026, with 461 recorded turns across 26 active days; the final day is partial. It uses the same selected software-workspace scope and counting rules as the earlier snapshot.
+The AI knowledge-base page is a retrospective review of retained capstone artefacts. Its Run 08
+and Run 09 scores were recalculated on 2 October 2026 without running model inference. The
+homepage activity snapshot is a separate artefact. Its latest refresh covers 5 September–3
+November 2026, with 728 recorded turns across 48 active days and 60 calendar days; the final day
+is partial. It uses the same three selected software workspaces and counting rules as the earlier
+snapshot. Two ongoing turns are excluded. Earlier partial-day totals can increase as more turns
+are recorded or finish; completed turns are counted on their original start date.
 
 The capstone publication includes only the authored case page, original diagrams and synthetic example, the score-only export, generated figures, calculation script and evidence notes. Do not copy raw issue/PR data, generated articles, judge explanations, model caches, credentials, reports, slides, submission archives, academic identity fields or private filesystem paths into this site.
 
