@@ -159,12 +159,12 @@ def render(data):
   aria-labelledby="ai-activity-title"
 >
   <div class="section-label">
-    <h2 id="ai-activity-title">Codex project activity</h2>
-    <span>AI-assisted practice</span>
+    <h2 id="ai-activity-title">Codex activity record</h2>
+    <span>Supporting evidence</span>
   </div>
   <p class="reading-note">
-    I use Codex across planning, implementation, debugging and documentation. This snapshot shows
-    the rhythm of that work; the Story Filler case study shows how I check the results.
+    How regularly I used Codex across selected project workspaces. The counts show activity,
+    not quality; How I work with AI shows how the results were checked.
   </p>
   <details class="activity-snapshot">
     <summary>View activity snapshot</summary>

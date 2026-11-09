@@ -119,3 +119,33 @@
     break-inside: avoid;
   }
 }
+/* Confirmed day-to-day responsibilities, as a compact two-column grid. */
+.fintech-case .support-areas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.fintech-case .support-areas li {
+  padding: 20px 22px;
+  background: var(--paper);
+}
+.fintech-case .support-areas h3 {
+  margin-bottom: 8px;
+  color: var(--case-accent);
+  font-size: 17px;
+  line-height: 1.4;
+}
+.fintech-case .support-areas p {
+  font-size: 15px;
+  color: var(--muted);
+}
+@media (max-width: 620px) {
+  .fintech-case .support-areas {
+    grid-template-columns: 1fr;
+  }
+}

@@ -29,7 +29,7 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="../../assets/site.css?v=20261110" />
-    <link rel="stylesheet" href="case.css?v=20261017a" />
+    <link rel="stylesheet" href="case.css?v=20261110" />
     <script src="../../assets/site.js?v=20261017c" defer></script>
   </head>
   <body class="fintech-case">
@@ -55,14 +55,15 @@
             <p class="eyebrow">Thoughtworks · Client engagement</p>
             <h1>SadaPay</h1>
             <p class="case-subtitle">
-              AWS/EKS platform support, Terraform provisioning and GitOps delivery.
+              AWS/EKS platform support and Terraform provisioning for a fintech platform with more
+              than 20 microservices and over a million active users.
             </p>
           </div>
           <div class="case-focus">
             <p class="eyebrow">Case focus</p>
             <p>
-              Day-to-day platform support, infrastructure provisioning and Terraform modules for
-              disaster recovery.
+              Keeping the platform running day to day: EKS upkeep, Terraform provisioning,
+              troubleshooting and developer deployments.
             </p>
           </div>
         </div>
@@ -72,6 +73,9 @@
           </div>
           <div class="meta-item">
             <span>Project participation</span><strong>Dec 2021 – Sep 2022</strong>
+          </div>
+          <div class="meta-item">
+            <span>Platform scale</span><strong>20+ microservices · 1M+ active users</strong>
           </div>
           <div class="meta-item">
             <span>Existing delivery tools</span><strong>Argo CD · GitHub Actions</strong>
@@ -88,24 +92,47 @@
             aria-controls="fintech-section-links"
           >
             <span>On this page</span
-            ><span class="case-nav-current">GitOps &amp; platform support</span
+            ><span class="case-nav-current">Day-to-day platform support</span
             ><span class="case-nav-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="case-nav-links" id="fintech-section-links">
-            <a href="#context" aria-current="true"><span>01</span> GitOps &amp; platform support</a>
+            <a href="#context" aria-current="true"><span>01</span> Day-to-day platform support</a>
             <a href="#routing"><span>02</span> Platform context</a>
           </div>
         </aside>
         <div class="case-content">
-          <!-- Confirmed platform responsibilities, followed by service-networking context. -->
+          <!-- Confirmed responsibilities first; product context stays separate in section 02. -->
           <section class="case-section" id="context">
-            <p class="section-kicker">01 / GitOps &amp; platform support</p>
-            <h2>GitOps delivery on an AWS/EKS platform.</h2>
+            <p class="section-kicker">01 / Day-to-day platform support</p>
+            <h2>Keeping a fintech platform running on AWS/EKS.</h2>
             <p class="lead">
-              My day-to-day work at SadaPay covered AWS/EKS platform support, Terraform
-              infrastructure provisioning and GitOps delivery using the existing Argo CD and GitHub
-              Actions setup.
+              SadaPay ran a fintech platform with more than 20 microservices and over a million
+              active users. My role was hands-on support for the infrastructure underneath it.
             </p>
+            <ul class="support-areas" aria-label="Confirmed responsibilities">
+              <li>
+                <h3>EKS cluster upkeep</h3>
+                <p>Maintained the EKS clusters, including node groups, add-ons and upgrades.</p>
+              </li>
+              <li>
+                <h3>Terraform for AWS resources</h3>
+                <p>
+                  Provisioned AWS resources with Terraform, such as IAM, networking, databases and
+                  storage.
+                </p>
+              </li>
+              <li>
+                <h3>Troubleshooting &amp; incidents</h3>
+                <p>Investigated platform issues and supported incident response.</p>
+              </li>
+              <li>
+                <h3>Developer deployments</h3>
+                <p>
+                  Helped development teams ship services through the existing Argo CD and GitHub
+                  Actions setup.
+                </p>
+              </li>
+            </ul>
             <div class="related-design" id="terraform-dr">
               <h3>Terraform modules for disaster recovery</h3>
               <p>I worked on Terraform modules intended to support disaster recovery.</p>
@@ -118,7 +145,11 @@
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
-
+          </section>
+          <!-- Product-level and platform context, kept apart from personal responsibilities. -->
+          <section class="case-section" id="routing" aria-labelledby="platform-context-heading">
+            <p class="section-kicker">02 / Platform context</p>
+            <h2 id="platform-context-heading">The delivery and networking setup.</h2>
             <div class="delivery-context">
               <h3>GitOps with Argo CD</h3>
               <p>
@@ -130,19 +161,14 @@
                 Argo CD’s core concepts <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <!-- Supporting platform context, kept brief beside the confirmed work above. -->
-            <section
-              class="delivery-context"
-              id="routing"
-              aria-labelledby="platform-context-heading"
-            >
-              <h3 id="platform-context-heading">Platform context</h3>
+            <div class="delivery-context">
+              <h3>Service networking</h3>
               <p>
                 Istio was part of the platform’s service-mesh environment. The retained Gloo
                 configuration shows request matching, path rewriting, upstream routing and per-route
                 timeout settings.
               </p>
-            </section>
+            </div>
           </section>
         </div>
       </div>
