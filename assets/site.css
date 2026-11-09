@@ -1297,11 +1297,23 @@ summary:focus-visible {
 }
 @media (max-width: 420px) {
   .site-header nav {
-    gap: 15px;
+    gap: 14px;
   }
-  .site-header nav a:last-child {
+  /* Keep all four links, including Contact; the brand link keeps its aria-label. */
+  .brand > span:not(.brand-mark) {
     display: none;
   }
+}
+@media (max-width: 360px) {
+  .site-header {
+    gap: 16px;
+  }
+  .site-header nav {
+    gap: 8px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 420px) {
   .home-hero h1 br {
     display: none;
   }
@@ -3578,4 +3590,17 @@ summary:focus-visible {
     flex-wrap: wrap;
     gap: 20px;
   }
+}
+
+/* 404 page */
+.not-found-links {
+  display: grid;
+  gap: 12px;
+  margin: 32px 0 96px;
+  padding: 0;
+  list-style: none;
+}
+.not-found-links a {
+  color: var(--blue);
+  font-weight: 600;
 }
