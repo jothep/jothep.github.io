@@ -165,9 +165,8 @@
                   addressing and additional address-to-port mappings to maintain.
                 </p>
                 <p>
-                  Working with a Red Hat consultant, I designed a host-level addressing approach. We
-                  allocated an IP range to each host and planned a fixed number of business
-                  application containers per host. The addresses were configured on the host’s
+                  I designed a host-level addressing approach. It allocated an IP range to each host
+                  and planned a fixed number of business application containers per host. The addresses were configured on the host’s
                   network interfaces, and applications used <code>hostNetwork</code> to share the
                   host network. The complete configuration preserved the source addresses and ports
                   required for database access. This traffic did not depend on ClusterIP or NodePort
