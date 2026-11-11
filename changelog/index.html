@@ -28,7 +28,7 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173bcc'/%3E%3Cpath d='M7 9h7v5H7zm11 0h7v5h-7zM7 18h18v5H7z' fill='white'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="../assets/site.css?v=20261110" />
+    <link rel="stylesheet" href="../assets/site.css?v=20261112" />
     <link rel="stylesheet" href="changelog.css?v=20261023" />
     <script src="changelog.js?v=20261023" defer></script>
   </head>
@@ -41,9 +41,14 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="../#enterprise-experience">Experience</a>
+        <a href="../career/">Career</a>
         <a href="../#about">About</a>
         <a href="../#writing">Writing</a>
         <a href="../#contact">Contact</a>
+        <a class="nav-changelog" href="../changelog/" aria-current="page">
+          <svg class="nav-changelog-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" /><path d="M12 7v5l3 2" /></svg>
+          <span class="nav-changelog-label">Changelog</span>
+        </a>
       </nav>
     </header>
     <main id="main" data-changelog>
@@ -103,12 +108,86 @@
       >
         <article
           class="changelog-entry"
+          id="career-journey"
+          aria-labelledby="career-journey-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-11-12">12 Nov 2026</time>
+            <span class="changelog-latest">Latest</span>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Added</p>
+            <h2 id="career-journey-title">
+              <a href="#career-journey">Career journey page and header links</a>
+            </h2>
+            <p class="changelog-description">
+              Added a career journey page with a period map that sets responsibility and learning
+              side by side, linking to the existing case studies and certificates. The header on
+              every page now links to the career page and to this changelog; on phones the changelog
+              link shows as a clock icon. The homepage and the experience directory also link to the
+              new page.
+            </p>
+            <div class="changelog-links">
+              <a href="../career/">View the career journey <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+        <article
+          class="changelog-entry"
+          id="cmb-phase-3-role"
+          aria-labelledby="cmb-phase-3-role-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-11-12">12 Nov 2026</time>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Corrected</p>
+            <h2 id="cmb-phase-3-role-title">
+              <a href="#cmb-phase-3-role">China Merchants Bank Phase 3 role</a>
+            </h2>
+            <p class="changelog-description">
+              The case now describes business analysis for operations systems as work added to the
+              continuing container-platform consulting role in Phase 3, rather than as the main
+              responsibility.
+            </p>
+            <div class="changelog-links">
+              <a href="../projects/banking-container-platform/#phase3-baops"
+                >China Merchants Bank Phase 3 <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </article>
+        <article
+          class="changelog-entry"
+          id="icbc-outcome"
+          aria-labelledby="icbc-outcome-title"
+        >
+          <div class="changelog-date">
+            <time datetime="2026-11-12">12 Nov 2026</time>
+          </div>
+          <div class="changelog-content">
+            <p class="changelog-kind">Updated</p>
+            <h2 id="icbc-outcome-title">
+              <a href="#icbc-outcome">ICBC consulting outcome</a>
+            </h2>
+            <p class="changelog-description">
+              The ICBC case now records that the bank adopted the solution proposals after several
+              rounds of review.
+            </p>
+            <div class="changelog-links">
+              <a href="../projects/banking-devops-consulting/#scope"
+                >ICBC consulting scope <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </article>
+        <article
+          class="changelog-entry"
           id="cmb-experience-summary"
           aria-labelledby="cmb-experience-summary-title"
         >
           <div class="changelog-date">
             <time datetime="2026-11-10">10 Nov 2026</time>
-            <span class="changelog-latest">Latest</span>
           </div>
           <div class="changelog-content">
             <p class="changelog-kind">Corrected</p>

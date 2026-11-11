@@ -1,0 +1,198 @@
+/*
+ * Career journey page. Shared tokens, header, hero and period labels come from assets/site.css.
+ * Sections: Hero spacing; Two-line period map; Period narrative; Responsive layouts.
+ */
+
+/* Hero spacing */
+.career-hero {
+  padding-bottom: 36px;
+}
+
+/* Two-line period map: one column per period, rows aligned with subgrid. */
+.career-map-section {
+  padding-bottom: 56px;
+}
+.career-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.career-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.legend-responsibility::before {
+  background: var(--blue);
+}
+.legend-learning::before {
+  background: #17685f;
+}
+.career-map {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: auto auto auto;
+  column-gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.career-stop {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 8px;
+}
+.career-stop-period {
+  position: relative;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line);
+  color: var(--ink);
+  font: 600 13px/1.4 var(--mono);
+  text-decoration: none;
+}
+.career-stop-period::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+.career-stop-period:hover,
+.career-stop-period:focus-visible {
+  color: var(--blue);
+}
+.career-stop-period:hover::after,
+.career-stop-period:focus-visible::after {
+  border-color: var(--blue);
+}
+.career-line {
+  padding: 10px 12px;
+  border-top: 3px solid;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.career-stop-period + .career-line {
+  margin-top: 10px;
+}
+/* Override the shared p + p spacing so each period's two lines stay together. */
+.career-line + .career-line {
+  margin-top: 0;
+}
+.career-responsibility {
+  border-top-color: var(--blue);
+  background: var(--blue-light);
+}
+.career-learning {
+  border-top-color: #17685f;
+  background: #eef6f4;
+}
+/* The legend names the rows on wide screens; each card shows its own label on narrow ones. */
+.career-line-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@supports not (grid-template-rows: subgrid) {
+  .career-stop {
+    grid-template-rows: auto 1fr 1fr;
+  }
+}
+
+/* Period narrative: dates and role on the left, story on the right. */
+.career-story {
+  padding-bottom: 72px;
+}
+.career-period {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 36px;
+  padding-block: 40px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 24px;
+}
+.career-period-meta {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.career-period-meta p + p {
+  margin-top: 8px;
+}
+.career-period-body {
+  max-width: 760px;
+}
+.career-period-body h2 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  line-height: 1.2;
+}
+.career-period-body h3 {
+  margin-top: 36px;
+  font-size: 20px;
+}
+.career-period-body p {
+  margin-top: 16px;
+}
+.career-period-body ul {
+  margin: 16px 0 0;
+  padding-left: 20px;
+}
+.career-period-body li + li {
+  margin-top: 12px;
+}
+.career-period-body a {
+  color: var(--blue);
+}
+
+/* Responsive layouts */
+@media (max-width: 1000px) {
+  .career-map {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-rows: none;
+    gap: 32px 16px;
+  }
+  /* Each period becomes a card group: its two lines sit close together. */
+  .career-stop {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .career-line-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    font-weight: 600;
+  }
+}
+@media (max-width: 760px) {
+  .career-period {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding-block: 28px;
+  }
+  .career-period-meta {
+    position: static;
+  }
+  .career-map {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

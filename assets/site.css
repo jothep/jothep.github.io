@@ -145,6 +145,18 @@ summary:focus-visible {
 .site-header nav a {
   text-decoration: none;
 }
+.site-header nav a[aria-current='page'] {
+  color: var(--blue);
+}
+/* Header Changelog link: clock icon plus label; the label is visually hidden on phones. */
+.site-header nav .nav-changelog {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-changelog-icon {
+  flex: none;
+}
 .eyebrow {
   font: 400 12px/1.6 var(--mono);
   letter-spacing: 0.1em;
@@ -1296,21 +1308,31 @@ summary:focus-visible {
   }
 }
 @media (max-width: 420px) {
-  .site-header nav {
-    gap: 14px;
+  /* Phones: the brand sits on its own row and the six links share a full-width row. */
+  .site-header {
+    flex-wrap: wrap;
+    row-gap: 12px;
+    padding-block: 16px 14px;
   }
-  /* Keep all four links, including Contact; the brand link keeps its aria-label. */
-  .brand > span:not(.brand-mark) {
-    display: none;
+  .site-header nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  /* Keep the Changelog link as an icon; its text stays available to screen readers. */
+  .nav-changelog-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 @media (max-width: 360px) {
-  .site-header {
-    gap: 16px;
-  }
   .site-header nav {
-    gap: 8px;
-    font-size: 14px;
+    gap: 6px;
+    font-size: 13px;
   }
 }
 @media (max-width: 420px) {
