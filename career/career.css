@@ -34,6 +34,15 @@
 .legend-learning::before {
   background: #17685f;
 }
+/* Shortcut for readers who want the recent client work first; most useful on phones. */
+.career-jump {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.career-jump a {
+  color: var(--blue);
+}
 .career-map {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
