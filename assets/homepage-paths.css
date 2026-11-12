@@ -143,3 +143,39 @@
     margin-top: 0;
   }
 }
+
+/* Enterprise experience is the main section of the homepage: a full-width tinted band,
+   a section-sized heading and a slightly larger introduction, so it reads as the priority. */
+#enterprise-experience {
+  margin-top: 8px;
+  padding-top: 44px;
+  padding-bottom: 72px;
+  background: var(--wash);
+  box-shadow: 0 0 0 100vmax var(--wash);
+  clip-path: inset(0 -100vmax);
+}
+#enterprise-experience .enterprise-heading {
+  align-items: baseline;
+  border-top: 0;
+  padding-block: 0 14px;
+}
+#enterprise-experience .enterprise-heading h2 {
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.13;
+}
+#enterprise-experience .enterprise-heading .text-link {
+  font-size: 16px;
+}
+#enterprise-experience .reading-note {
+  max-width: 780px;
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+#enterprise-experience .experience-card > .experience-period {
+  font-size: 12px;
+}
+.home-actions .quiet-link {
+  font-size: 14px;
+}
